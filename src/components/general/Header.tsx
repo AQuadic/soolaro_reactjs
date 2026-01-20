@@ -22,7 +22,7 @@ const Header = () => {
 
     return (
         <>
-            <header className="bg-[#A8D4D3] py-12">
+            <header className="bg-[#A8D4D3] md:py-12 py-8">
                 <div className="container flex items-center justify-between">
                     <div className="lg:hidden flex">
                         <button onClick={toggleSidebar} aria-label="Open menu">
