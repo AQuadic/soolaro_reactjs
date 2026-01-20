@@ -1,6 +1,6 @@
 const ShopByCategory = () => {
     return (
-        <section className="py-17 container">
+        <section className="md:py-17 py-10 container">
             <h2 className="text-[#0B0B0B] md:text-[40px] text-lg font-semibold">
                 Shop by category
             </h2>
