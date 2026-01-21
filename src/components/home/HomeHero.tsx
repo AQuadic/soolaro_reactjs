@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Arrow from "../icons/home/hero/Arrow";
 import HomeSlider from "./HomeSlider";
 import { motion } from "framer-motion";
@@ -54,12 +55,14 @@ const HomeHero = () => {
             whileTap={{ scale: 0.95 }}
             className="md:w-102.75 w-full md:h-14 h-12 rounded-[100px] bg-[#018884] mt-6 relative"
           >
-            <p className="text-[#FEFEFE] md:text-lg text-base font-semibold">
-              Explore Shop
-            </p>
-            <div className="absolute md:-top-2 -top-1 md:-right-2 -right-1">
-              <Arrow />
-            </div>
+            <Link to='/explore'>
+              <p className="text-[#FEFEFE] md:text-lg text-base font-semibold">
+                Explore Shop
+              </p>
+              <div className="absolute md:-top-2 -top-1 md:-right-2 -right-1">
+                <Arrow />
+              </div>
+            </Link>
           </motion.button>
 
           <motion.div
