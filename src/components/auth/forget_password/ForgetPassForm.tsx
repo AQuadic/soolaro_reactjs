@@ -33,9 +33,11 @@ const ForgetPassForm = () => {
                     />
                 </div>
 
-                <button className="w-full h-14 bg-[#018884] rounded-4xl md:mt-10 mt-6 text-[#FEFEFE] text-base font-bold">
-                    Send
-                </button>
+                <Link to='/otp'>
+                    <button className="w-full h-14 bg-[#018884] rounded-4xl md:mt-10 mt-6 text-[#FEFEFE] text-base font-bold">
+                        Send
+                    </button>
+                </Link>
             </div>
         </section>
     )
