@@ -1,15 +1,31 @@
+import { motion } from "framer-motion";
+
 const ExploreShop = () => {
-    return (
-        <section className="bg-[#000000] w-full md:h-136 h-67 flex flex-col items-center justify-end md:py-14 py-4">
-            <h2 className="text-[#FEFEFE] md:text-[40px] text-base font-semibold leading-[100%] text-center">
-                Timeless, Confident, Refined, Always Iconic.
-            </h2>
+  return (
+    <section className="bg-[#000000] w-full md:h-136 h-67 flex flex-col items-center justify-end md:py-14 py-4 overflow-hidden">
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="text-[#FEFEFE] md:text-[40px] text-base font-semibold leading-[100%] text-center"
+      >
+        Timeless, Confident, Refined, Always Iconic.
+      </motion.h2>
 
-            <button className="w-88.25 md:h-14 h-12 border border-[#FEFEFE] rounded-4xl mt-8 text-[#FEFEFE] text-lg font-semibold">
-                Explore Shop
-            </button>
-        </section>
-    )
-}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="w-88.25 md:h-14 h-12 border border-[#FEFEFE] rounded-4xl mt-8 text-[#FEFEFE] text-lg font-semibold cursor-pointer"
+      >
+        Explore Shop
+      </motion.button>
+    </section>
+  );
+};
 
-export default ExploreShop
+export default ExploreShop;
