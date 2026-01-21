@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
@@ -48,7 +47,7 @@ const BreadCrumbs = ({ items, hideOnMobile = false }: BreadCrumbsProps) => {
               )}
               {!isLast && (
                 <ChevronRight
-                  className="w-4 h-4 text-[#0B0B0B] rtl:rotate-180"
+                  className="w-5 h-5 text-[#0B0B0B] rtl:rotate-180"
                   strokeWidth={1.5}
                 />
               )}
