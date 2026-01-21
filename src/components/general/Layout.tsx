@@ -3,16 +3,21 @@ import { useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Layout = () => {
+interface LayoutProps {
+  hideHeader?: boolean;
+}
+
+const Layout = ({ hideHeader }: LayoutProps) => {
   const outlet = useOutlet();
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
   }, [location.pathname]);
+
   return (
     <div>
-      <Header />
+      {!hideHeader && <Header />}
       <div className="min-h-[80vh] ">{outlet}</div>
       <Footer />
     </div>

@@ -10,8 +10,13 @@ import Menu from "../icons/header/Menu"
 import MobileLogo from "../icons/header/MobileLogo"
 import SearchEmptyState from "./SearchEmptyState"
 import SidebarUser from "../icons/header/SidebarUser"
+import CategoryLogo from "../icons/category/Logo"
 
-const Header = () => {
+interface HeaderProps {
+  className?: string;
+}
+
+const Header = ({ className }: HeaderProps) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
 
@@ -33,14 +38,13 @@ const Header = () => {
 
     const location = useLocation()
     const isHome = location.pathname === "/"
+    const isCategory = location.pathname === "/category"
 
     return (
         <>
             <header
-                className={`md:py-8 py-8 ${
-                    isHome ? "bg-[#A8D4D3]" : "bg-transparent"
-                }`}
-                >
+            className={`md:py-8 py-8 ${isHome ? "bg-[#A8D4D3]" : "bg-transparent"} ${className ? className : ""}`}
+        >
                 <div className="container flex items-center justify-between">
                     <div className="lg:hidden flex">
                         <button onClick={toggleSidebar} aria-label="Open menu">
@@ -48,7 +52,7 @@ const Header = () => {
                         </button>
                     </div>
                     <Link to='/' className="lg:block hidden">
-                        <Logo />
+                        {isCategory ? <CategoryLogo /> : <Logo />}
                     </Link>
                     <Link to='/' className="lg:hidden block">
                         <MobileLogo />
