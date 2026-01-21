@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom"
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Card from "./GlassCard"
-import 'swiper/css'
-
 const BestSeller = () => {
     return (
         <section className="container md:py-17 py-10">
