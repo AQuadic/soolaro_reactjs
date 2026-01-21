@@ -14,7 +14,7 @@ const Card = ({ image, priceColor = "#0B0B0B" }: CardProps) => {
       "bg-[linear-gradient(135deg,#6A6A6A_50%,#0F0F0F_50%)]",
     ]
   return (
-    <div className="flex flex-col items-center justify-center px-2">
+    <div className="flex flex-col items-center justify-center">
       <div className="md:w-94.75 w-62.75 md:h-87.25 h-53.25 bg-[#F6F6F6] rounded-4xl flex items-center justify-center">
         <img
           src={image}
