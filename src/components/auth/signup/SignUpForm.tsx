@@ -6,25 +6,49 @@ import BackArrow from "@/components/icons/explore/BackArrow"
 import Logo from "@/components/icons/header/Logo"
 import { Link } from "react-router-dom"
 
-const SignInForm = () => {
+const SignUpForm = () => {
     return (
         <section className="container md:py-12">
             <Link to='/' className="md:block hidden">
                 <Logo />
             </Link>
 
-            <div className="md:mt-34 mt-8">
+            <div className="md:mt-15 mt-8">
 
                 <div className="flex items-center gap-4">
                     <Link to='/' className="w-12 h-12 rounded-full bg-[#F6F6F6] md:hidden flex items-center justify-center">
                         <BackArrow />
                     </Link>
                     <h2 className="text-[#0B0B0B] md:text-[40px] text-base md:font-semibold font-bold leading-[100%] md:mx-auto">
-                        Sign In To your Account
+                        Sign Up To create your Account
                     </h2>
                 </div>
 
                 <div className="md:mt-14.5 mt-8">
+                    <label htmlFor="name" className="text-[#0B0B0B] md:text-base text-sm font-semibold leading-[100%]">
+                        Name
+                    </label>
+                    <input
+                        type="name"
+                        name="name"
+                        className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
+                        placeholder="Enter your name"
+                    />
+                </div>
+
+                <div className="mt-8">
+                    <label htmlFor="phone" className="text-[#0B0B0B] md:text-base text-sm font-semibold leading-[100%]">
+                        Phone Number
+                    </label>
+                    <input
+                        type="phone"
+                        name="phone"
+                        className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
+                        placeholder="+971"
+                    />
+                </div>
+
+                <div className="mt-8">
                     <label htmlFor="email" className="text-[#0B0B0B] md:text-base text-sm font-semibold leading-[100%]">
                         Email
                     </label>
@@ -51,19 +75,7 @@ const SignInForm = () => {
                     </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox"/>
-                        <p className="text-[#0B0B0B] md:text-base text-xs font-medium leading-[100%]">
-                            Remember Me
-                        </p>
-                    </div>
-                    <Link to='/forget_password' className="text-[#018884] md:text-base text-xs font-bold leading-[100%]">
-                        Forget Password ?
-                    </Link>
-                </div>
-
-                <div className="mt-10 flex items-center gap-2">
+                <div className="mt-6 flex items-center gap-2">
                     <div className="w-full h-px bg-[#DEDDDD]"></div>
                     <p className="text-[#3B3B3B] md:text-sm text-[10px] font-medium">OR</p>
                     <div className="w-full h-px bg-[#DEDDDD]"></div>
@@ -76,13 +88,13 @@ const SignInForm = () => {
                 </div>
 
                 <button className="w-full h-14 bg-[#018884] rounded-4xl md:mt-10 mt-6 text-[#FEFEFE] text-base font-bold">
-                    Sign In
+                    Sign Up
                 </button>
 
                 <div className="md:mt-4 mt-3 flex items-center justify-center">
                     <p className="text-[#0B0B0B] md:text-base text-xs font-medium">
                         Don’t have an account?{" "}
-                        <Link to='/signup' className="text-[#018884] md:text-lg text-base font-bold">Sign Up </Link>
+                        <Link to='/signin' className="text-[#018884] md:text-lg text-base font-bold">Sign In</Link>
                     </p>
                 </div>
             </div>
@@ -90,4 +102,4 @@ const SignInForm = () => {
     )
 }
 
-export default SignInForm
+export default SignUpForm

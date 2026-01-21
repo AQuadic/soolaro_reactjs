@@ -6,6 +6,8 @@ import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import SigninPage from "./pages/SigninPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import SignUpPage from "./pages/SignUpPage";
+import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
 
         <Route>
           <Route path="signin" element={<SigninPage />} />
+          <Route path="signup" element={<SignUpPage />} />
+          <Route path="forget_password" element={<ForgetPasswordPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
