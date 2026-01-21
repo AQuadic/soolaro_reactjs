@@ -1,5 +1,6 @@
 import BackArrow from "@/components/icons/explore/BackArrow"
 import Logo from "@/components/icons/header/Logo"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
 import { Link } from "react-router-dom"
 
@@ -36,9 +37,30 @@ const OtpForm = () => {
                     </InputOTP>
                 </div>
 
-                <button className="md:mt-10 mt-6 w-full md:h-14 h-12 bg-[#018884] rounded-4xl text-[#FEFEFE] text-lg font-bold">
-                    Verify
-                </button>
+                <Dialog>
+                    <DialogTrigger className="w-full">
+                        <button className="md:mt-10 mt-6 w-full md:h-14 h-12 bg-[#018884] rounded-4xl text-[#FEFEFE] text-lg font-bold">
+                            Verify
+                        </button>
+                    </DialogTrigger>
+                    <DialogContent className="md:h-121.25 h-80 flex flex-col items-center justify-end">
+                        <DialogHeader>
+                        <DialogTitle className="text-[#0B0B0B] text-2xl font-semibold text-center">
+                            OTP verified successfully
+                        </DialogTitle>
+                        <DialogDescription className="text-[#0B0B0B] text-base font-medium mt-3 text-center">
+                            Please create your new password to <br /> continue
+                        </DialogDescription>
+                        <DialogFooter className="sm:justify-start">
+                            <DialogClose asChild>
+                                <button type="button" className="md:w-112.5 h-14 bg-[#018884] rounded-4xl mt-10 text-[#FEFEFE] text-base font-bold">
+                                    Create New Password
+                                </button>
+                            </DialogClose>
+                        </DialogFooter>
+                        </DialogHeader>
+                    </DialogContent>
+                    </Dialog>
 
                 <p className="text-[#3B3B3B] md:text-base text-xs font-medium md:mt-6 mt-3 text-center">
                     Didn't receive the code? Resend code in 30s
