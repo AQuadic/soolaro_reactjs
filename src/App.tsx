@@ -5,6 +5,7 @@ import ExploreProductsPage from "./pages/ExploreProductsPage";
 import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import SigninPage from "./pages/SigninPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -14,14 +15,15 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/explore" element={<ExploreProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         <Route path="/category" element={<Layout hideHeader={true} />}>
           <Route index element={<CategoryPage />} />
         </Route>
-        
+
         <Route>
-            <Route path="signin" element={<SigninPage />} />
+          <Route path="signin" element={<SigninPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
