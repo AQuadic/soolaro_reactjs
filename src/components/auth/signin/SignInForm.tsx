@@ -4,9 +4,13 @@ import Facebook from "@/components/icons/auth/Facebook"
 import Google from "@/components/icons/auth/Google"
 import BackArrow from "@/components/icons/explore/BackArrow"
 import Logo from "@/components/icons/header/Logo"
+import { Eye } from "lucide-react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 const SignInForm = () => {
+    const [showPassword, setShowPassword] = useState(false)
+
     return (
         <section className="container md:py-12">
             <Link to='/' className="md:block hidden">
@@ -41,14 +45,18 @@ const SignInForm = () => {
                         Password
                     </label>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
                         placeholder="Enter your password"
                     />
-                    <div className="absolute top-13 right-4">
-                        <ClosedEye />
-                    </div>
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(prev => !prev)}
+                        className="absolute top-13 right-4 cursor-pointer"
+                    >
+                        {showPassword ? <Eye /> : <ClosedEye />}
+                    </button>
                 </div>
 
                 <div className="mt-4 flex items-center justify-between">

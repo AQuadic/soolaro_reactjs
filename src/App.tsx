@@ -9,6 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import SignUpPage from "./pages/SignUpPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import OtpPage from "./pages/OtpPage";
+import NewPasswordPage from "./pages/NewPasswordPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="signup" element={<SignUpPage />} />
           <Route path="forget_password" element={<ForgetPasswordPage />} />
             <Route path="otp" element={<OtpPage />} />
+            <Route path="new_password" element={<NewPasswordPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
