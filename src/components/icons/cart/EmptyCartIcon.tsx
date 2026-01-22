@@ -1,5 +1,3 @@
-import React from "react";
-
 const EmptyCartIcon = ({ className }: { className?: string }) => {
   return (
     <svg
