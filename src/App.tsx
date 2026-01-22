@@ -11,6 +11,11 @@ import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import OtpPage from "./pages/OtpPage";
 import NewPasswordPage from "./pages/NewPasswordPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import ProfilePage from "./pages/MyProfile";
+import ProfileInfo from "./components/profile/ProfileInfo";
+import Orders from "./components/profile/orders/Orders";
+import Wishlist from "./components/profile/Wishlist/Wishlist";
+import Addresses from "./components/profile/Addresses/Addresses";
 
 function App() {
   return (
@@ -22,6 +27,12 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/product_details" element={<ProductDetailsPage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/profile" element={<ProfilePage />}>
+            <Route index element={<ProfileInfo />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="addresses" element={<Addresses />} />
+          </Route>
         </Route>
 
         <Route path="/category" element={<Layout hideHeader={true} />}>
