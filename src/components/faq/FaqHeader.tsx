@@ -1,0 +1,28 @@
+import { Link } from "react-router-dom";
+import BreadCrumbs from "../general/BreadCrumbs"
+import BackArrow from "../icons/explore/BackArrow";
+
+const FaqHeader = () => {
+    const breadcrumbItems = [
+        { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
+        { nameEn: "FAQs", nameAr: "الأسئلة الشائعة", Link: "/" },
+    ];
+    return (
+        <section className="container">
+            <BreadCrumbs items={breadcrumbItems} hideOnMobile={true} />
+            <Link to='/' className="w-12 h-12 rounded-full bg-[#F6F6F6] md:hidden flex items-center justify-center">
+                <BackArrow />
+            </Link>
+            <div className="md:mt-12 mt-10 flex flex-col items-center justify-center gap-9">
+                <h2 className="text-[#0B0B0B] md:text-[40px] text-2xl font-semibold">
+                    FAQs
+                </h2>
+                <p className="text-[#3B3B3B] md:text-xl text-sm font-medium text-center">
+                    Find quick answers to common questions about our products, services, and policies.
+                </p>
+            </div>
+        </section>
+    )
+}
+
+export default FaqHeader

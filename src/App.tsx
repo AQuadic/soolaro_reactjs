@@ -17,6 +17,7 @@ import Orders from "./components/profile/orders/Orders";
 import Wishlist from "./components/profile/Wishlist/Wishlist";
 import Addresses from "./components/profile/Addresses/Addresses";
 import ChangePassword from "./components/profile/change_password/ChangePassword";
+import FAQPage from "./pages/FAQPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/explore" element={<ExploreProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/product_details" element={<ProductDetailsPage />} />
+          <Route path="/faq" element={<FAQPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/profile" element={<ProfilePage />}>
             <Route index element={<ProfileInfo />} />

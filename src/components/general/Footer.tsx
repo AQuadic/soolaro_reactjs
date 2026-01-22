@@ -59,7 +59,7 @@ const Footer = () => {
                             <h3 className="text-[#FEFEFE] md:text-2xl text-sm font-medium leading-[100%]">Customer Care</h3>
                             <Link to='/' className="text-[#FEFEFE] md:text-base text-xs font-semibold">Create Account - Log In</Link>
                             <Link to='/' className="text-[#FEFEFE] md:text-base text-xs font-semibold">My Orders</Link>
-                            <Link to='/' className="text-[#FEFEFE] md:text-base text-xs font-semibold">FAQs</Link>
+                            <Link to='/faq' className="text-[#FEFEFE] md:text-base text-xs font-semibold">FAQs</Link>
                             <Link to='/' className="text-[#FEFEFE] md:text-base text-xs font-semibold">Contact Us</Link>
                         </div>
 
