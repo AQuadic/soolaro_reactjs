@@ -3,6 +3,15 @@ import EmptyCart from "../components/cart/EmptyCart";
 import CartListing from "../components/cart/CartListing";
 import CartSummary from "../components/cart/CartSummary";
 import MobileBackHeader from "../components/general/MobileBackHeader";
+import ProductSlider, {
+  type ProductItem,
+} from "../components/ui/ProductSlider";
+
+const youMayLikeProducts: ProductItem[] = [
+  { image: "/images/home/glass1.png", height: "213" },
+  { image: "/images/home/glass2.png", priceColor: "#003D3B", height: "213" },
+  { image: "/images/home/glass3.png", height: "213" },
+];
 
 const CartPage = () => {
   const breadcrumbItems = [
@@ -41,6 +50,13 @@ const CartPage = () => {
           </div>
         )}
       </div>
+
+      {/* You may also like section */}
+      <ProductSlider
+        title="You may also like"
+        products={youMayLikeProducts}
+        containerClassName="container md:pb-20 pb-14"
+      />
     </div>
   );
 };
