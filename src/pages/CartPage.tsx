@@ -2,6 +2,7 @@ import BreadCrumbs from "../components/general/BreadCrumbs";
 import EmptyCart from "../components/cart/EmptyCart";
 import CartListing from "../components/cart/CartListing";
 import CartSummary from "../components/cart/CartSummary";
+import MobileBackHeader from "../components/general/MobileBackHeader";
 
 const CartPage = () => {
   const breadcrumbItems = [
@@ -18,9 +19,10 @@ const CartPage = () => {
     <div className="min-h-screen">
       <BreadCrumbs items={breadcrumbItems} hideOnMobile={true} />
       <div className="container py-6 md:py-10">
+        <MobileBackHeader title="Cart" />
         {isEmpty ? (
           <>
-            <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-[#0B0B0B]">
+            <h1 className="hidden md:block text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-[#0B0B0B]">
               Your Cart
             </h1>
             <div className="bg-white p-6 md:p-12 rounded-2xl shadow-sm border border-gray-100 min-h-[500px] flex items-center justify-center">
