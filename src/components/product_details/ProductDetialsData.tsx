@@ -92,7 +92,7 @@ const ProductDetialsData = () => {
                                     </label>
                                     <textarea
                                         name="review"
-                                        className="w-full h-28.25 border border-[#DEDDDD] rounded-4xl mt-3"
+                                        className="w-full md:h-2 h-18.25 border border-[#DEDDDD] rounded-4xl mt-3"
                                     >
                                     </textarea>
                                 </div>
@@ -102,12 +102,12 @@ const ProductDetialsData = () => {
                                 </button>
                             </div>
 
-                            <div className="w-full h-full px-6 py-8 bg-[#F6F6F6] rounded-4xl">
-                                <h2 className="text-[#0B0B0B] text-xl font-medium">
+                            <div className="w-full h-full md:px-6 md:py-8 md:bg-[#F6F6F6] rounded-4xl">
+                                <h2 className="text-[#0B0B0B] md:text-xl text-base font-medium">
                                     Average Rating
                                 </h2>
                                 <div className="flex items-center gap-3 mt-4">
-                                    <p className="text-[#000000] text-lg font-medium">4.8</p>
+                                    <p className="text-[#000000] md:text-lg text-sm font-medium">4.8</p>
                                     <div className="flex items-center">
                                         <FullStar />
                                         <FullStar />
@@ -119,36 +119,57 @@ const ProductDetialsData = () => {
 
                                 <div className="flex items-center mt-4">
                                     <a href="#" className="text-[#000000] text-sm font-medium text-fg-brand hover:underline">5</a>
-                                    <div className="w-full h-2 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
-                                        <div className="h-2 bg-[#018884] rounded-base w-[70%] rounded-4xl"></div>
+                                    <div className="w-full md:h-2 h-1 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
+                                        <div className="md:h-2 h-1 bg-[#018884] rounded-base w-[70%] rounded-4xl"></div>
                                     </div>
                                     <span className="text-[#000000] text-sm font-medium text-body">70%</span>
                                 </div>
 
                                 <div className="flex items-center mt-4">
                                     <a href="#" className="text-[#000000] text-sm font-medium text-fg-brand hover:underline">4</a>
-                                    <div className="w-full h-2 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
-                                        <div className="h-2 bg-[#018884] rounded-base w-[50%] rounded-4xl"></div>
+                                    <div className="w-full md:h-2 h-1 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
+                                        <div className="md:h-2 h-1 bg-[#018884] rounded-base w-[50%] rounded-4xl"></div>
                                     </div>
                                     <span className="text-[#000000] text-sm font-medium text-body">50%</span>
                                 </div>
 
                                 <div className="flex items-center mt-4">
                                     <a href="#" className="text-[#000000] text-sm font-medium text-fg-brand hover:underline">3</a>
-                                    <div className="w-full h-2 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
-                                        <div className="h-2 bg-[#018884] rounded-base w-[30%] rounded-4xl"></div>
+                                    <div className="w-full md:h-2 h-1 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
+                                        <div className="md:h-2 h-1 bg-[#018884] rounded-base w-[30%] rounded-4xl"></div>
                                     </div>
                                     <span className="text-[#000000] text-sm font-medium text-body">30%</span>
                                 </div>
 
                                 <div className="flex items-center mt-4">
                                     <a href="#" className="text-[#000000] text-sm font-medium text-fg-brand hover:underline">2</a>
-                                    <div className="w-full h-2 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
-                                        <div className="h-2 bg-[#018884] rounded-base w-[0%] rounded-4xl"></div>
+                                    <div className="w-full md:h-2 h-1 mx-4 bg-[#EAE9E9] rounded-base rounded-4xl">
+                                        <div className="md:h-2 h-1 bg-[#018884] rounded-base w-[0%] rounded-4xl"></div>
                                     </div>
                                     <span className="text-[#000000] text-sm font-medium text-body">0%</span>
                                 </div>
 
+                            </div>
+                        </div>
+                        <div className="md:mt-10 mt-6">
+                            <h2 className="text-[#0B0B0B] md:text-[40px] text-xl font-semibold">
+                                Customer Reviews
+                            </h2>
+                            <div className="w-full border border-[#DEDDDD] rounded-4xl md:mt-10 mt-8 p-4">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-[#3B3B3B] md:text-base text-xs font-medium">Alaa Khamis</h3>
+                                    <p className="text-[#3B3B3B] md:text-sm text-xs font-medium">19 Jun 2026</p>
+                                </div>
+                                <div className="flex items-center mt-4">
+                                    <FullStar />
+                                    <FullStar />
+                                    <FullStar />
+                                    <FullStar />
+                                    <FullStar />
+                                </div>
+                                <p className="text-[#0B0B0B] md:text-lg text-sm font-medium leading-[150%] mt-3.5">
+                                    I really like these sunglasses. They are comfortable to wear for long hours, fit perfectly, and block sunlight really well. The design is stylish and goes with almost any outfit. Definitely worth buying!”
+                                </p>
                             </div>
                         </div>
                     </TabsContent>
