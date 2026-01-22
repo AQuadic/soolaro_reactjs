@@ -1,5 +1,6 @@
 import OrderAgain from "@/components/icons/profile/OrderAgain"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import OrderEmptyState from "./OrderEmptyState"
 
 const Orders = () => {
     return (
@@ -25,7 +26,7 @@ const Orders = () => {
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="current" className="text-[#3B3B3B] text-base font-semibold leading-[150%]">
-                        <div>
+                        {/* <div>
                             <div className="w-full h-full border border-[#DEDDDD] p-3 rounded-4xl flex justify-between">
                                 <div className="flex items-center gap-4">
                                     <div className="w-21 h-21 bg-[#F6F6F6] rounded-xl flex items-center justify-center">
@@ -49,7 +50,8 @@ const Orders = () => {
                                     Pending
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
+                        <OrderEmptyState />
                     </TabsContent>
                     <TabsContent value="last">
                         <div>
