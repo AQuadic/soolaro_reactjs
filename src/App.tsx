@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUpPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import OtpPage from "./pages/OtpPage";
 import NewPasswordPage from "./pages/NewPasswordPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/explore" element={<ExploreProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/product_details" element={<ProductDetailsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
 
