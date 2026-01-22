@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import FavHeart from "../icons/product/FavHeart";
 
 type CardProps = {
   image: string;
   priceColor?: string;
   width?: string;
   height?: string;
+  showHeart?: boolean;
 };
 
 const Card = ({
@@ -13,6 +15,7 @@ const Card = ({
   priceColor = "#0B0B0B",
   width = "w-88.75",
   height = "h-44.25",
+  showHeart = false,
 }: CardProps) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const colors = [
@@ -28,6 +31,12 @@ const Card = ({
       transition={{ duration: 0.3 }}
     >
       <div className="bg-[#F6F6F6] rounded-4xl flex items-center justify-center relative overflow-hidden">
+        {showHeart && (
+          <button className="absolute top-4 right-4 z-20">
+            <FavHeart />
+          </button>
+        )}
+
         <motion.img
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.5 }}
