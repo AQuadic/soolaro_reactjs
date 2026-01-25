@@ -63,9 +63,9 @@ const Footer = () => {
                                 {t("links")}
                             </h3>
                             <Link to="/" className="text-[#FEFEFE] md:text-base text-xs font-semibold">{t("home")}</Link>
-                            <Link to="/" className="text-[#FEFEFE] md:text-base text-xs font-semibold">{t("best_seller")}</Link>
-                            <Link to="/" className="text-[#FEFEFE] md:text-base text-xs font-semibold">{t("new_arrival")}</Link>
-                            <Link to="/" className="text-[#FEFEFE] md:text-base text-xs font-semibold">{t("summer_collection")}</Link>
+                            <Link to="/explore" className="text-[#FEFEFE] md:text-base text-xs font-semibold">{t("best_seller")}</Link>
+                            <Link to="/explore" className="text-[#FEFEFE] md:text-base text-xs font-semibold">{t("new_arrival")}</Link>
+                            <Link to="/explore" className="text-[#FEFEFE] md:text-base text-xs font-semibold">{t("summer_collection")}</Link>
                         </div>
 
                         <div className="flex flex-col items-center md:items-start gap-3">

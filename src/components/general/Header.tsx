@@ -69,19 +69,19 @@ const Header = ({ className }: HeaderProps) => {
               {t('home')}
             </Link>
             <Link
-              to="/"
+              to="/explore"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
               {t('best_seller')}
             </Link>
             <Link
-              to="/"
+              to="/explore"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
               {t('new_arrival')}
             </Link>
             <Link
-              to="/"
+              to="/explore"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
               {t('summer_collection')}
@@ -145,21 +145,21 @@ const Header = ({ className }: HeaderProps) => {
                   {t('home')}
                 </Link>
                 <Link
-                  to="/"
+                  to="/explore"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
                   {t('best_seller')}
                 </Link>
                 <Link
-                  to="/"
+                  to="/explore"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
                   {t('new_arrival')}
                 </Link>
                 <Link
-                  to="/"
+                  to="/explore"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
