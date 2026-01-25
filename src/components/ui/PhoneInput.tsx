@@ -49,9 +49,9 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
     const dropdownRef = React.useRef<HTMLDivElement>(null);
     const buttonRef = React.useRef<HTMLButtonElement>(null);
 
-    const radiusWrapper = radius === "md" ? "rounded-md" : "rounded-full";
-    const radiusLeft = radius === "md" ? "rounded-l-md" : "rounded-l-full";
-    const radiusRight = radius === "md" ? "rounded-r-md" : "rounded-r-full";
+    const radiusWrapper = radius === "md" ? "rounded-[20px]" : "rounded-full";
+    const radiusLeft = radius === "md" ? "rounded-l-[20px]" : "rounded-l-full";
+    const radiusRight = radius === "md" ? "rounded-r-[20px]" : "rounded-r-full";
 
     // Get current selected country. support both iso2 and dial code values for backwards compatibility
     const selectedCountry = React.useMemo(() => {
@@ -155,9 +155,9 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       <div className={cn("relative w-full", className)} dir="ltr">
         <div
           className={cn(
-            "relative flex items-center h-12 border border-[#F0F0F0] transition-colors rounded-md!",
-            "hover:border-foreground/50",
-            "bg-background text-foreground",
+            "relative flex items-center h-12 md:h-14 border border-[#DEDDDD] transition-colors",
+            "hover:border-[#018884] focus-within:border-[#018884]",
+            "bg-white text-foreground",
             "dark:border-white/20 dark:hover:border-white/40 dark:bg-transparent dark:text-white",
             disabled && "opacity-50 cursor-not-allowed",
             radiusWrapper,
@@ -170,7 +170,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
             disabled={disabled}
             onClick={() => setIsOpen(!isOpen)}
             className={cn(
-              "flex items-center gap-2 px-3 py-3",
+              "flex items-center gap-2 h-full px-3",
               radiusLeft,
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0",
               "disabled:pointer-events-none disabled:opacity-50",
