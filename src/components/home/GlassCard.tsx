@@ -32,7 +32,7 @@ const Card = ({
     >
       <div className="bg-[#F6F6F6] rounded-4xl flex items-center justify-center relative overflow-hidden">
         {showHeart && (
-          <button className="absolute top-4 right-4 z-20">
+          <button className="absolute md:top-4 top-2 md:right-4 right-2 z-20">
             <FavHeart />
           </button>
         )}
