@@ -86,11 +86,11 @@ const CheckoutPage = () => {
       </div>
 
       {/* Desktop Layout */}
-      <div className="container px-4 md:px-30 py-6 md:py-10">
+      <div className="py-6 md:py-10">
         {/* Main Content */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+        <div className="container px-4 md:px-30 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
           {/* Form Section */}
-          <div className="flex-1 lg:max-w-[789px]">
+          <div className="flex-1">
             <div className="flex flex-col gap-6 md:gap-10">
               {/* Delivery Information Section */}
               <div className="flex flex-col gap-6 md:gap-10">
