@@ -120,16 +120,6 @@ export const CheckoutOrderSummary = ({
           </div>
         </div>
       </div>
-
-      {/* Place Order Button - Mobile Fixed at Bottom */}
-      <button
-        type="button"
-        onClick={onPlaceOrder}
-        disabled={isProcessing}
-        className="fixed md:hidden bottom-0 left-0 right-0 w-full h-14 bg-[#018884] text-white text-lg font-bold hover:bg-[#006F6C] disabled:opacity-50 disabled:cursor-not-allowed transition-colors z-10"
-      >
-        {isProcessing ? "Processing..." : "Pay Now"}
-      </button>
     </div>
   );
 };

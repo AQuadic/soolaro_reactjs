@@ -90,7 +90,7 @@ const CheckoutPage = () => {
         {/* Main Content */}
         <div className="container px-4 md:px-30 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
           {/* Form Section */}
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <div className="flex flex-col gap-6 md:gap-10">
               {/* Delivery Information Section */}
               <div className="flex flex-col gap-6 md:gap-10">
@@ -117,6 +117,16 @@ const CheckoutPage = () => {
                     onClick={handlePlaceOrder}
                     disabled={isProcessing}
                     className="hidden md:block w-full h-14 bg-[#018884] text-white text-lg font-bold rounded-4xl hover:bg-[#006F6C] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    {isProcessing ? "Processing..." : "Pay Now"}
+                  </button>
+
+                  {/* Mobile Pay Now Button */}
+                  <button
+                    type="button"
+                    onClick={handlePlaceOrder}
+                    disabled={isProcessing}
+                    className="md:hidden w-full h-14 bg-[#018884] text-white text-lg font-bold rounded-4xl hover:bg-[#006F6C] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {isProcessing ? "Processing..." : "Pay Now"}
                   </button>
