@@ -1,18 +1,21 @@
 import MobileBackHeader from "@/components/general/MobileBackHeader";
 import Card from "@/components/home/GlassCard";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Wishlist = () => {
+    const { t } = useTranslation("profile");
+
     return (
         <section className="container">
         <h1 className="text-[#0B0B0B] text-[40px] font-semibold mb-8 md:block hidden">
-            My Wishlist
+            {t("myWishlist")}
         </h1>
 
-        <Link to='/' className="md:hidden flex items-center gap-3">
+        <Link to="/" className="md:hidden flex items-center gap-3">
             <MobileBackHeader />
             <p className="text-[#0B0B0B] text-base font-semibold mb-6">
-                Favorite
+            {t("favorite")}
             </p>
         </Link>
 

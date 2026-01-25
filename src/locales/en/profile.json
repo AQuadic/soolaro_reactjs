@@ -22,5 +22,6 @@
     "orderAgain": "Order Again",
     "orderEmptyStateAlt": "Order empty state illustration",
     "noOrdersYet": "You haven’t placed any orders yet",
-    "exploreShop": "Explore Shop"
+    "exploreShop": "Explore Shop",
+    "favorite": "Favorite"
 }
