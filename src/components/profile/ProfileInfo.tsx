@@ -1,8 +1,25 @@
 import { Link } from "react-router-dom"
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 import MobileBackHeader from "../general/MobileBackHeader"
+import { PhoneInput, type PhoneValue } from "../ui/PhoneInput"
+import { useState } from "react"
 
 const ProfileInfo = () => {
+    const [formData, setFormData] = useState<{
+    name: string;
+    phone: PhoneValue;
+    email: string;
+    password: string;
+    }>({
+    name: "",
+    phone: "",
+    email: "",
+    password: "",
+    });
+
+    const onChange = (field: string, value: string | PhoneValue) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    };
     return (
         <section className="mb-12">
             <div className="md:flex hidden items-center justify-between">
@@ -37,11 +54,11 @@ const ProfileInfo = () => {
                     <label htmlFor="phone" className="text-[#0B0B0B] text-base font-semibold">
                         Phone Number
                     </label>
-                    <input
-                        type="tel"
-                        name="tel"
-                        className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
-                        placeholder="+971"
+                    <PhoneInput
+                        value={formData.phone}
+                        onChange={(value) => onChange("phone", value)}
+                        radius="md"
+                        className="h-12 md:h-14 rounded-[20px] border-[#DEDDDD] mt-3"
                     />
                 </div>
                 <div className="mt-8">
