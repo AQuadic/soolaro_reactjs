@@ -11,6 +11,8 @@ import homeAr from "./locales/ar/home.json";
 import authEn from "./locales/en/auth.json";
 import authAr from "./locales/ar/auth.json";
 
+import exploreEn from "./locales/en/explore.json";
+import exploreAr from "./locales/ar/explore.json";
 
 i18n
   .use(LanguageDetector)
@@ -21,11 +23,13 @@ i18n
         home: homeEn,
         header: headerEn,
         auth: authEn,
+        explore: exploreEn,
       },
       ar: {
         home: homeAr,
         header: headerAr,
         auth: authAr,
+        explore: exploreAr,
       },
     },
 

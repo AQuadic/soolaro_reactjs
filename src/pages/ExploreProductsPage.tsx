@@ -5,8 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BackArrow from "@/components/icons/explore/BackArrow";
 import { Link } from "react-router-dom";
 import Search from "@/components/icons/header/Search";
+import { useTranslation } from "react-i18next";
 
 const ExploreProductsPage = () => {
+  const { t } = useTranslation("explore");
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [minPrice, setMinPrice] = useState(200);
   const [maxPrice, setMaxPrice] = useState(900);
@@ -34,18 +37,18 @@ const ExploreProductsPage = () => {
                     <BackArrow />
                 </Link>
                 <h2 className="text-[#000000] md:text-[40px] text-base font-semibold leading-[100%]">
-                    Explore Products
+                    {t("explore_products")}
                 </h2>
             </div>
 
             <div className="flex gap-3">
-                <div className="retaltive md:hidden block">
+                <div className="relative md:hidden block">
                     <input
                         type="text"
                         className="w-55.25 h-12 border border-[#DEDDDD] rounded-4xl px-8 placeholder:text-[#3B3B3B]"
-                        placeholder="Search"
+                        placeholder={t("search")}
                     />
-                    <div className="absolute top-17">
+                    <div className="absolute top-1">
                         <Search />
                     </div>
                 </div>
@@ -55,7 +58,7 @@ const ExploreProductsPage = () => {
                 >
                 <Filter />
                 <p className="md:text-[#3B3B3B] text-white text-lg font-semibold leading-[100%] md:rotate-180">
-                    Filter
+                {t("filter")}
                 </p>
                 </div>
             </div>
@@ -68,25 +71,25 @@ const ExploreProductsPage = () => {
                 value="all"
                 className="data-[state=active]:bg-[#018884] bg-[#F6F6F6] data-[state=active]:text-white text-[#3B3B3B] rounded-[100px] md:px-8 py-4"
                 >
-                All
+                {t("all")}
                 </TabsTrigger>
                 <TabsTrigger
                 value="best"
                 className="data-[state=active]:bg-[#018884] bg-[#F6F6F6] data-[state=active]:text-white text-[#3B3B3B] rounded-[100px] md:px-8 py-4"
                 >
-                Best seller
+                {t("best_seller")}
                 </TabsTrigger>
                 <TabsTrigger
                 value="new"
                 className="data-[state=active]:bg-[#018884] bg-[#F6F6F6] data-[state=active]:text-white text-[#3B3B3B] rounded-[100px] md:px-8 py-4"
                 >
-                New Arrival
+                {t("new_arrival")}
                 </TabsTrigger>
                 <TabsTrigger
                 value="summer"
                 className="data-[state=active]:bg-[#018884] bg-[#F6F6F6] data-[state=active]:text-white text-[#3B3B3B] rounded-[100px] md:px-8 py-4"
                 >
-                Summer collection
+                {t("summer_collection")}
                 </TabsTrigger>
             </TabsList>
             <TabsContent value="all" className="grid lg:grid-cols-3 grid-cols-2 gap-8">
@@ -110,9 +113,9 @@ const ExploreProductsPage = () => {
             } z-50 flex flex-col`}
         >
             <div className="p-8 flex flex-col gap-4">
-            <h3 className="text-2xl font-medium">Filter by price</h3>
+            <h3 className="text-2xl font-medium">{t("filter_by_price")}</h3>
             <p className="text-[#3B3B3B] text-sm font-medium">
-                Set prices between 100 AED and 1000 AED.
+                {t("set_prices_range", { min: MIN, max: MAX })}
             </p>
 
             <div className="mt-6">
@@ -163,13 +166,13 @@ const ExploreProductsPage = () => {
             </div>
 
             <button className="mt-6 w-full bg-[#018884] text-[#FEFEFE] py-4 text-lg rounded-4xl font-medium">
-                Apply
+                {t("apply")}
             </button>
             <button
                 className="w-full text-[#018884] font-semibold text-lg mt-7"
                 onClick={resetFilter}
             >
-                Reset Filter
+                {t("reset_filter")}
             </button>
             </div>
         </div>

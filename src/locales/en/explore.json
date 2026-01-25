@@ -1,0 +1,13 @@
+{
+    "explore_products": "Explore Products",
+    "filter": "Filter",
+    "all": "All",
+    "best_seller": "Best seller",
+    "new_arrival": "New Arrival",
+    "summer_collection": "Summer collection",
+    "filter_by_price": "Filter by price",
+    "set_prices_range": "Set prices between {{min}} AED and {{max}} AED.",
+    "apply": "Apply",
+    "reset_filter": "Reset Filter",
+    "search": "Search"
+}

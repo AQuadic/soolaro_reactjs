@@ -1,0 +1,13 @@
+{
+    "explore_products": "استكشف المنتجات",
+    "filter": "تصفية",
+    "all": "الكل",
+    "best_seller": "الأكثر مبيعاً",
+    "new_arrival": "وصول جديد",
+    "summer_collection": "مجموعة الصيف",
+    "filter_by_price": "تصفية حسب السعر",
+    "set_prices_range": "حدد الأسعار بين {{min}} و {{max}} درهم.",
+    "apply": "تطبيق",
+    "reset_filter": "إعادة التصفية",
+    "search": "بحث"
+}
