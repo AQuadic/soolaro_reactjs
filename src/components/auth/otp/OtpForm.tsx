@@ -72,7 +72,7 @@ const OtpForm = () => {
               Verify
             </button>
           </DialogTrigger>
-          <DialogContent className="md:h-121.25 h-80 flex flex-col items-center justify-end">
+          <DialogContent className="md:w-[655px] w-full md:h-121.25 h-80 flex flex-col items-center justify-end">
             <DialogHeader>
               <DialogTitle className="text-[#0B0B0B] text-2xl font-semibold text-center">
                 OTP verified successfully

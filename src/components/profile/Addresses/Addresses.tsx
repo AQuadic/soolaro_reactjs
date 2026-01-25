@@ -40,12 +40,23 @@ const Addresses = () => {
                     : "bg-[#F6F6F6] border-2 border-transparent"
                 )}
             >
-                <p className="text-[#0B0B0B] md:text-base text-[10px] font-medium">
+                <p className="text-[#0B0B0B] md:text-base text-[10px] font-medium w-full">
                 {address}
                 </p>
-                <Link to='/profile/edit_address'>
-                    <Edit />
-                </Link>
+                <Dialog>
+                    <DialogTrigger className="w-full flex-1 justify-end">
+                        <div>
+                            <Edit />
+                        </div>
+                    </DialogTrigger>
+                    <DialogContent
+                        className=" w-163.75 max-h-[90vh] flex flex-col p-0"
+                        >
+                        <div className="flex-1 overflow-y-auto px-6 py-6">
+                            <AddNewAddress />
+                        </div>
+                        </DialogContent>
+                </Dialog>
             </div>
             ))}
 

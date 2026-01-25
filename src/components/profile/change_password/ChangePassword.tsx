@@ -87,13 +87,13 @@ const ChangePassword = () => {
                             Save Changes
                         </button>
                     </DialogTrigger>
-                    <DialogContent className="md:h-89.25 h-80 flex flex-col items-center justify-end">
+                    <DialogContent className="md:w-[655px] md:h-89.25 h-80 flex flex-col items-center justify-end">
                         <DialogHeader>
-                        <DialogTitle className="text-[#0B0B0B] text-xl font-semibold text-center">
+                        <DialogTitle className="text-[#0B0B0B] md:text-xl text-base font-semibold text-center">
                             Your password has been changed successfully.
                         </DialogTitle>
                         
-                        <DialogFooter className="sm:justify-start mt-10">
+                        <DialogFooter className="sm:justify-start flex flex-row md:mt-10 mt-6">
                             <DialogClose asChild>
                                 <button type="button" className="w-full h-14 border border-[#DEDDDD] rounded-4xl text-[#3B3B3B] text-base font-bold">
                                     Cancel

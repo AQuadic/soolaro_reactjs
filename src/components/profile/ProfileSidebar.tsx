@@ -81,31 +81,31 @@ const ProfileSidebar = () => {
                   </p>
               </button>
             </DialogTrigger>
-            <DialogContent className="flex flex-col items-center justify-end">
+            <DialogContent className="md:w-[655px] flex flex-col items-center justify-end">
                 <DialogHeader>
                   <img
                     src="/images/profile/logout.gif"
                     alt="logout"
-                    className="w-[267px] h-[267px] mx-auto"
+                    className="md:w-[267px] w-[136px] md:h-[267px] h-[136px] mx-auto"
                   />
-                <DialogTitle className="text-[#0B0B0B] text-2xl font-semibold text-center">
+                <DialogTitle className="text-[#0B0B0B] md:text-2xl text-base font-semibold text-center">
                     Are you sure you want to log out?
                 </DialogTitle>
-                <DialogDescription className="text-[#3B3B3B] text-base font-medium">
+                <DialogDescription className="text-[#3B3B3B] md:text-base text-xs font-medium">
                   You’ll need to sign in again to access your account.
                 </DialogDescription>
-                <DialogFooter>
+                <DialogFooter className="flex flex-row md:mt-0 mt-4">
                     <DialogClose asChild>
                     <button
                         type="button"
-                        className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-8 text-[#3B3B3B] text-base font-bold"
+                        className="w-full h-14 border border-[#DEDDDD] rounded-4xl md:mt-8 text-[#3B3B3B] text-base font-bold"
                     >
                         Cancel
                     </button>
                     </DialogClose>
                     <button
                         type="button"
-                        className="w-full h-14 bg-[#018884] rounded-4xl mt-8 text-[#FEFEFE] text-base font-bold"
+                        className="w-full h-14 bg-[#018884] rounded-4xl md:mt-8 text-[#FEFEFE] text-base font-bold"
                     >
                         Log Out
                     </button>

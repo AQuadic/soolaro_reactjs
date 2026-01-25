@@ -62,7 +62,7 @@ const ProfileInfo = () => {
                             Save Changes
                         </button>
                     </DialogTrigger>
-                    <DialogContent className="md:h-89.25 h-80 flex flex-col items-center justify-end">
+                    <DialogContent className="md:w-[655px] md:h-89.25 h-80 flex flex-col items-center justify-end">
                         <DialogHeader>
                         <DialogTitle className="text-[#0B0B0B] text-xl font-semibold text-center">
                             Your profile has been updated successfully.
