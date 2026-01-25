@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-import BreadCrumbs from "../general/BreadCrumbs"
+import BreadCrumbs from "../general/BreadCrumbs";
 import BackArrow from "../icons/explore/BackArrow";
+import { useTranslation } from "react-i18next";
 
 const FaqHeader = () => {
+    const { t } = useTranslation("faq");
+
     const breadcrumbItems = [
-        { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
-        { nameEn: "FAQs", nameAr: "الأسئلة الشائعة", Link: "/" },
+        { nameEn: "Home", nameAr: t("breadcrumbs.home"), Link: "/" },
+        { nameEn: "FAQs", nameAr: t("breadcrumbs.faqs"), Link: "/" },
     ];
     return (
         <section className="container">
@@ -15,10 +18,10 @@ const FaqHeader = () => {
             </Link>
             <div className="md:mt-12 mt-10 flex flex-col items-center justify-center gap-9">
                 <h2 className="text-[#0B0B0B] md:text-[40px] text-2xl font-semibold">
-                    FAQs
+            {t("title")}
                 </h2>
                 <p className="text-[#3B3B3B] md:text-xl text-sm font-medium text-center">
-                    Find quick answers to common questions about our products, services, and policies.
+                {t("description")}
                 </p>
             </div>
         </section>

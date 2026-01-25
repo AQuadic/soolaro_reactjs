@@ -14,6 +14,9 @@ import authAr from "./locales/ar/auth.json";
 import exploreEn from "./locales/en/explore.json";
 import exploreAr from "./locales/ar/explore.json";
 
+import faqEn from "./locales/en/faq.json";
+import faqAr from "./locales/ar/faq.json";
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -24,12 +27,14 @@ i18n
         header: headerEn,
         auth: authEn,
         explore: exploreEn,
+        faq: faqEn,
       },
       ar: {
         home: homeAr,
         header: headerAr,
         auth: authAr,
         explore: exploreAr,
+        faq: faqAr,
       },
     },
 

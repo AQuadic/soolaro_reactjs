@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface BreadCrumbItem {
   nameEn: string;
@@ -13,6 +14,8 @@ interface BreadCrumbsProps {
 }
 
 const BreadCrumbs = ({ items, hideOnMobile = false }: BreadCrumbsProps) => {
+  const { i18n } = useTranslation();
+
   return (
     <nav
       aria-label="Breadcrumb"
@@ -22,8 +25,7 @@ const BreadCrumbs = ({ items, hideOnMobile = false }: BreadCrumbsProps) => {
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
 
-          // Assuming English for now, but nameAr is available for i18n
-          const name = item.nameEn;
+          const name = i18n.language.startsWith("ar") ? item.nameAr : item.nameEn;
 
           return (
             <li key={index} className="flex items-center gap-1.5 md:gap-2">
