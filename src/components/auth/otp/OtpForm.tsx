@@ -59,12 +59,12 @@ const OtpForm = () => {
 
         <div className="md:mt-20 mt-12 flex items-center justify-center">
           <InputOTP maxLength={6}>
-            <InputOTPGroup className="flex space-x-4 overflow-visible">
+            <InputOTPGroup className="gap-2">
               {[...Array(6)].map((_, i) => (
-                <InputOTPSlot
-                  key={i}
+                <InputOTPSlot 
+                  key={i} 
                   index={i}
-                  className="md:w-20 w-10 md:h-20 h-10 rounded-4xl"
+                  className="md:w-20 w-10 md:h-20 h-10 rounded-4xl border-gray-300 first:rounded-4xl last:rounded-4xl"
                 />
               ))}
             </InputOTPGroup>
