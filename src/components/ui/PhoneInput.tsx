@@ -10,6 +10,7 @@ import {
 } from "../../constants/countries";
 import { cn } from "../../lib/utils";
 import { Image } from "@/components/ui/image";
+import { useTranslation } from "react-i18next";
 
 export interface PhoneValue {
   // iso2 country code (e.g. 'EG'), not the dial code
@@ -35,16 +36,20 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
     {
       value,
       onChange,
-      placeholder = "Phone number",
+      placeholder,
       disabled = false,
       className,
       language = "en",
-      searchPlaceholder = "Search country...",
+      searchPlaceholder,
       radius = "full",
       ...props
     },
     ref,
   ) => {
+    const { t } = useTranslation();
+
+    const phonePlaceholder = placeholder ?? t("phone_number");
+    const countrySearchPlaceholder = searchPlaceholder ?? t("search_country");
     const [isOpen, setIsOpen] = React.useState(false);
     const [searchTerm, setSearchTerm] = React.useState("");
     const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -209,7 +214,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
             dir="ltr"
             value={value.number}
             onChange={handlePhoneChange}
-            placeholder={placeholder}
+            placeholder={phonePlaceholder}
             disabled={disabled}
             minLength={props.minLength}
             maxLength={maxPhoneLength}
@@ -238,7 +243,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
               <input
                 type="text"
                 dir={language === "ar" ? "rtl" : "ltr"}
-                placeholder={searchPlaceholder}
+                placeholder={countrySearchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full h-9 rounded-md bg-popover px-3 text-popover-foreground placeholder:text-muted-foreground text-sm text-start border border-slate-200 focus:outline-none focus:ring-1 focus:ring-slate-300"
