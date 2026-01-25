@@ -8,9 +8,11 @@ import MobileBackHeader from "@/components/general/MobileBackHeader";
 import { useTranslation } from "react-i18next";
 import { PhoneInput, type PhoneValue } from "@/components/ui/PhoneInput";
 import { useState } from "react";
+import { Eye } from "lucide-react";
 
 const SignUpForm = () => {
   const { t } = useTranslation("auth");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState<{
     name: string;
@@ -104,9 +106,13 @@ const SignUpForm = () => {
             className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
             placeholder={t("enter_password")}
           />
-          <div className="absolute top-13 ltr:right-4 rtl:left-4">
-            <ClosedEye />
-          </div>
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute top-13 ltr:right-4 rtl:left-4 cursor-pointer"
+          >
+            {showPassword ? <Eye /> : <ClosedEye />}
+          </button>
         </div>
 
         <div className="mt-6 flex items-center gap-2">
