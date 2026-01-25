@@ -78,8 +78,20 @@ const BestSellerCollection = () => {
         >
             <div className="p-8 flex flex-col gap-4">
             <h3 className="text-2xl font-medium">Filter by price</h3>
-            <p className="text-[#3B3B3B] text-sm font-medium">
-                Set prices between 100 AED and 1000 AED.
+            <p className="text-[#3B3B3B] text-sm font-medium flex items-center">
+                Set prices between 100 
+                <img
+                    src="/images/currency.png"
+                    alt="c_currency"
+                    className="w-4.5 h-4.5"
+                />
+                    and 1000 
+                    
+                    <img
+                        src="/images/currency.png"
+                        alt="c_currency"
+                        className="w-4.5 h-4.5"
+                    />.
             </p>
 
             <div className="mt-6">

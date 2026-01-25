@@ -108,11 +108,25 @@ const CartSummary = ({
       <div className="space-y-4 mb-8">
         <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
           <span>Sub Total:</span>
-          <span>AED {subtotal.toFixed(2)}</span>
+          <span className="flex items-center gap-1">
+            {subtotal.toFixed(2)}
+            <img
+                src="/images/currency.png"
+                alt="c_currency"
+                className="w-4.5 h-4.5"
+              />
+          </span>
         </div>
         <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
           <span>Shipping Cost:</span>
-          <span>AED {shipping.toFixed(2)}</span>
+          <span className="flex items-center gap-1">
+            {shipping.toFixed(2)}
+            <img
+                src="/images/currency.png"
+                alt="c_currency"
+                className="w-4.5 h-4.5"
+              />
+            </span>
         </div>
       </div>
 
@@ -120,8 +134,13 @@ const CartSummary = ({
 
       <div className="flex justify-between items-center mb-8">
         <span className="text-[#0B0B0B] text-xl font-medium">Total:</span>
-        <span className="text-[#005B58] text-2xl font-bold">
-          AED {total.toFixed(2)}
+        <span className="text-[#005B58] text-2xl font-bold flex items-center gap-1">
+          {total.toFixed(2)}
+          <img
+              src="/images/c_currency.png"
+              alt="c_currency"
+              className="w-4.5 h-4.5"
+            />
         </span>
       </div>
 

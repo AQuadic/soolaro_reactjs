@@ -54,10 +54,15 @@ const Card = ({
       </h2>
 
       <h2
-        className="md:text-2xl text-base font-medium leading-[100%] md:mt-4 mt-2"
+        className="md:text-2xl text-base font-medium leading-[100%] md:mt-4 mt-2 flex items-center gap-1"
         style={{ color: priceColor }}
       >
-        AED 269.00
+        269.00
+        <img
+            src="/images/currency.png"
+            alt="c_currency"
+            className="w-[27px] h-6"
+          />
       </h2>
 
       <div className="md:mt-6 mt-3 flex gap-3">
