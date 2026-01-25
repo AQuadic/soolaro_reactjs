@@ -206,12 +206,13 @@ const Header = ({ className }: HeaderProps) => {
 
       <AnimatePresence>
         {isSearchOpen && (
-          <motion.div
+          <div className="mx-auto flex items-center justify-center">
+            <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-4 md:right-4 bottom-4 w-full md:w-197.25 bg-white shadow-xl z-50 overflow-y-auto rounded-2xl scrollbar-hide"
+            className="fixed top-4 md:right-4 bottom-4 w-[343px] md:w-197.25 bg-white shadow-xl z-50 overflow-y-auto rounded-2xl scrollbar-hide"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
@@ -270,6 +271,7 @@ const Header = ({ className }: HeaderProps) => {
               </div>
             </div>
           </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
