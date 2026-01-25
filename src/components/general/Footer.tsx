@@ -106,7 +106,7 @@ const Footer = () => {
                 {t("customer_care")}
               </h3>
               <Link
-                to="/"
+                to="/profile"
                 className="text-[#FEFEFE] md:text-base text-xs font-semibold"
               >
                 {t("create_account")}

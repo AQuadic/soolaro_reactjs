@@ -183,7 +183,7 @@ const Header = ({ className }: HeaderProps) => {
                   <Cart />
                 </Link>
                 <div className="w-12 h-12 bg-[#F6F6F6] rounded-full">
-                  <Language />
+                  <ChangeLanguage />
                 </div>
               </div>
             </div>
