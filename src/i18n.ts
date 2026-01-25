@@ -2,6 +2,9 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+import headerEn from "./locales/en/header.json";
+import headerAr from "./locales/ar/header.json";
+
 import homeEn from "./locales/en/home.json";
 import homeAr from "./locales/ar/home.json";
 
@@ -13,9 +16,11 @@ i18n
     resources: {
       en: {
         home: homeEn,
+        header: headerEn,
       },
       ar: {
         home: homeAr,
+        header: headerAr,
       },
     },
 

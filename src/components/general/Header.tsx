@@ -12,12 +12,14 @@ import SearchEmptyState from "./SearchEmptyState";
 import SidebarUser from "../icons/header/SidebarUser";
 import CategoryLogo from "../icons/category/Logo";
 import ChangeLanguage from "./ChangeLanguage";
+import { useTranslation } from "react-i18next";
 
 interface HeaderProps {
   className?: string;
 }
 
 const Header = ({ className }: HeaderProps) => {
+  const { t } = useTranslation("header");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -64,25 +66,25 @@ const Header = ({ className }: HeaderProps) => {
               to="/"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              Home
+              {t('home')}
             </Link>
             <Link
               to="/"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              Best Seller
+              {t('best_seller')}
             </Link>
             <Link
               to="/"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              New Arrival
+              {t('new_arrival')}
             </Link>
             <Link
               to="/"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              Summer Collection
+              {t('summer_collection')}
             </Link>
           </div>
 
@@ -96,7 +98,7 @@ const Header = ({ className }: HeaderProps) => {
             <ChangeLanguage />
             <Link to='/signin' className="w-37.25 h-14 bg-[#FFFFFF33] rounded-4xl flex items-center justify-center gap-2">
               <User />
-              <p className="text-[#0B0B0B] text-lg font-semibold">Log In</p>
+              <p className="text-[#0B0B0B] text-lg font-semibold">{t('login')}</p>
             </Link>
           </div>
 
@@ -140,35 +142,35 @@ const Header = ({ className }: HeaderProps) => {
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  Home
+                  {t('home')}
                 </Link>
                 <Link
                   to="/"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  Best Seller
+                  {t('best_seller')}
                 </Link>
                 <Link
                   to="/"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  New Arrival
+                  {t('new_arrival')}
                 </Link>
                 <Link
                   to="/"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  Summer Collection
+                  {t('summer_collection')}
                 </Link>
               </nav>
 
               <button className="w-53.75 h-12 bg-[#018884] rounded-4xl flex items-center justify-center gap-2 mx-auto mt-14.5">
                 <SidebarUser />
                 <Link to='/signin' className="text-[#FEFEFE] text-lg font-semibold leading-[100%]">
-                  Log In
+                  {t('login')}
                 </Link>
               </button>
 
