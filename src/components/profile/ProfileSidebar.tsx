@@ -19,7 +19,7 @@ import { DialogDescription } from "@radix-ui/react-dialog"
 const menu = [
   {
     label: "My Profile",
-    path: "/profile",
+    path: "/profile/info",
     icon: <User />,
     activeIcon: <ActiveMyProfile />,
     danger: false,

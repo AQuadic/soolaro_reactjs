@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom"
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
+import MobileBackHeader from "../general/MobileBackHeader"
 
 const ProfileInfo = () => {
     return (
-        <section>
-            <div className="flex items-center justify-between">
+        <section className="mb-12">
+            <div className="md:flex hidden items-center justify-between">
                 <h1 className="text-[#0B0B0B] text-[40px] font-semibold leading-[100%]">
                     My Profile
                 </h1>
@@ -12,8 +13,15 @@ const ProfileInfo = () => {
                     Change Password
                 </Link>
             </div>
+
+            <Link to='/' className="md:hidden flex items-center gap-3">
+                <MobileBackHeader />
+                <p className="text-[#0B0B0B] text-base font-semibold mb-6">
+                    My Profile
+                </p>
+            </Link>
             
-            <div className="mt-12">
+            <div className="md:mt-12 mt-4">
                 <div>
                     <label htmlFor="name" className="text-[#0B0B0B] text-base font-semibold">
                         Name
@@ -72,8 +80,11 @@ const ProfileInfo = () => {
                         </DialogFooter>
                         </DialogHeader>
                     </DialogContent>
-                    </Dialog>
+                </Dialog>
 
+                <Link to='/profile/change_password' className="text-[#018884] text-lg font-bold md:underline md:hidden flex items-center justify-center mt-4">
+                    Change Password
+                </Link>
             </div>
         </section>
     )

@@ -14,7 +14,7 @@ const ProfileMobileView = () => {
                 <p className="text-[#0B0B0B] text-base font-semibold mb-6">Profile</p>
             </Link>
             <div className="mt-4">
-                <Link to='/profile' className="w-full h-12 bg-[#F6F6F6] rounded-4xl flex items-center gap-2 px-3 py-4">
+                <Link to='/profile/info' className="w-full h-12 bg-[#F6F6F6] rounded-4xl flex items-center gap-2 px-3 py-4">
                     <User />
                     <p className="text-[#0B0B0B] text-base font-medium">
                         My profile

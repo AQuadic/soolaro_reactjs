@@ -37,7 +37,7 @@ function App() {
           <Route path="/contact_us" element={<ContactUsPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/profile" element={<ProfilePage />}>
-            <Route index element={<ProfileInfo />} />
+            <Route path="info" element={<ProfileInfo />} />
             <Route path="orders" element={<Orders />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="addresses" element={<Addresses />} />
