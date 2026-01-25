@@ -56,12 +56,12 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
 
     // Get current selected country. support both iso2 and dial code values for backwards compatibility
     const selectedCountry = React.useMemo(() => {
-      // if value.code matches an iso2 directly, prefer that
-      const byIso2 = countries.find((c) => c.iso2 === value.code.toUpperCase());
+      const code = value?.code?.toUpperCase() || "";
+      const byIso2 = countries.find((c) => c.iso2 === code);
       if (byIso2) return byIso2;
-      // otherwise fallback to matching by dial code
-      return getCountryByCode(value.code) || countries[0];
-    }, [value.code]);
+
+      return getCountryByCode(value?.code) || countries[0];
+    }, [value]);
 
     // Get country name
     const getCountryName = React.useCallback(
