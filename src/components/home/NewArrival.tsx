@@ -1,4 +1,5 @@
 import ProductSlider, { type ProductItem } from "../ui/ProductSlider";
+import { useTranslation } from "react-i18next";
 
 const products: ProductItem[] = [
   { image: "/images/home/glass1.png", height: "213" },
@@ -7,9 +8,11 @@ const products: ProductItem[] = [
 ];
 
 const NewArrival = () => {
+  const { t } = useTranslation("home");
+
   return (
     <ProductSlider
-      title="New Arrival"
+      title={t("new_arrival")}
       seeAllLink="/"
       products={products}
       containerClassName="container pb-17"

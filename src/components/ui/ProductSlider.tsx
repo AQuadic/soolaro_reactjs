@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import Card from "../home/GlassCard";
+import { useTranslation } from "react-i18next";
 
 export interface ProductItem {
   image: string;
@@ -23,6 +24,8 @@ const ProductSlider = ({
   products,
   containerClassName = "container pb-17",
 }: ProductSliderProps) => {
+  const { t } = useTranslation("home");
+
   return (
     <section className={containerClassName}>
       <motion.div
@@ -40,7 +43,7 @@ const ProductSlider = ({
             to={seeAllLink}
             className="text-[#003D3B] md:text-lg text-xs font-semibold"
           >
-            See All
+            {t("see_all")}
           </Link>
         )}
       </motion.div>
