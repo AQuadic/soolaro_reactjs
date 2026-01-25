@@ -1,4 +1,5 @@
 import NewPasswordFrom from "@/components/auth/new_password/NewPasswordFrom";
+import { Image } from "@/components/ui/image";
 
 const NewPasswordPage = () => {
   return (
@@ -9,10 +10,11 @@ const NewPasswordPage = () => {
 
       <div className="hidden lg:block lg:flex-1 relative">
         <div className="sticky top-0 h-screen">
-          <img
+          <Image
             src="/images/auth/auth_bg.jpg"
             alt="bg"
             className="w-full h-full object-cover"
+            wrapperClassName="w-full h-full"
           />
         </div>
       </div>

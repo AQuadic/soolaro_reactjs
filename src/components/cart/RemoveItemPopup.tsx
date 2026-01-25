@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Image } from "@/components/ui/image";
 
 interface RemoveItemPopupProps {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ const RemoveItemPopup = ({ children, onConfirm }: RemoveItemPopupProps) => {
         <DialogHeader className="flex flex-col items-center gap-6">
           {/* Image */}
           <div className="w-[160px] h-[100px] flex items-center justify-center">
-            <img
+            <Image
               src="/images/cart/removeCartImage.png"
               alt="Remove item"
               className="w-full h-full object-contain"

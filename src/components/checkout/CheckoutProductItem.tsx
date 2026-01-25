@@ -1,4 +1,5 @@
 import { DirhamIcon } from "../icons/checkout/DirhamIcon";
+import { Image } from "@/components/ui/image";
 
 interface CheckoutProductItemProps {
   product: {
@@ -22,7 +23,7 @@ export const CheckoutProductItem = ({ product }: CheckoutProductItemProps) => {
 
       {/* Product Image */}
       <div className="w-16 h-16 md:w-[84px] md:h-[84px] bg-[#F6F6F6] rounded-[4px] md:rounded-[8px] flex-shrink-0 overflow-hidden">
-        <img
+        <Image
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover"

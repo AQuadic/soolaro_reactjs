@@ -9,6 +9,7 @@ import {
   type Country,
 } from "../../constants/countries";
 import { cn } from "../../lib/utils";
+import { Image } from "@/components/ui/image";
 
 export interface PhoneValue {
   // iso2 country code (e.g. 'EG'), not the dial code
@@ -178,7 +179,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
             )}
           >
             {/* Country flag */}
-            <img
+            <Image
               src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${selectedCountry.iso2}.svg`}
               alt={`${selectedCountry.name} flag`}
               width={24}
@@ -258,7 +259,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
                     )}
                   >
                     {/* Country flag */}
-                    <img
+                    <Image
                       src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${country.iso2}.svg`}
                       alt={`${country.name} flag`}
                       width={24}

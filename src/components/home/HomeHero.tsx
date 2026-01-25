@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Arrow from "../icons/home/hero/Arrow";
 import HomeSlider from "./HomeSlider";
+import { Image } from "@/components/ui/image";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
@@ -25,15 +26,14 @@ const HomeHero = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <motion.h2
-            className="md:w-125 w-75 text-[#0B0B0B] md:text-[48px] text-2xl font-semibold leading-[150%]"
-          >
-            {t("premium")} <span className="text-[#025D5B]">{t("eyewear")}</span> {t("for_style")} <span className="text-[#025D5B]">{t("and_comfort")}</span>!
+          <motion.h2 className="md:w-125 w-75 text-[#0B0B0B] md:text-[48px] text-2xl font-semibold leading-[150%]">
+            {t("premium")}{" "}
+            <span className="text-[#025D5B]">{t("eyewear")}</span>{" "}
+            {t("for_style")}{" "}
+            <span className="text-[#025D5B]">{t("and_comfort")}</span>!
           </motion.h2>
 
-          <motion.p
-            className="md:w-146 text-[#3B3B3B] md:text-xl text-xs font-medium leading-[150%] mt-3"
-          >
+          <motion.p className="md:w-146 text-[#3B3B3B] md:text-xl text-xs font-medium leading-[150%] mt-3">
             {t("hero_description")}
           </motion.p>
 
@@ -42,7 +42,7 @@ const HomeHero = () => {
             whileTap={{ scale: 0.95 }}
             className="md:w-102.75 w-full md:h-14 h-12 rounded-[100px] bg-[#018884] mt-6 relative"
           >
-            <Link to='/explore'>
+            <Link to="/explore">
               <p className="text-[#FEFEFE] md:text-lg text-base font-semibold">
                 {t("explore_shop")}
               </p>
@@ -52,29 +52,31 @@ const HomeHero = () => {
             </Link>
           </motion.button>
 
-          <motion.div
-            className="mt-4 md:flex hidden items-center ltr:gap-4 rtl:gap-8"
-          >
+          <motion.div className="mt-4 md:flex hidden items-center ltr:gap-4 rtl:gap-8">
             <div className="flex items-center">
-              <img
+              <Image
                 src="/images/home/customer.jpg"
                 alt="customer"
-                className="w-14 h-14 rounded-full border-2 border-white rtl:-ml-6"
+                className="w-full h-full object-cover"
+                wrapperClassName="w-14 h-14 rounded-full border-2 border-white rtl:-ml-6"
               />
-              <img
+              <Image
                 src="/images/home/customer.jpg"
                 alt="customer"
-                className="w-14 h-14 rounded-full border-2 border-white -ml-6"
+                className="w-full h-full object-cover"
+                wrapperClassName="w-14 h-14 rounded-full border-2 border-white -ml-6"
               />
-              <img
+              <Image
                 src="/images/home/customer.jpg"
                 alt="customer"
-                className="w-14 h-14 rounded-full border-2 border-white -ml-6"
+                className="w-1full h-full object-cover"
+                wrapperClassName="w-14 h-14 rounded-full border-2 border-white -ml-6"
               />
-              <img
+              <Image
                 src="/images/home/customer.jpg"
                 alt="customer"
-                className="w-14 h-14 rounded-full border-2 border-white -ml-6"
+                className="w-full h-full object-cover"
+                wrapperClassName="w-14 h-14 rounded-full border-2 border-white -ml-6"
               />
             </div>
 

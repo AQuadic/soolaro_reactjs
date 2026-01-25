@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
+import { Image } from "@/components/ui/image";
 
 interface LoginRequiredPopupProps {
   children: React.ReactNode;
@@ -46,7 +47,7 @@ const LoginRequiredPopup = ({
         <DialogHeader className="flex flex-col items-center gap-6">
           {/* Image */}
           <div className="w-[160px] h-[120px] flex items-center justify-center">
-            <img
+            <Image
               src="/images/cart/loginCartImage.png"
               alt="Login required"
               className="w-full h-full object-contain"
