@@ -1,4 +1,5 @@
 import { Plus, Minus } from "lucide-react";
+import { Image } from "@/components/ui/image";
 import { Link } from "react-router-dom";
 import RemoveItemPopup from "./RemoveItemPopup";
 
@@ -94,7 +95,7 @@ const CartItem = ({ id, name, price, quantity, image }: CartItemProps) => {
         <div className="flex items-center justify-between p-4 border border-[#EAEAEA] rounded-3xl bg-white relative">
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 bg-[#F9F9F9] rounded-xl flex items-center justify-center shrink-0">
-              <img
+              <Image
                 src={image}
                 alt={name}
                 className="w-full h-full object-contain mix-blend-multiply p-2"
@@ -145,7 +146,7 @@ const CartItem = ({ id, name, price, quantity, image }: CartItemProps) => {
 
           {/* Image */}
           <div className="w-32 h-32 bg-[#F9F9F9] rounded-2xl flex items-center justify-center shrink-0 p-2">
-            <img
+            <Image
               src={image}
               alt={name}
               className="w-full h-full object-contain mix-blend-multiply"

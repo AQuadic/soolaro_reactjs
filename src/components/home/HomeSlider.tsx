@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SliderArrow from "../icons/home/hero/SliderArrow";
+import { Image } from "@/components/ui/image";
 
 function HomeSlider() {
   const settings = {
@@ -67,7 +68,7 @@ function HomeSlider() {
 
       <Slider {...settings}>
         <div className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl relative mx-2 group overflow-hidden">
-          <img
+          <Image
             src="/images/home/slider1.png"
             alt="slider image"
             className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl object-cover"
@@ -86,7 +87,7 @@ function HomeSlider() {
         </div>
 
         <div className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl relative mx-2 group overflow-hidden">
-          <img
+          <Image
             src="/images/home/slider2.jpg"
             alt="slider image"
             className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl object-cover"
@@ -105,7 +106,7 @@ function HomeSlider() {
         </div>
 
         <div className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl relative mx-2 group overflow-hidden">
-          <img
+          <Image
             src="/images/home/slider2.jpg"
             alt="slider image"
             className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl object-cover"
@@ -124,7 +125,7 @@ function HomeSlider() {
         </div>
 
         <div className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl relative mx-2 group overflow-hidden">
-          <img
+          <Image
             src="/images/home/slider1.png"
             alt="slider image"
             className="md:w-68.75 w-[206px] md:h-[360px] h-[240px] rounded-4xl object-cover"

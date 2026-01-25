@@ -1,4 +1,5 @@
 import SignUpForm from "@/components/auth/signup/SignUpForm";
+import { Image } from "@/components/ui/image";
 
 const SignUpPage = () => {
   return (
@@ -9,10 +10,11 @@ const SignUpPage = () => {
 
       <div className="hidden lg:block lg:flex-1 relative">
         <div className="sticky top-0 h-screen">
-          <img
+          <Image
             src="/images/auth/auth_bg.jpg"
             alt="bg"
             className="w-full h-full object-cover"
+            wrapperClassName="w-full h-full"
           />
         </div>
       </div>
