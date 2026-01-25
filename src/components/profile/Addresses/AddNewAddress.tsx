@@ -91,23 +91,23 @@ const AddNewAddress = () => {
                         Save
                     </button>
                 </DialogTrigger>
-                <DialogContent className="h-80 flex flex-col items-center justify-end">
+                <DialogContent className="md:w-[655px] h-80 flex flex-col items-center justify-end">
                     <DialogHeader>
-                    <DialogTitle className="text-[#0B0B0B] text-2xl font-semibold text-center">
+                    <DialogTitle className="text-[#0B0B0B] md:text-2xl text-base font-semibold text-center">
                         New address has been added successfully.
                     </DialogTitle>
-                    <DialogFooter className="sm:justify-start">
+                    <DialogFooter className="sm:justify-start flex flex-row md:mt-0 mt-6">
                         <DialogClose asChild>
                         <button
                             type="button"
-                            className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-10 text-[#3B3B3B] text-base font-bold"
+                            className="w-full h-14 border border-[#DEDDDD] rounded-4xl md:mt-10 text-[#3B3B3B] text-base font-bold"
                         >
                             Cancel
                         </button>
                         </DialogClose>
                         <button
                             type="button"
-                            className="w-full h-14 bg-[#018884] rounded-4xl mt-10 text-[#FEFEFE] text-base font-bold"
+                            className="w-full h-14 bg-[#018884] rounded-4xl md:mt-10 text-[#FEFEFE] text-base font-bold"
                         >
                             Continue
                         </button>

@@ -3,6 +3,8 @@ import Edit from "@/components/icons/profile/Edit"
 import clsx from "clsx"
 import { Link } from "react-router-dom"
 import MobileBackHeader from "@/components/general/MobileBackHeader"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import AddNewAddress from "./AddNewAddress"
 
 const addresses = [
   "United Arab Emirates, Dubai, Business Bay, Al Abraj Street, Al Nakheel Tower, Floor 12, Apartment 1205",
@@ -47,11 +49,22 @@ const Addresses = () => {
             </div>
             ))}
 
-            <Link to='/profile/add_address'>
-                <button className="w-full h-14 border border-[#018884] rounded-4xl md:mt-8 mt-4 text-[#018884] text-lg font-bold">
-                    Add New Address
-                </button>
-            </Link>
+            <Dialog>
+            <DialogTrigger className="w-full">
+                <div>
+                    <button className="w-full h-14 border border-[#018884] rounded-4xl md:mt-8 mt-4 text-[#018884] text-lg font-bold">
+                        Add New Address
+                    </button>
+                </div>
+            </DialogTrigger>
+            <DialogContent
+                className=" w-163.75 max-h-[90vh] flex flex-col p-0"
+                >
+                <div className="flex-1 overflow-y-auto px-6 py-6">
+                    <AddNewAddress />
+                </div>
+                </DialogContent>
+            </Dialog>
         </div>
         </section>
     )
