@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from "../icons/header/Logo";
 import Search from "../icons/header/Search";
 import Cart from "../icons/header/Cart";
-import Language from "../icons/header/Language";
 import User from "../icons/header/User";
 import Menu from "../icons/header/Menu";
 import MobileLogo from "../icons/header/MobileLogo";
@@ -66,25 +65,25 @@ const Header = ({ className }: HeaderProps) => {
               to="/"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              {t('home')}
+              {t("home")}
             </Link>
             <Link
               to="/explore"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              {t('best_seller')}
+              {t("best_seller")}
             </Link>
             <Link
               to="/explore"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              {t('new_arrival')}
+              {t("new_arrival")}
             </Link>
             <Link
               to="/explore"
               className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
             >
-              {t('summer_collection')}
+              {t("summer_collection")}
             </Link>
           </div>
 
@@ -96,9 +95,14 @@ const Header = ({ className }: HeaderProps) => {
               <Cart />
             </Link>
             <ChangeLanguage />
-            <Link to='/signin' className="w-37.25 h-14 bg-[#FFFFFF33] rounded-4xl flex items-center justify-center gap-2">
+            <Link
+              to="/signin"
+              className="w-37.25 h-14 bg-[#FFFFFF33] rounded-4xl flex items-center justify-center gap-2"
+            >
               <User />
-              <p className="text-[#0B0B0B] text-lg font-semibold">{t('login')}</p>
+              <p className="text-[#0B0B0B] text-lg font-semibold">
+                {t("login")}
+              </p>
             </Link>
           </div>
 
@@ -142,35 +146,38 @@ const Header = ({ className }: HeaderProps) => {
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  {t('home')}
+                  {t("home")}
                 </Link>
                 <Link
                   to="/explore"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  {t('best_seller')}
+                  {t("best_seller")}
                 </Link>
                 <Link
                   to="/explore"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  {t('new_arrival')}
+                  {t("new_arrival")}
                 </Link>
                 <Link
                   to="/explore"
                   className="text-[#0B0B0B] text-lg font-semibold hover:text-[#003D3B] py-2"
                   onClick={closeSidebar}
                 >
-                  {t('summer_collection')}
+                  {t("summer_collection")}
                 </Link>
               </nav>
 
               <button className="w-53.75 h-12 bg-[#018884] rounded-4xl flex items-center justify-center gap-2 mx-auto mt-14.5">
                 <SidebarUser />
-                <Link to='/signin' className="text-[#FEFEFE] text-lg font-semibold leading-[100%]">
-                  {t('login')}
+                <Link
+                  to="/signin"
+                  className="text-[#FEFEFE] text-lg font-semibold leading-[100%]"
+                >
+                  {t("login")}
                 </Link>
               </button>
 
@@ -208,23 +215,23 @@ const Header = ({ className }: HeaderProps) => {
         {isSearchOpen && (
           <div className="mx-auto flex items-center justify-center">
             <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-4 md:right-4 bottom-4 w-[343px] md:w-197.25 bg-white shadow-xl z-50 overflow-y-auto rounded-2xl scrollbar-hide"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            <style>{`
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-4 md:right-4 bottom-4 w-[343px] md:w-197.25 bg-white shadow-xl z-50 overflow-y-auto rounded-2xl scrollbar-hide"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
+              <style>{`
                             .scrollbar-hide::-webkit-scrollbar {
                                 display: none;
                             }
                         `}</style>
-            <div className="p-6">
-              {/* <button
+              <div className="p-6">
+                {/* <button
                                 onClick={closeSearch}
                                 className="absolute top-6 right-6 text-2xl text-[#0B0B0B] hover:text-[#003D3B]"
                                 aria-label="Close search"
@@ -232,21 +239,21 @@ const Header = ({ className }: HeaderProps) => {
                                 ✕
                             </button> */}
 
-              <div className="mb-8">
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-full px-12 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:border-[#A8D4D3]"
-                    autoFocus
-                  />
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <Search />
+                <div className="mb-8">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      className="w-full px-12 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:border-[#A8D4D3]"
+                      autoFocus
+                    />
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none">
+                      <Search />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* <div className="space-y-4">
+                {/* <div className="space-y-4">
                                 {[1, 2, 3, 4, 5, 6, 7].map((item) => (
                                     <div
                                         key={item}
@@ -266,11 +273,11 @@ const Header = ({ className }: HeaderProps) => {
                                 ))}
                             </div> */}
 
-              <div className="py-32">
-                <SearchEmptyState />
+                <div className="py-32">
+                  <SearchEmptyState />
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
           </div>
         )}
       </AnimatePresence>
