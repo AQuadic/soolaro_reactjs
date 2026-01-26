@@ -84,7 +84,7 @@ const ProductDetialsData = () => {
                                     </label>
                                     <input
                                         type="text"
-                                        className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
+                                        className="w-full h-14 border border-[#DEDDDD] rounded-[20px] mt-3 px-4"
                                         placeholder="Enter your name"
                                     />
                                 </div>
@@ -94,7 +94,7 @@ const ProductDetialsData = () => {
                                     </label>
                                     <textarea
                                         name="review"
-                                        className="w-full md:h-2 h-18.25 border border-[#DEDDDD] rounded-4xl mt-3"
+                                        className="w-full md:h-[113px] h-18.25 border border-[#DEDDDD] rounded-4xl mt-3"
                                     >
                                     </textarea>
                                 </div>
