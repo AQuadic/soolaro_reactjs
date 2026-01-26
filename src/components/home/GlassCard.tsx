@@ -26,12 +26,12 @@ const Card = ({
     "bg-[linear-gradient(135deg,#6A6A6A_50%,#0F0F0F_50%)]",
   ];
   return (
-    <Link to='/product_details'>
       <motion.div
       className="flex flex-col items-center justify-center cursor-pointer group"
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
     >
+    <Link to='/product_details'>
       <div className="bg-[#F6F6F6] rounded-4xl flex items-center justify-center relative overflow-hidden">
         {showHeart && (
           <button className="absolute md:top-4 top-2 md:right-4 right-2 z-20">
@@ -49,12 +49,12 @@ const Card = ({
         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </div>
 
-      <h2 className="text-[#000000] md:text-xl text-xs font-medium mt-4">
+      <h2 className="text-[#000000] md:text-xl text-xs font-medium mt-4 text-center">
         Liwa
       </h2>
 
       <h2
-        className="md:text-2xl text-base font-medium leading-[100%] md:mt-4 mt-2 flex items-center gap-1"
+        className="md:text-2xl text-base font-medium leading-[100%] md:mt-4 mt-2 flex items-center justify-center gap-1"
         style={{ color: priceColor }}
       >
         269.00
@@ -64,6 +64,7 @@ const Card = ({
             className="w-[27px] h-6"
           />
       </h2>
+      </Link>
 
       <div className="md:mt-6 mt-3 flex gap-3">
         {colors.map((bg, index) => (
@@ -84,7 +85,6 @@ const Card = ({
         ))}
       </div>
     </motion.div>
-    </Link>
   );
 };
 
