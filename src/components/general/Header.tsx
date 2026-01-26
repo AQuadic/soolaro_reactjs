@@ -97,7 +97,7 @@ const Header = ({ className }: HeaderProps) => {
             <ChangeLanguage />
             <Link
               to="/signin"
-              className="w-37.25 h-14 bg-[#FFFFFF33] rounded-4xl flex items-center justify-center gap-2"
+              className="px-8 h-14 bg-[#FFFFFF33] rounded-4xl flex items-center justify-center gap-2"
             >
               <User />
               <p className="text-[#0B0B0B] text-lg font-semibold">
