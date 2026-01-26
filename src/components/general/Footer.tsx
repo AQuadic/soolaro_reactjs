@@ -77,25 +77,25 @@ const Footer = () => {
               </h3>
               <Link
                 to="/"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("home")}
               </Link>
               <Link
                 to="/"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("best_seller")}
               </Link>
               <Link
                 to="/"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("new_arrival")}
               </Link>
               <Link
                 to="/"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("summer_collection")}
               </Link>
@@ -107,25 +107,25 @@ const Footer = () => {
               </h3>
               <Link
                 to="/profile"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("create_account")}
               </Link>
               <Link
                 to="/"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("my_orders")}
               </Link>
               <Link
                 to="/faq"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("faqs")}
               </Link>
               <Link
                 to="/contact_us"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("contact_us")}
               </Link>
@@ -165,13 +165,13 @@ const Footer = () => {
               </h3>
               <Link
                 to="/"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("privacy_policy")}
               </Link>
               <Link
                 to="/"
-                className="text-[#FEFEFE] md:text-base text-xs font-semibold"
+                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
               >
                 {t("terms_conditions")}
               </Link>
