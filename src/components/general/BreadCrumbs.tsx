@@ -40,7 +40,7 @@ const BreadCrumbs = ({ items, hideOnMobile = false }: BreadCrumbsProps) => {
                 <span
                   className={`text-sm md:text-[14px] ${
                     isLast
-                      ? "text-[#0B0B0B] font-medium"
+                      ? "text-[#3B3B3B] font-medium"
                       : "text-[#717171] font-normal"
                   }`}
                 >
