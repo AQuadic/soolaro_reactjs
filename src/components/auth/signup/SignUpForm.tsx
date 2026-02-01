@@ -31,7 +31,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <section className="container md:py-12">
+    <section className="container">
       <Link to="/" className="md:block hidden">
         <Logo />
       </Link>

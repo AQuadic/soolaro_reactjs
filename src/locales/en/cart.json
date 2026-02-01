@@ -17,5 +17,9 @@
     "checkout": "Check Out",
     "cart": "Cart",
     "yourCart": "Your Cart",
-    "youMayAlsoLike": "You may also like"
+    "youMayAlsoLike": "You may also like",
+    "remove_this_item": "Remove this Item?",
+    "are_you_sure_remove_item": "Do you really want to remove this item from your cart",
+    "remove": "Remove",
+    "cancel": "Cancel"
 }

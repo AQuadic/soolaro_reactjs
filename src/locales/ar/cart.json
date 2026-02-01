@@ -17,5 +17,9 @@
     "checkout": "الدفع",
     "cart": "السلة",
     "yourCart": "سلتك",
-    "youMayAlsoLike": "قد يعجبك أيضاً"
+    "youMayAlsoLike": "قد يعجبك أيضاً",
+    "remove_this_item": "هل تريد إزالة هذا المنتج؟",
+    "are_you_sure_remove_item": "هل أنت متأكد أنك تريد إزالة هذا المنتج من سلتك؟",
+    "remove": "إزالة",
+    "cancel": "إلغاء"
 }
