@@ -9,6 +9,10 @@ import MobileBackHeader from "../general/MobileBackHeader";
 import Plus from "../icons/product/Plus";
 import Minus from "../icons/product/Minus";
 import type { Product } from "@/lib/api/products/products";
+import toast from "react-hot-toast";
+import FavHeart from "../icons/product/FavHeart";
+import { useAuthStore } from "@/store/useAuthStore";
+import { toggleFavorite } from "@/lib/api/favorites/toggle";
 
 interface ProductDetailsHeaderProps {
   product: Product;
@@ -17,6 +21,9 @@ interface ProductDetailsHeaderProps {
 const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
   const { t, i18n } = useTranslation("product");
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(product.is_favorite || false);
+  const [loadingFavorite, setLoadingFavorite] = useState(false);
+  const isLoggedIn = useAuthStore((state) => state.isAuthenticated());
 
   const breadcrumbItems = [
     { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
@@ -25,6 +32,30 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
   ];
 
   const productImages = product.images.map(img => img.url);
+
+  const handleToggleFavorite = async () => {
+    if (!product.id) return;
+
+    if (!isLoggedIn) {
+      toast.error("You need to log in to add favorites");
+      return;
+    }
+
+    setLoadingFavorite(true);
+    try {
+      await toggleFavorite({
+        favorable_id: product.id,
+        favorable_type: "product",
+      });
+      setIsFavorite(!isFavorite);
+      toast.success(isFavorite ? "Removed from favorites" : "Added to favorites");
+    } catch (error: any) {
+      console.error(error);
+      toast.error("Failed to update favorite");
+    } finally {
+      setLoadingFavorite(false);
+    }
+  };
 
   return (
     <section className="w-full md:max-w-[1280px] md:mx-auto px-0 md:px-4">
@@ -36,18 +67,73 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
           {i18n.language === "ar" ? product.name.ar : product.name.en}
         </p>
       </Link>
-      <div className="md:my-10 flex flex-wrap items-center gap-8">
-        <div className="md:w-146 w-full md:h-130.75 h-93.75 bg-[#F6F6F6] md:rounded-[24px] flex flex-col items-center justify-around relative">
+      <div className="md:my-10 flex lg:flex-row flex-col items-center gap-8">
+        <div className="w-full md:h-130.75 h-93.75 bg-[#F6F6F6] md:rounded-[24px] flex flex-col items-center justify-around relative">
           <Image
             src={productImages[selectedImage]}
             alt={i18n.language === "ar" ? product.name.ar : product.name.en}
             className="w-full h-full object-cover"
           />
 
-          <div className="md:hidden block absolute top-3 right-3">
-            <MobileHeart />
-          </div>
+          {isLoggedIn && (
+            <div className="md:hidden block absolute top-3 right-3">
+              <button onClick={handleToggleFavorite} disabled={loadingFavorite}>
+                {isFavorite ? <FavHeart /> : <MobileHeart />}
+              </button>
+            </div>
+          )}
+
           <div className="flex items-center md:gap-6 gap-4 py-6">
+            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
+              <Image
+                src="/images/home/glass_41.png"
+                alt="glass"
+                className="w-16.25 h-16.25"
+              />
+            </div>
+            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
+              <Image
+                src="/images/home/glass_41.png"
+                alt="glass"
+                className="w-16.25 h-16.25"
+              />
+            </div>
+            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
+              <Image
+                src="/images/home/glass_42.png"
+                alt="glass"
+                className="w-16.25 h-16.25"
+              />
+            </div>
+            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
+              <Image
+                src="/images/home/glass_43.png"
+                alt="glass"
+                className="w-16.25 h-16.25"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="md:px-0 px-4 w-full">
+          <div className="flex flex-1 items-center justify-between">
+            <div className="flex flex-1 md:flex-col flex-row md:items-start items-center justify-between">
+              <h2 className="text-[#000000] md:text-2xl text-base font-semibold">
+                Liwa
+              </h2>
+              <p className="text-[#025D5B] md:text-[32px] text-xl font-medium leading-[100%] md:mt-6">
+                269.00
+              </p>
+            </div>
+            {isLoggedIn && (
+              <div className="md:block hidden">
+                <button onClick={handleToggleFavorite} disabled={loadingFavorite}>
+                  {isFavorite ? <FavHeart /> : <Heart />}
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="flex items-end md:gap-6 gap-4 md:mt-8 mt-6 mb-6">
             {productImages.map((img, index) => (
               <div
                 key={index}
@@ -62,22 +148,6 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
                 )}
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="md:px-0 px-4">
-          <div className="flex flex-1 items-center justify-between">
-            <div className="flex flex-1 md:flex-col flex-row md:items-start items-center justify-between">
-              <h2 className="text-[#000000] md:text-2xl text-base font-semibold">
-                {i18n.language === "ar" ? product.name.ar : product.name.en}
-              </h2>
-              <p className="text-[#025D5B] md:text-[32px] text-xl font-medium leading-[100%] md:mt-6">
-                {product.variants[0].final_price.toFixed(2)}
-              </p>
-            </div>
-            <div className="md:block hidden">
-              <Heart />
-            </div>
           </div>
 
           <div className="md:mt-6 mt-4 flex items-center gap-6">
