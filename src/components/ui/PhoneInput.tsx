@@ -65,7 +65,11 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       const byIso2 = countries.find((c) => c.iso2 === code);
       if (byIso2) return byIso2;
 
-      return getCountryByCode(value?.code) || countries[0];
+      return (
+        getCountryByCode(value?.code) ||
+        countries.find((c) => c.iso2 === "AE") ||
+        countries[0]
+      );
     }, [value]);
 
     // Get country name

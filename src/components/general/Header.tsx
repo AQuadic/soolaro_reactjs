@@ -12,6 +12,7 @@ import SidebarUser from "../icons/header/SidebarUser";
 import CategoryLogo from "../icons/category/Logo";
 import ChangeLanguage from "./ChangeLanguage";
 import { useTranslation } from "react-i18next";
+import { useAuthStore } from "../../store/useAuthStore";
 
 interface HeaderProps {
   className?: string;
@@ -19,6 +20,7 @@ interface HeaderProps {
 
 const Header = ({ className }: HeaderProps) => {
   const { t } = useTranslation("header");
+  const { user } = useAuthStore();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -96,12 +98,12 @@ const Header = ({ className }: HeaderProps) => {
             </Link>
             <ChangeLanguage />
             <Link
-              to="/signin"
+              to={user ? "/profile" : "/signin"}
               className="px-8 h-14 bg-[#FFFFFF33] rounded-4xl flex items-center justify-center gap-2"
             >
               <User />
               <p className="text-[#0B0B0B] text-lg font-semibold">
-                {t("login")}
+                {user ? user.name : t("login")}
               </p>
             </Link>
           </div>
@@ -137,7 +139,7 @@ const Header = ({ className }: HeaderProps) => {
             className="fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 lg:hidden"
           >
             <div className="p-8">
-              <Link to='/' className="mx-auto flex items-center justify-center">
+              <Link to="/" className="mx-auto flex items-center justify-center">
                 <MobileLogo />
               </Link>
               <nav className="flex flex-col items-center gap-2 my-6">
@@ -174,10 +176,10 @@ const Header = ({ className }: HeaderProps) => {
               <button className="w-53.75 h-12 bg-[#018884] rounded-4xl flex items-center justify-center gap-2 mx-auto mt-14.5">
                 <SidebarUser />
                 <Link
-                  to="/signin"
+                  to={user ? "/profile" : "/signin"}
                   className="text-[#FEFEFE] text-lg font-semibold leading-[100%]"
                 >
-                  {t("login")}
+                  {user ? user.name : t("login")}
                 </Link>
               </button>
 

@@ -84,7 +84,6 @@ const CartItem = ({ id, name, price, quantity, image }: CartItemProps) => {
 
   const handleRemove = () => {
     // Handle remove logic here
-    console.log("Remove item", id);
   };
 
   return (
@@ -169,10 +168,10 @@ const CartItem = ({ id, name, price, quantity, image }: CartItemProps) => {
             <p className="text-[#018884] font-medium text-lg underline underline-offset-4 decoration-1 flex items-center gap-1">
               {price.toFixed(2)}
               <img
-                  src="/images/currency.png"
-                  alt="currency"
-                  className="w-4.5 h-4.5"
-                />
+                src="/images/currency.png"
+                alt="currency"
+                className="w-4.5 h-4.5"
+              />
             </p>
           </div>
         </div>
@@ -189,10 +188,10 @@ const CartItem = ({ id, name, price, quantity, image }: CartItemProps) => {
           <p className="text-[#003D3B] font-bold text-xl flex items-center justify-end gap-1">
             {total.toFixed(2)}
             <img
-                src="/images/c_currency.png"
-                alt="c_currency"
-                className="w-4.5 h-4.5"
-              />
+              src="/images/c_currency.png"
+              alt="c_currency"
+              className="w-4.5 h-4.5"
+            />
           </p>
         </div>
       </div>
