@@ -1,7 +1,7 @@
-import Apple from "@/components/icons/auth/Apple";
+// import Apple from "@/components/icons/auth/Apple";
 import ClosedEye from "@/components/icons/auth/ClosedEye";
-import Facebook from "@/components/icons/auth/Facebook";
-import Google from "@/components/icons/auth/Google";
+// import Facebook from "@/components/icons/auth/Facebook";
+// import Google from "@/components/icons/auth/Google";
 import Logo from "@/components/icons/header/Logo";
 import { Link, useNavigate } from "react-router-dom";
 import MobileBackHeader from "@/components/general/MobileBackHeader";

@@ -8,7 +8,7 @@ import type { Product } from "@/lib/api/products/products";
 
 export interface ProductItem {
   image: string;
-  price: number;
+  // price: number;
   priceColor?: string;
   height?: string;
   product?: Product;
@@ -72,7 +72,6 @@ const ProductSlider = ({
             <SwiperSlide key={index}>
               <Card
                 image={product.image}
-                price={product.price}
                 priceColor={product.priceColor}
                 height={product.height}
                 product={product.product}

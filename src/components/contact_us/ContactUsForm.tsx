@@ -13,8 +13,8 @@ const ContactUsForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [error, ] = useState<string | null>(null);
+  const [success, ] = useState(false);
 
 
   const handleChange = (
