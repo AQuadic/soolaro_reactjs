@@ -8,23 +8,23 @@ import { Link } from "react-router-dom";
 import MobileBackHeader from "../general/MobileBackHeader";
 import Plus from "../icons/product/Plus";
 import Minus from "../icons/product/Minus";
+import type { Product } from "@/lib/api/products/products";
 
-const ProductDetailsHeader = () => {
-  const { t } = useTranslation("product");
+interface ProductDetailsHeaderProps {
+  product: Product;
+}
+
+const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
+  const { t, i18n } = useTranslation("product");
   const [selectedImage, setSelectedImage] = useState(0);
 
   const breadcrumbItems = [
     { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
     { nameEn: "Best Seller", nameAr: "الأكثر مبيعاً", Link: "/explore" },
-    { nameEn: "Liwa", nameAr: "تفاصيل ليوا", Link: "/product/liwa" },
+    { nameEn: product.name.en, nameAr: product.name.ar, Link: `/product_details/${product.id}` },
   ];
 
-  const productImages = [
-    "/images/home/glass_41.png",
-    "/images/home/glass1.png",
-    "/images/home/glass3.png",
-    "/images/home/glass_43.png",
-  ];
+  const productImages = product.images.map(img => img.url);
 
   return (
     <section className="w-full md:max-w-[1280px] md:mx-auto px-0 md:px-4">
@@ -33,67 +33,21 @@ const ProductDetailsHeader = () => {
       <Link to='/' className="md:hidden flex items-center gap-3 px-4">
         <MobileBackHeader />
         <p className="text-[#0B0B0B] text-base font-semibold mb-6">
-          Liwa Details
+          {i18n.language === "ar" ? product.name.ar : product.name.en}
         </p>
       </Link>
       <div className="md:my-10 flex flex-wrap items-center gap-8">
         <div className="md:w-146 w-full md:h-130.75 h-93.75 bg-[#F6F6F6] md:rounded-[24px] flex flex-col items-center justify-around relative">
           <Image
-            src="/images/home/glass4.png"
-            alt="glass"
-            className="h- w-full mt-32"
+            src={productImages[selectedImage]}
+            alt={i18n.language === "ar" ? product.name.ar : product.name.en}
+            className="w-full h-full object-cover"
           />
 
           <div className="md:hidden block absolute top-3 right-3">
             <MobileHeart />
           </div>
           <div className="flex items-center md:gap-6 gap-4 py-6">
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_41.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_41.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_42.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_43.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="md:px-0 px-4">
-          <div className="flex flex-1 items-center justify-between">
-            <div className="flex flex-1 md:flex-col flex-row md:items-start items-center justify-between">
-              <h2 className="text-[#000000] md:text-2xl text-base font-semibold">
-                Liwa
-              </h2>
-              <p className="text-[#025D5B] md:text-[32px] text-xl font-medium leading-[100%] md:mt-6">
-                269.00
-              </p>
-            </div>
-            <div className="md:block hidden">
-              <Heart />
-            </div>
-          </div>
-          <div className="flex items-end md:gap-6 gap-4 md:mt-8 mt-6 mb-6">
             {productImages.map((img, index) => (
               <div
                 key={index}
@@ -102,19 +56,34 @@ const ProductDetailsHeader = () => {
                   selectedImage === index ? "bg-[#F1F8F8]" : "bg-[#F6F6F6]"
                 }`}
               >
-                <Image src={img} alt="glass" />
+                <Image src={img} alt={product.name.en} />
                 {selectedImage === index && (
                   <div className="absolute -bottom-4 left-0 right-0 h-1 bg-[#018884] rounded-b-xl"></div>
                 )}
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="md:px-0 px-4">
+          <div className="flex flex-1 items-center justify-between">
+            <div className="flex flex-1 md:flex-col flex-row md:items-start items-center justify-between">
+              <h2 className="text-[#000000] md:text-2xl text-base font-semibold">
+                {i18n.language === "ar" ? product.name.ar : product.name.en}
+              </h2>
+              <p className="text-[#025D5B] md:text-[32px] text-xl font-medium leading-[100%] md:mt-6">
+                {product.variants[0].final_price.toFixed(2)}
+              </p>
+            </div>
+            <div className="md:block hidden">
+              <Heart />
+            </div>
+          </div>
 
           <div className="md:mt-6 mt-4 flex items-center gap-6">
             <p className="text-[#0B0B0B] md:text-base text-[10px] font-medium">
               Frame : <span className="text-[#3B3B3B] text-sm">Black</span>
             </p>
-
             <p className="text-[#0B0B0B] md:text-base text-[10px] font-medium">
               Lenses : <span className="text-[#3B3B3B] text-sm">Black</span>
             </p>
