@@ -22,6 +22,8 @@ import FAQPage from "./pages/FAQPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AddNewAddress from "./components/profile/Addresses/AddNewAddress";
 import EditAddress from "./components/profile/Addresses/EditAddress";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import GuestRoute from "./components/auth/GuestRoute";
 
 function App() {
   return (
@@ -36,7 +38,14 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contact_us" element={<ContactUsPage />} />
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/profile" element={<ProfilePage />}>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          >
             <Route path="info" element={<ProfileInfo />} />
             <Route path="orders" element={<Orders />} />
             <Route path="wishlist" element={<Wishlist />} />
@@ -52,11 +61,46 @@ function App() {
         </Route>
 
         <Route>
-          <Route path="signin" element={<SigninPage />} />
-          <Route path="signup" element={<SignUpPage />} />
-          <Route path="forget_password" element={<ForgetPasswordPage />} />
-          <Route path="otp" element={<OtpPage />} />
-          <Route path="new_password" element={<NewPasswordPage />} />
+          <Route
+            path="signin"
+            element={
+              <GuestRoute>
+                <SigninPage />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="signup"
+            element={
+              <GuestRoute>
+                <SignUpPage />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="forget_password"
+            element={
+              <GuestRoute>
+                <ForgetPasswordPage />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="otp"
+            element={
+              <GuestRoute>
+                <OtpPage />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="new_password"
+            element={
+              <GuestRoute>
+                <NewPasswordPage />
+              </GuestRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
