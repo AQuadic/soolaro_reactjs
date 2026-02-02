@@ -8,6 +8,8 @@
         "email_placeholder": "Enter your email",
         "message": "Message",
         "message_placeholder": "Enter your message",
-        "send": "Send"
+        "send": "Send",
+        "sending": "Sending...",
+        "success": "Your message has been sent successfully"
     }
 }

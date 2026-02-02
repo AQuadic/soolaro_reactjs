@@ -8,6 +8,8 @@
         "email_placeholder": "أدخل بريدك الإلكتروني",
         "message": "الرسالة",
         "message_placeholder": "أدخل رسالتك",
-        "send": "إرسال"
+        "send": "إرسال",
+        "sending": "جارٍ الإرسال...",
+        "success": "تم إرسال رسالتك بنجاح"
     }
 }

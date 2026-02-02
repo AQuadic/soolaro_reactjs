@@ -22,9 +22,12 @@ import FAQPage from "./pages/FAQPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AddNewAddress from "./components/profile/Addresses/AddNewAddress";
 import EditAddress from "./components/profile/Addresses/EditAddress";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
+    <>  
+    <Toaster position="top-center" />
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -60,6 +63,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 
