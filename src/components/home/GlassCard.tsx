@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Product } from "@/lib/api/products/products";
 import Heart from "../icons/product/Heart";
+import toast from "react-hot-toast";
+import { toggleFavorite } from "@/lib/api/favorites/toggle";
+import FavHeart from "../icons/product/FavHeart";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type CardProps = {
   image?: string;
@@ -24,7 +28,10 @@ const Card = ({
 }: CardProps) => {
   const { i18n } = useTranslation();
   const [selectedColor, setSelectedColor] = useState(0);
-  
+  const [isFavorite, setIsFavorite] = useState(product?.is_favorite || false);
+  const [loadingFavorite, setLoadingFavorite] = useState(false);
+  const isLoggedIn = useAuthStore((state) => state.isAuthenticated());
+
   const defaultColors = [
     "bg-[linear-gradient(135deg,#754B37_50%,#E98900_50%)]",
     "bg-[linear-gradient(135deg,#AE1111_50%,#232322_50%)]",
@@ -41,7 +48,6 @@ const Card = ({
   const originalPrice = product?.variants?.[0]?.price;
   const hasDiscount = product?.variants?.[0]?.has_discount;
   const productId = product?.id;
-  const isFavorite = product?.is_favorite;
 
   const getProductColors = () => {
     if (!product?.variants || product.variants.length === 0) {
@@ -72,7 +78,7 @@ const Card = ({
         }
         return colorAttr.value.special_value;
       }
-      
+
       return defaultColors[0];
     });
   };
@@ -82,6 +88,26 @@ const Card = ({
   const discountPercentage = hasDiscount && originalPrice 
     ? Math.round(((Number(originalPrice) - productPrice) / Number(originalPrice)) * 100)
     : 0;
+
+  const handleToggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!productId) return;
+
+    setLoadingFavorite(true);
+    try {
+      await toggleFavorite({
+        favorable_id: productId,
+        favorable_type: "product",
+      });
+      setIsFavorite(!isFavorite);
+      toast.success(isFavorite ? "Removed from favorites" : "Added to favorites");
+    } catch (error: any) {
+      console.error(error);
+      toast.error("Failed to update favorite");
+    } finally {
+      setLoadingFavorite(false);
+    }
+  };
 
   return (
       <motion.div
@@ -101,11 +127,15 @@ const Card = ({
           </motion.div>
         )}
 
-        {showHeart && (
-          <button className="absolute md:top-4 top-2 md:right-4 right-2 z-20">
-            <Heart />
-          </button>
-        )}
+      {showHeart && isLoggedIn && (
+        <button
+          onClick={handleToggleFavorite}
+          disabled={loadingFavorite}
+          className="absolute md:top-4 top-2 md:right-4 right-2 z-20"
+        >
+          {isFavorite ? <FavHeart /> : <Heart />}
+        </button>
+      )}
 
         <motion.img
           whileHover={{ scale: 1.1 }}
