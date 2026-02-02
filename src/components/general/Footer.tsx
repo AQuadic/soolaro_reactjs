@@ -4,9 +4,16 @@ import Phone from "../icons/footer/Phone";
 import Email from "../icons/footer/Email";
 import Clover from "../icons/footer/Clover";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { getPages, type Page } from "@/lib/api/pages";
 
 const Footer = () => {
-  const { t } = useTranslation("header");
+  const { t, i18n } = useTranslation("header");
+
+  const { data: pages = [] } = useQuery<Page[]>({
+    queryKey: ["pages"],
+    queryFn: getPages,
+  });
 
   return (
     <footer className="bg-[#018884]">
@@ -163,18 +170,15 @@ const Footer = () => {
               <h3 className="text-[#FEFEFE] md:text-2xl text-sm font-medium leading-[100%]">
                 {t("legal")}
               </h3>
-              <Link
-                to="/"
-                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
-              >
-                {t("privacy_policy")}
-              </Link>
-              <Link
-                to="/"
-                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
-              >
-                {t("terms_conditions")}
-              </Link>
+              {pages.map((page) => (
+                <Link
+                  key={page.id}
+                  to={`/page/${page.id}`}
+                  className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
+                >
+                  {page.title[i18n.language as "en" | "ar"]}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

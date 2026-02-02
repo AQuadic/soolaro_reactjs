@@ -25,6 +25,7 @@ import EditAddress from "./components/profile/Addresses/EditAddress";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import GuestRoute from "./components/auth/GuestRoute";
+import PageDetail from "./pages/PageDetail";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contact_us" element={<ContactUsPage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/page/:id" element={<PageDetail />} />
           <Route
             path="/profile"
             element={
