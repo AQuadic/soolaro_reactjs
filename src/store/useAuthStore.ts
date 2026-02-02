@@ -11,32 +11,41 @@ interface AuthState {
   // State
   user: User | null;
   error: string | null;
+  isInitialized: boolean;
 
-  // Computed (based on token)
+  // Computed (based on token and user)
   isAuthenticated: () => boolean;
 
   // Actions
   setUser: (user: User | null) => void;
   setError: (error: string | null) => void;
+  setInitialized: (initialized: boolean) => void;
   logout: () => void;
   clearError: () => void;
   refetchUser: () => Promise<void>;
+  initializeAuth: () => Promise<void>;
 }
 
 /**
  * Auth store (Zustand)
  *
- * NOTE: This store intentionally does NOT persist the `user` object to
- * localStorage. The app will fetch fresh user data on each page refresh
- * via `AuthProvider` which calls `getCurrentUser()` if a token exists.
+ * NOTE: This store intentionally does NOT persist the `user` object.
+ * The authentication token is stored in cookies (managed by axios.ts).
+ * The app will fetch fresh user data on each page refresh via `AuthProvider`
+ * which calls `getCurrentUser()` (POST /user/user) if a token exists in cookies.
  */
-export const useAuthStore = create<AuthState>()((set) => ({
+export const useAuthStore = create<AuthState>()((set, get) => ({
   // Initial state
   user: null,
   error: null,
+  isInitialized: false,
 
-  // Check if authenticated based on token presence
-  isAuthenticated: () => !!getToken(),
+  // Check if authenticated based on both token AND user data
+  isAuthenticated: () => {
+    const token = getToken();
+    const { user } = get();
+    return !!(token && user);
+  },
 
   // Actions
   setUser: (user) => {
@@ -45,6 +54,10 @@ export const useAuthStore = create<AuthState>()((set) => ({
 
   setError: (error) => {
     set({ error });
+  },
+
+  setInitialized: (initialized) => {
+    set({ isInitialized: initialized });
   },
 
   clearError: () => {
@@ -59,10 +72,32 @@ export const useAuthStore = create<AuthState>()((set) => ({
     if (!token) return;
 
     try {
-      const { user } = await getCurrentUser();
+      const user = await getCurrentUser();
       set({ user });
     } catch {
       // Silent fail - user stays as is
+    }
+  },
+
+  /**
+   * Initialize auth on app mount - fetches user data if token exists
+   */
+  initializeAuth: async () => {
+    const token = getToken();
+
+    if (!token) {
+      set({ user: null, isInitialized: true });
+      return;
+    }
+
+    try {
+      const user = await getCurrentUser();
+      set({ user, isInitialized: true });
+    } catch (error) {
+      // Token is invalid or expired
+      console.error("Failed to initialize auth:", error);
+      removeToken();
+      set({ user: null, isInitialized: true });
     }
   },
 
@@ -77,19 +112,9 @@ export const useAuthStore = create<AuthState>()((set) => ({
       // ignore - best-effort
     }
 
-    // Remove stored auth token(s)
+    // Remove stored auth token from cookies
     try {
       removeToken();
-    } catch {
-      // ignore
-    }
-    try {
-      localStorage.removeItem("token");
-    } catch {
-      // ignore
-    }
-    try {
-      localStorage.removeItem("soolaro_token");
     } catch {
       // ignore
     }

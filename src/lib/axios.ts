@@ -4,16 +4,43 @@ import Axios, {
   type AxiosError,
 } from "axios";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 import { useAuthStore } from "../store/useAuthStore";
 import i18n from "../i18n";
 
 const TOKEN_KEY = "soolaro_token";
 const API_BASE_URL = "https://dev.soolaro.ae/api";
 
-/** Get the stored token - checks localStorage first, then sessionStorage */
+/**
+ * Migrate token from localStorage to cookies (one-time migration)
+ */
+const migrateTokenToCookies = (): void => {
+  if (typeof window === "undefined") return;
+
+  // Check if token exists in cookies already
+  const cookieToken = Cookies.get(TOKEN_KEY);
+  if (cookieToken) {
+    return;
+  }
+
+  // Check for token in localStorage
+  const localStorageToken =
+    localStorage.getItem(TOKEN_KEY) || localStorage.getItem("token");
+  if (localStorageToken) {
+    Cookies.set(TOKEN_KEY, localStorageToken, { expires: 30, sameSite: "Lax" });
+    // Clean up old localStorage tokens
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem("token");
+  }
+};
+
+// Run migration on module load
+migrateTokenToCookies();
+
+/** Get the stored token from cookies */
 export const getToken = (): string | undefined => {
   if (typeof window === "undefined") return undefined;
-  return localStorage.getItem(TOKEN_KEY) ?? undefined;
+  return Cookies.get(TOKEN_KEY);
 };
 
 // A set of endpoint substrings for which we should NOT show API-toasts
@@ -23,16 +50,16 @@ export const addToastExcludeEndpoint = (endpoint: string) => {
   toastExcludedEndpoints.add(endpoint);
 };
 
-/** Save the token to localStorage */
+/** Save the token to cookies (expires in 30 days) */
 export const setToken = (token: string): void => {
   if (typeof window === "undefined") return;
-  localStorage.setItem(TOKEN_KEY, token);
+  Cookies.set(TOKEN_KEY, token, { expires: 30, sameSite: "Lax" });
 };
 
-/** Remove the token from localStorage */
+/** Remove the token from cookies */
 export const removeToken = (): void => {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(TOKEN_KEY);
+  Cookies.remove(TOKEN_KEY);
 };
 
 function authRequestInterceptor(

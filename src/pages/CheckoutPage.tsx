@@ -59,12 +59,6 @@ const CheckoutPage = () => {
   const handlePlaceOrder = () => {
     setIsProcessing(true);
     // Add order placement logic here
-    console.log("Placing order...", {
-      contactInfo,
-      shippingAddress,
-      subtotal,
-      shippingCost,
-    });
     // Simulate API call
     setTimeout(() => {
       setIsProcessing(false);
@@ -84,7 +78,9 @@ const CheckoutPage = () => {
         >
           <ChevronLeft className="w-6 h-6 text-[#0B0B0B]" />
         </button>
-        <h1 className="text-[#0B0B0B] text-base font-semibold">{t("checkout")}</h1>
+        <h1 className="text-[#0B0B0B] text-base font-semibold">
+          {t("checkout")}
+        </h1>
       </div>
 
       {/* Desktop Layout */}

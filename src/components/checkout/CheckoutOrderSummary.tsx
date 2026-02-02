@@ -32,7 +32,6 @@ export const CheckoutOrderSummary = ({
   const handleApplyCoupon = () => {
     // Simple validation - replace with actual coupon validation logic
     if (couponCode.trim().length > 0) {
-      console.log("Applying coupon:", couponCode);
       // Add coupon application logic here
     }
   };
@@ -82,7 +81,7 @@ export const CheckoutOrderSummary = ({
             <div className="flex flex-col gap-3">
               <div className="flex justify-between items-center">
                 <span className="text-[#3B3B3B] text-xs md:text-base font-medium">
-                  {t('subTotal')}:
+                  {t("subTotal")}:
                 </span>
                 <div className="flex items-center gap-1">
                   <span className="text-[#0B0B0B] text-sm md:text-base font-medium flex">
@@ -98,7 +97,7 @@ export const CheckoutOrderSummary = ({
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[#3B3B3B] text-xs md:text-base font-medium">
-                  {t('shippingCost')}:
+                  {t("shippingCost")}:
                 </span>
                 <div className="flex items-center gap-1">
                   <span className="text-[#0B0B0B] text-sm md:text-base font-medium flex">
@@ -120,16 +119,16 @@ export const CheckoutOrderSummary = ({
             {/* Total */}
             <div className="flex justify-between items-center">
               <span className="text-[#0B0B0B] text-sm md:text-base font-medium">
-                {t('total')}:
+                {t("total")}:
               </span>
               <div className="flex items-center gap-1">
                 <span className="text-[#025D5B] text-base md:text-xl font-semibold flex">
                   {total.toFixed(2)}
                   <img
-                      src="/images/c_currency.png"
-                      alt="currecy"
-                      className="w-[27px] h-6"
-                    />
+                    src="/images/c_currency.png"
+                    alt="currecy"
+                    className="w-[27px] h-6"
+                  />
                 </span>
                 <DirhamIcon className="w-4 h-3.5 md:w-[22.5px] md:h-5" />
               </div>

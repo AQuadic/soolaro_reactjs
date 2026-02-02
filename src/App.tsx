@@ -29,86 +29,96 @@ import PageDetail from "./pages/PageDetail";
 
 function App() {
   return (
-    <>  
-    <Toaster position="top-center" />
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/explore" element={<ExploreProductsPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/product_details/:id" element={<ProductDetailsPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/contact_us" element={<ContactUsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-          <Route path="/page/:id" element={<PageDetail />} />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            }
-          >
-            <Route path="info" element={<ProfileInfo />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="wishlist" element={<Wishlist />} />
-            <Route path="addresses" element={<Addresses />} />
-            <Route path="change_password" element={<ChangePassword />} />
-            <Route path="add_address" element={<AddNewAddress />} />
-            <Route path="edit_address" element={<EditAddress />} />
+    <>
+      <Toaster position="top-center" />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/explore" element={<ExploreProductsPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route
+              path="/checkout"
+              element={
+                <ProtectedRoute>
+                  <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/product_details/:id"
+              element={<ProductDetailsPage />}
+            />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contact_us" element={<ContactUsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/page/:id" element={<PageDetail />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="info" element={<ProfileInfo />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="wishlist" element={<Wishlist />} />
+              <Route path="addresses" element={<Addresses />} />
+              <Route path="change_password" element={<ChangePassword />} />
+              <Route path="add_address" element={<AddNewAddress />} />
+              <Route path="edit_address" element={<EditAddress />} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route path="/category" element={<Layout hideHeader={true} />}>
-          <Route index element={<CategoryPage />} />
-        </Route>
+          <Route path="/category" element={<Layout hideHeader={true} />}>
+            <Route index element={<CategoryPage />} />
+          </Route>
 
-        <Route>
-          <Route
-            path="signin"
-            element={
-              <GuestRoute>
-                <SigninPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="signup"
-            element={
-              <GuestRoute>
-                <SignUpPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="forget_password"
-            element={
-              <GuestRoute>
-                <ForgetPasswordPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="otp"
-            element={
-              <GuestRoute>
-                <OtpPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="new_password"
-            element={
-              <GuestRoute>
-                <NewPasswordPage />
-              </GuestRoute>
-            }
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route>
+            <Route
+              path="signin"
+              element={
+                <GuestRoute>
+                  <SigninPage />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="signup"
+              element={
+                <GuestRoute>
+                  <SignUpPage />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="forget_password"
+              element={
+                <GuestRoute>
+                  <ForgetPasswordPage />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="otp"
+              element={
+                <GuestRoute>
+                  <OtpPage />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="new_password"
+              element={
+                <GuestRoute>
+                  <NewPasswordPage />
+                </GuestRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

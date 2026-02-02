@@ -51,8 +51,8 @@ const CartSummary = ({
               couponStatus === "error"
                 ? "border-[#C30000]"
                 : couponStatus === "success"
-                ? "border-[#2A6F02]"
-                : "border-[#EAEAEA]"
+                  ? "border-[#2A6F02]"
+                  : "border-[#EAEAEA]"
             }`}
           >
             <input
@@ -67,8 +67,8 @@ const CartSummary = ({
                 couponStatus === "success"
                   ? "text-[#2A6F02]"
                   : couponStatus === "error"
-                  ? "text-[#C30000]"
-                  : "text-[#0B0B0B]"
+                    ? "text-[#C30000]"
+                    : "text-[#0B0B0B]"
               }`}
             />
           </div>
@@ -79,8 +79,8 @@ const CartSummary = ({
               couponStatus === "success"
                 ? "bg-[#2A6F02] text-white border-[#2A6F02]"
                 : couponStatus === "error"
-                ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
-                : "bg-[#EDEDED] text-[#3B3B3B] border-[#EAEAEA]"
+                  ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
+                  : "bg-[#EDEDED] text-[#3B3B3B] border-[#EAEAEA]"
             }`}
           >
             {couponStatus === "success" ? t("applied") : t("apply")}
@@ -130,7 +130,9 @@ const CartSummary = ({
       <div className="w-full h-[1px] bg-[#EAEAEA] mb-6"></div>
 
       <div className="flex justify-between items-center mb-8">
-        <span className="text-[#0B0B0B] text-xl font-medium">{t("total")}:</span>
+        <span className="text-[#0B0B0B] text-xl font-medium">
+          {t("total")}:
+        </span>
         <span className="text-[#005B58] text-2xl font-bold flex items-center gap-1">
           {total.toFixed(2)}
           <img
@@ -149,10 +151,7 @@ const CartSummary = ({
           {t("checkout")}
         </button>
       ) : (
-        <LoginRequiredPopup
-          isLoggedIn={false}
-          onProceed={() => console.log("Proceed to checkout")}
-        >
+        <LoginRequiredPopup isLoggedIn={false} onProceed={() => {}}>
           <button className="w-full bg-[#018884] hover:bg-[#006F6C] text-white md:text-xl text-base md:font-bold font-semibold md:py-4 py-2 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer">
             {t("checkout")}
           </button>

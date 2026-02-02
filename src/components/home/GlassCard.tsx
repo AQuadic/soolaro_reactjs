@@ -39,11 +39,13 @@ const Card = ({
     "bg-[linear-gradient(135deg,#6A6A6A_50%,#0F0F0F_50%)]",
   ];
 
-  const productImage = product?.image?.url || image || "/images/home/glass1.png";
-  const productName = product 
-    ? (product.name[i18n.language as keyof typeof product.name] || product.name.en)
+  const productImage =
+    product?.image?.url || image || "/images/home/glass1.png";
+  const productName = product
+    ? product.name[i18n.language as keyof typeof product.name] ||
+      product.name.en
     : "";
-  
+
   const productPrice = Number(product?.variants?.[0]?.final_price || 0);
   const originalPrice = product?.variants?.[0]?.price;
   const hasDiscount = product?.variants?.[0]?.has_discount;
@@ -55,9 +57,11 @@ const Card = ({
     }
 
     const colorVariants = product.variants
-      .filter(variant => {
+      .filter((variant) => {
         const colorAttr = variant.attributes.find(
-          attr => attr.attribute.type === "color" || attr.attribute.name.en.toLowerCase().includes("color")
+          (attr) =>
+            attr.attribute.type === "color" ||
+            attr.attribute.name.en.toLowerCase().includes("color"),
         );
         return colorAttr !== undefined;
       })
@@ -67,13 +71,15 @@ const Card = ({
       return defaultColors;
     }
 
-    return colorVariants.map(variant => {
+    return colorVariants.map((variant) => {
       const colorAttr = variant.attributes.find(
-        attr => attr.attribute.type === "color" || attr.attribute.name.en.toLowerCase().includes("color")
+        (attr) =>
+          attr.attribute.type === "color" ||
+          attr.attribute.name.en.toLowerCase().includes("color"),
       );
-      
+
       if (colorAttr?.value.special_value) {
-        if (colorAttr.value.special_value.startsWith('#')) {
+        if (colorAttr.value.special_value.startsWith("#")) {
           return `bg-[${colorAttr.value.special_value}]`;
         }
         return colorAttr.value.special_value;
@@ -85,11 +91,17 @@ const Card = ({
 
   const colors = getProductColors();
 
-  const discountPercentage = hasDiscount && originalPrice 
-    ? Math.round(((Number(originalPrice) - productPrice) / Number(originalPrice)) * 100)
-    : 0;
+  const discountPercentage =
+    hasDiscount && originalPrice
+      ? Math.round(
+          ((Number(originalPrice) - productPrice) / Number(originalPrice)) *
+            100,
+        )
+      : 0;
 
-  const handleToggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggleFavorite = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
     if (!productId) return;
 
@@ -100,7 +112,9 @@ const Card = ({
         favorable_type: "product",
       });
       setIsFavorite(!isFavorite);
-      toast.success(isFavorite ? "Removed from favorites" : "Added to favorites");
+      toast.success(
+        isFavorite ? "Removed from favorites" : "Added to favorites",
+      );
     } catch (error: any) {
       console.error(error);
       toast.error("Failed to update favorite");
@@ -110,41 +124,45 @@ const Card = ({
   };
 
   return (
-      <motion.div
+    <motion.div
       className="flex flex-col items-center justify-center cursor-pointer group"
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
     >
-    <Link to={productId ? `/product_details/${productId}` : '/product_details'}>
-      <div className="bg-[#F6F6F6] rounded-4xl flex items-center justify-center relative overflow-hidden">
-        {hasDiscount && discountPercentage > 0 && (
-          <motion.div
-            initial={{ scale: 0, rotate: -12 }}
-            animate={{ scale: 1, rotate: -12 }}
-            className="absolute md:top-4 top-2 md:left-4 left-2 z-20 bg-gradient-to-r from-red-500 to-red-600 text-white md:px-3 px-2 md:py-1.5 py-1 rounded-full shadow-lg"
-          >
-            <span className="md:text-sm text-xs font-bold">-{discountPercentage}%</span>
-          </motion.div>
-        )}
+      <Link
+        to={productId ? `/product_details/${productId}` : "/product_details"}
+      >
+        <div className="bg-[#F6F6F6] rounded-4xl flex items-center justify-center relative overflow-hidden">
+          {hasDiscount && discountPercentage > 0 && (
+            <motion.div
+              initial={{ scale: 0, rotate: -12 }}
+              animate={{ scale: 1, rotate: -12 }}
+              className="absolute md:top-4 top-2 md:left-4 left-2 z-20 bg-gradient-to-r from-red-500 to-red-600 text-white md:px-3 px-2 md:py-1.5 py-1 rounded-full shadow-lg"
+            >
+              <span className="md:text-sm text-xs font-bold">
+                -{discountPercentage}%
+              </span>
+            </motion.div>
+          )}
 
-      {showHeart && isLoggedIn && (
-        <button
-          onClick={handleToggleFavorite}
-          disabled={loadingFavorite}
-          className="absolute md:top-4 top-2 md:right-4 right-2 z-20"
-        >
-          {isFavorite ? <FavHeart /> : <Heart />}
-        </button>
-      )}
+          {showHeart && isLoggedIn && (
+            <button
+              onClick={handleToggleFavorite}
+              disabled={loadingFavorite}
+              className="absolute md:top-4 top-2 md:right-4 right-2 z-20"
+            >
+              {isFavorite ? <FavHeart /> : <Heart />}
+            </button>
+          )}
 
-        <motion.img
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.5 }}
-          src={productImage}
-          alt={productName}
-          className={`${width} ${height} object-cover z-10`}
-        />
-        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          <motion.img
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            src={productImage}
+            alt={productName}
+            className={`${width} ${height} object-cover z-10`}
+          />
+          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
           {product?.variants?.[0]?.is_out_of_stock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-15">
               <span className="text-white font-bold md:text-xl text-base bg-red-600 px-4 py-2 rounded-lg">
@@ -152,11 +170,11 @@ const Card = ({
               </span>
             </div>
           )}
-      </div>
+        </div>
 
-      <h2 className="text-[#000000] md:text-xl text-xs font-medium mt-4 text-center">
-        {productName}
-      </h2>
+        <h2 className="text-[#000000] md:text-xl text-xs font-medium mt-4 text-center">
+          {productName}
+        </h2>
 
         <div className="flex items-center justify-center gap-2 md:mt-4 mt-2">
           <h2
@@ -170,7 +188,7 @@ const Card = ({
               className="w-[27px] h-6"
             />
           </h2>
-          
+
           {hasDiscount && originalPrice && (
             <h2 className="md:text-lg text-sm font-medium leading-[100%] flex items-center gap-1 text-gray-400 line-through">
               {originalPrice.toFixed(2)}
@@ -193,7 +211,7 @@ const Card = ({
               e.preventDefault();
               setSelectedColor(index);
               if (product?.variants?.[index]) {
-                console.log("Selected variant:", product.variants[index]);
+                // Handle variant selection
               }
             }}
             className={`
@@ -206,8 +224,8 @@ const Card = ({
               transition-all duration-200 hover:scale-110
             `}
             style={
-              bg.startsWith('bg-[') && !bg.includes('linear-gradient')
-                ? { backgroundColor: bg.replace('bg-[', '').replace(']', '') }
+              bg.startsWith("bg-[") && !bg.includes("linear-gradient")
+                ? { backgroundColor: bg.replace("bg-[", "").replace("]", "") }
                 : {}
             }
           />

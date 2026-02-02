@@ -1,12 +1,30 @@
 import { axios } from "../axios";
 
 export interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
-  phone?: string;
-  avatar?: string;
-  // Add other user fields as needed
+  email_verified_at: string | null;
+  phone: string | null;
+  phone_country: string | null;
+  phone_normalized: string | null;
+  phone_national: string | null;
+  phone_e164: string | null;
+  phone_verified_at: string | null;
+  language: string;
+  created_at: string;
+  updated_at: string;
+  city_id: number | null;
+  created_by: string;
+  country_id: number | null;
+  deleted_at: string | null;
+  is_active: number;
+  tenant_id: number | null;
+  blocked_until: string | null;
+  gender: string | null;
+  birthday: string | null;
+  unread_notifications_count: number;
+  image: string | null;
 }
 
 export interface LoginCredentials {
@@ -63,8 +81,8 @@ export const logout = async (): Promise<void> => {
  * Get current user data
  * POST /user/user
  */
-export const getCurrentUser = async (): Promise<{ user: User }> => {
-  const { data } = await axios.post<{ user: User }>("/user/user");
+export const getCurrentUser = async (): Promise<User> => {
+  const { data } = await axios.post<User>("/user/user");
   return data;
 };
 
