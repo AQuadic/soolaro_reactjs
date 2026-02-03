@@ -2,9 +2,20 @@ import MobileBackHeader from "@/components/general/MobileBackHeader";
 import Card from "@/components/home/GlassCard";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { getFavorites, type FavoriteItem } from "@/lib/api/favorites/getFavorites";
+import { Skeleton } from "@/components/ui/skeleton";
+import WhishlistEmptyState from "./WishlistEmptyState";
 
 const Wishlist = () => {
-    const { t } = useTranslation("profile");
+  const { t } = useTranslation("profile");
+
+  const { data: favorites, isLoading } = useQuery<FavoriteItem[]>({
+    queryKey: ["favorites"],
+    queryFn: getFavorites,
+  });
+
+  const skeletons = Array.from({ length: 6 });
 
     return (
         <section className="container">
@@ -19,13 +30,28 @@ const Wishlist = () => {
             </p>
         </Link>
 
-        <div className="grid md:grid-cols-3 grid-cols-2 gap-8">
-            <Card
-            image="/images/home/glass_41.png"
-            showHeart
-            height="258px"
-            />
-        </div>
+        {isLoading ? (
+            <div className="grid md:grid-cols-3 grid-cols-2 gap-8">
+            {skeletons.map((_, index) => (
+                <div key={index} className="h-[258px] w-full rounded-4xl overflow-hidden">
+                <Skeleton className="h-full w-full" />
+                </div>
+            ))}
+            </div>
+        ) : favorites && favorites.length > 0 ? (
+            <div className="grid md:grid-cols-3 grid-cols-2 gap-8">
+            {favorites.map((item) => (
+                <Card
+                key={item.id}
+                showHeart
+                height="258px"
+                product={item.favorable}
+                />
+            ))}
+            </div>
+        ) : (
+            <WhishlistEmptyState />
+        )}
         </section>
     );
 };
