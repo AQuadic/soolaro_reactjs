@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import MobileBackHeader from "../general/MobileBackHeader";
 import { PhoneInput, type PhoneValue } from "../ui/PhoneInput";
 import { useEffect, useState } from "react";
@@ -49,11 +49,16 @@ const ProfileInfo = () => {
       const payload: Record<string, any> = {
         name: formData.name,
         email: formData.email,
-        phone_e164:
-          formData.phone && typeof formData.phone !== "string"
-            ? formData.phone.e164 || null
-            : formData.phone || null,
       };
+
+      if (formData.phone && typeof formData.phone !== "string") {
+        payload.phone_e164 = formData.phone.e164 || null;
+        payload.phone_country = formData.phone.countryCode || null;
+        payload.phone_national = formData.phone.national || null;
+        payload.phone_normalized = formData.phone.e164 || null;
+      } else {
+        payload.phone_e164 = formData.phone || null;
+      }
 
       if (formData.password) {
         payload.password = formData.password;
@@ -72,7 +77,7 @@ const ProfileInfo = () => {
     }
   };
 
-    return (
+  return (
         <section className="mb-12">
             <div className="md:flex hidden items-center justify-between">
                 <h1 className="text-[#0B0B0B] text-[40px] font-semibold leading-[100%]">
