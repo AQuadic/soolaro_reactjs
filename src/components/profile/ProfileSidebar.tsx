@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import User from "../icons/header/User";
 
@@ -25,9 +25,17 @@ import {
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { Image } from "@/components/ui/image";
 import { useTranslation } from "react-i18next";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const ProfileSidebar = () => {
-  const { t } = useTranslation('profile');
+  const { t } = useTranslation("profile");
+  const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/", { replace: true });
+  };
 
   const menu = [
     {
@@ -116,6 +124,7 @@ const ProfileSidebar = () => {
               </DialogClose>
               <button
                 type="button"
+                onClick={handleLogout}
                 className="w-full h-14 bg-[#018884] rounded-4xl md:mt-8 text-[#FEFEFE] text-base font-bold"
               >
                 {t("logOut")}
@@ -127,6 +136,5 @@ const ProfileSidebar = () => {
     </div>
   );
 };
-
 
 export default ProfileSidebar;

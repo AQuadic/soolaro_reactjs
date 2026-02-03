@@ -12,6 +12,7 @@ interface AuthState {
   user: User | null;
   error: string | null;
   isInitialized: boolean;
+  isLoggingOut: boolean;
 
   // Computed (based on token and user)
   isAuthenticated: () => boolean;
@@ -20,7 +21,7 @@ interface AuthState {
   setUser: (user: User | null) => void;
   setError: (error: string | null) => void;
   setInitialized: (initialized: boolean) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
   clearError: () => void;
   refetchUser: () => Promise<void>;
   initializeAuth: () => Promise<void>;
@@ -39,6 +40,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   user: null,
   error: null,
   isInitialized: false,
+  isLoggingOut: false,
 
   // Check if authenticated based on both token AND user data
   isAuthenticated: () => {
@@ -104,12 +106,19 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   /**
    * Logout the current user
    */
-  logout: () => {
-    // Attempt server-side logout
-    try {
-      logoutApi();
-    } catch {
-      // ignore - best-effort
+  logout: async () => {
+    if (get().isLoggingOut) return;
+    set({ isLoggingOut: true });
+
+    const token = getToken();
+
+    // Attempt server-side logout only if we have a token
+    if (token) {
+      try {
+        await logoutApi();
+      } catch {
+        // ignore - best-effort
+      }
     }
 
     // Remove stored auth token from cookies
@@ -128,6 +137,6 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     }
 
     delete axios.defaults.headers.common["Authorization"];
-    set({ user: null, error: null });
+    set({ user: null, error: null, isLoggingOut: false });
   },
 }));

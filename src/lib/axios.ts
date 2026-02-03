@@ -173,6 +173,11 @@ axios.interceptors.response.use(
 
     // Handle 401 Unauthorized: logout and redirect to signin
     if (error.response?.status === 401) {
+      // Prevent infinite loop if the logout request itself fails with 401
+      if (errUrl.includes("/user/logout")) {
+        return Promise.reject(error);
+      }
+
       try {
         // FCM token removal is handled in the logout method of useAuthStore
 
