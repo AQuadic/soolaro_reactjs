@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import MobileBackHeader from "../general/MobileBackHeader";
 import { PhoneInput, type PhoneValue } from "../ui/PhoneInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const ProfileInfo = () => {
   const { t } = useTranslation("profile");
+  const user = useAuthStore((state) => state.user);
     const [formData, setFormData] = useState<{
     name: string;
     phone: PhoneValue | string;
@@ -18,6 +20,17 @@ const ProfileInfo = () => {
     email: "",
     password: "",
     });
+
+  useEffect(() => {
+    if (!user) return;
+
+    setFormData({
+      name: user.name ?? "",
+      email: user.email ?? "",
+      phone: user.phone_e164 ?? "",
+      password: "",
+    });
+  }, [user]);
 
   const onChange = (field: "name" | "phone" | "email" | "password", value: string | PhoneValue) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -47,7 +60,6 @@ const ProfileInfo = () => {
                     </label>
                     <input
                         type="text"
-                        name="name"
                         className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
                         placeholder={t("namePlaceholder")}
                         value={formData.name}
@@ -70,8 +82,7 @@ const ProfileInfo = () => {
                         {t("email")}
                     </label>
                     <input
-                        type="text"
-                        name="email"
+                        type="email"
                         className="w-full h-14 border border-[#DEDDDD] rounded-4xl mt-3 px-4"
                         placeholder={t("emailPlaceholder")}
                         value={formData.email}
@@ -80,7 +91,7 @@ const ProfileInfo = () => {
                 </div>
 
                 <Dialog>
-                    <DialogTrigger className="w-full">
+                    <DialogTrigger asChild className="w-full">
                         <button className="w-full h-14 bg-[#018884] rounded-4xl mt-8 text-[#FEFEFE] text-lg font-bold">
                         {t("saveChanges")}
                         </button>
@@ -96,7 +107,7 @@ const ProfileInfo = () => {
                             {t("profileUpdated")}
                         </DialogTitle>
 
-                        <DialogFooter className="sm:justify-start mt-10">
+                        <DialogFooter className="sm:justify-start mt-10 gap-4">
                             <DialogClose asChild>
                                 <button type="button" className="w-full h-14 border border-[#DEDDDD] rounded-4xl text-[#3B3B3B] text-base font-bold">
                                     {t("cancel")}
