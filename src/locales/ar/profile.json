@@ -42,5 +42,18 @@
     "save": "حفظ",
     "addressAddedSuccess": "تمت إضافة العنوان الجديد بنجاح.",
     "addressEmptyStateAlt": "صورة حالة عدم وجود عناوين",
-    "noAddressesYet": "لم تقم بإضافة أي عناوين بعد."
+    "noAddressesYet": "لم تقم بإضافة أي عناوين بعد.",
+    "title": "تغيير كلمة المرور",
+    "oldPassword": "كلمة المرور القديمة",
+    "enterOldPassword": "ادخل كلمة المرور الخاصة بك",
+    "newPassword": "كلمة المرور الجديدة",
+    "enterNewPassword": "ادخل كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "enterConfirmPassword": "ادخل تأكيد كلمة المرور",
+    "saving": "جارٍ الحفظ...",
+    "fillAllFields": "يرجى ملء جميع الحقول",
+    "passwordMismatch": "كلمة المرور الجديدة وتأكيدها غير متطابقين",
+    "success": "تم تغيير كلمة المرور بنجاح",
+    "failed": "فشل في تغيير كلمة المرور",
+    "successDialogTitle": "تم تغيير كلمة المرور الخاصة بك بنجاح."
 }

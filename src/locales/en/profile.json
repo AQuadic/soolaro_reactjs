@@ -42,5 +42,18 @@
     "save": "Save",
     "addressAddedSuccess": "New address has been added successfully.",
     "addressEmptyStateAlt": "Address empty state illustration",
-    "noAddressesYet": "You haven’t added any addresses yet."
+    "noAddressesYet": "You haven’t added any addresses yet.",
+    "title": "Change Password",
+    "oldPassword": "Old Password",
+    "enterOldPassword": "Enter your password",
+    "newPassword": "New Password",
+    "enterNewPassword": "Enter your password",
+    "confirmNewPassword": "Confirm New Password",
+    "enterConfirmPassword": "Enter your password",
+    "saving": "Saving...",
+    "fillAllFields": "Please fill in all fields",
+    "passwordMismatch": "New password and confirmation do not match",
+    "success": "Password changed successfully",
+    "failed": "Failed to change password",
+    "successDialogTitle": "Your password has been changed successfully."
 }
