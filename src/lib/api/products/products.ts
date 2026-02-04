@@ -8,6 +8,7 @@ export interface GetProductsParams {
   sort_order?: SortOrder;
   only_discount?: boolean;
   is_featured?: boolean;
+  is_top_rated?: boolean;
   page?: number;
 }
 

@@ -20,7 +20,9 @@ interface ProductDetailsHeaderProps {
 
 const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
   const { t, i18n } = useTranslation("product");
-  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const selectedVariant = product.variants?.[selectedVariantIndex];
   const [isFavorite, setIsFavorite] = useState(product.is_favorite || false);
   const [loadingFavorite, setLoadingFavorite] = useState(false);
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated());
@@ -31,7 +33,10 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
     { nameEn: product.name.en, nameAr: product.name.ar, Link: `/product_details/${product.id}` },
   ];
 
-  const productImages = product.images.map(img => img.url);
+  const productImages =
+    selectedVariant?.images?.map(img => img.url) ||
+    product.images?.map(img => img.url) ||
+    [];
 
   const handleToggleFavorite = async () => {
     if (!product.id) return;
@@ -56,6 +61,7 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
       setLoadingFavorite(false);
     }
   };
+  
 
   return (
     <section className="w-full md:max-w-[1280px] md:mx-auto px-0 md:px-4">
@@ -70,7 +76,7 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
       <div className="md:my-10 flex lg:flex-row flex-col items-center gap-8">
         <div className="w-full md:h-130.75 h-93.75 bg-[#F6F6F6] md:rounded-[24px] flex flex-col items-center justify-around relative">
           <Image
-            src={productImages[selectedImage]}
+            src={productImages[selectedImageIndex]}
             alt={i18n.language === "ar" ? product.name.ar : product.name.en}
             className="w-full h-full object-cover"
           />
@@ -119,10 +125,10 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
           <div className="flex flex-1 items-center justify-between">
             <div className="flex flex-1 md:flex-col flex-row md:items-start items-center justify-between">
               <h2 className="text-[#000000] md:text-2xl text-base font-semibold">
-                Liwa
+                {product.name[i18n.language as "ar" | "en"] || product.name.en}
               </h2>
               <p className="text-[#025D5B] md:text-[32px] text-xl font-medium leading-[100%] md:mt-6">
-                269.00
+                {selectedVariant?.final_price?.toFixed(2)}
               </p>
             </div>
             {isLoggedIn && (
@@ -137,15 +143,12 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
             {productImages.map((img, index) => (
               <div
                 key={index}
-                onClick={() => setSelectedImage(index)}
-                className={`md:w-[133px] w-[73px] md:h-[133px] h-[73px] rounded-xl flex items-center justify-center cursor-pointer transition-colors relative ${
-                  selectedImage === index ? "bg-[#F1F8F8]" : "bg-[#F6F6F6]"
-                }`}
+                onClick={() => setSelectedImageIndex(index)}
+                className={`md:w-[133px] w-[73px] md:h-[133px] h-[73px] rounded-xl flex items-center justify-center p-2 cursor-pointer transition-colors relative
+                  ${selectedImageIndex === index ? "bg-[#F1F8F8]" : "bg-[#F6F6F6]"}
+                `}
               >
-                <Image src={img} alt={product.name.en} />
-                {selectedImage === index && (
-                  <div className="absolute -bottom-4 left-0 right-0 h-1 bg-[#018884] rounded-b-xl"></div>
-                )}
+                <Image src={img} alt={product.name.en} className="w-[109px] h-[54px] object-cover" />
               </div>
             ))}
           </div>
@@ -158,6 +161,28 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
               Lenses : <span className="text-[#3B3B3B] text-sm">Black</span>
             </p>
           </div>
+
+          <div className="flex gap-3 mt-6">
+              {product.variants.map((variant, index) => {
+                const color = variant.attributes.find(
+                  a => a.attribute.type === "Color"
+                )?.value?.special_value;
+
+                return (
+                  <button
+                    key={variant.id}
+                    onClick={() => {
+                      setSelectedVariantIndex(index);
+                      setSelectedImageIndex(0);
+                    }}
+                    className={`w-6 h-6 rounded-full border-2
+                      ${selectedVariantIndex === index ? "border-black" : "border-transparent"}
+                    `}
+                    style={{ backgroundColor: color }}
+                  />
+                );
+              })}
+            </div>
 
           <button className="w-full h-14 bg-[#018884] rounded-4xl md:mt-8 mt-6 text-[#FEFEFE] md:text-lg text-base md:font-bold font-semibold">
             {t('add_to_cart')}
