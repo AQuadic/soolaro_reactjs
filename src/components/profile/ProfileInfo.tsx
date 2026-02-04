@@ -16,6 +16,7 @@ const ProfileInfo = () => {
   const [isSaving, setIsSaving] = useState(false);
 
     const [formData, setFormData] = useState<{
+    phone_country: null;
     name: string;
     phone: PhoneValue | string;
     email: string;
@@ -25,6 +26,7 @@ const ProfileInfo = () => {
     phone: "",
     email: "",
     password: "",
+    phone_country: null,
     });
 
   useEffect(() => {
@@ -35,6 +37,7 @@ const ProfileInfo = () => {
       email: user.email ?? "",
       phone: user.phone_e164 ?? "",
       password: "",
+      phone_country: null,
     });
   }, [user]);
 
@@ -52,6 +55,8 @@ const ProfileInfo = () => {
       };
 
       if (formData.phone && typeof formData.phone !== "string") {
+        payload.phone = formData.phone || null;
+        payload.phone_country = formData.phone_country || null;
         payload.phone_e164 = formData.phone.e164 || null;
         payload.phone_country = formData.phone.countryCode || null;
         payload.phone_national = formData.phone.national || null;
@@ -71,7 +76,6 @@ const ProfileInfo = () => {
       setOpen(true);
     } catch (error) {
       console.error("Update failed:", error);
-      alert(t("updateFailed"));
     } finally {
       setIsSaving(false);
     }
