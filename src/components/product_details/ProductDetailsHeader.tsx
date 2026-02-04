@@ -44,8 +44,8 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
   ];
 
   const productImages =
-    selectedVariant?.images?.map(img => img.url) ||
-    product.images?.map(img => img.url) ||
+    selectedVariant?.images?.map((img) => img.url) ||
+    product.images?.map((img) => img.url) ||
     [];
 
   const handleToggleFavorite = async () => {
@@ -73,7 +73,6 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
       setLoadingFavorite(false);
     }
   };
-  
 
   const handleAddToCart = async () => {
     if (!product.id) return;
@@ -208,7 +207,11 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
                   ${selectedImageIndex === index ? "bg-[#F1F8F8]" : "bg-[#F6F6F6]"}
                 `}
               >
-                <Image src={img} alt={product.name.en} className="w-[109px] h-[54px] object-cover" />
+                <Image
+                  src={img}
+                  alt={product.name.en}
+                  className="w-[109px] h-[54px] object-cover"
+                />
               </div>
             ))}
           </div>
@@ -225,7 +228,7 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
           <div className="flex gap-3 mt-6">
             {product.variants.map((variant, index) => {
               const color = variant.attributes.find(
-                a => a.attribute.type === "Color"
+                (a) => a.attribute.type === "Color",
               )?.value?.special_value;
 
               return (
