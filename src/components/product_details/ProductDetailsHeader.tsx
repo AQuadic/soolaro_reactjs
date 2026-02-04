@@ -137,34 +137,21 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
           )}
 
           <div className="flex items-center md:gap-6 gap-4 py-6">
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_41.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_41.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_42.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
-            <div className="w-18.25 h-18.25 bg-[#FEFEFE] rounded-xl">
-              <Image
-                src="/images/home/glass_43.png"
-                alt="glass"
-                className="w-16.25 h-16.25"
-              />
-            </div>
+            {productImages.map((img, index) => (
+              <div
+                key={index}
+                onClick={() => setSelectedImageIndex(index)}
+                className={`w-16.25 h-16.25 bg-[#FEFEFE] rounded-xl flex items-center justify-center p-2 cursor-pointer transition-colors relative
+                  ${selectedImageIndex === index ? "bg-[#F1F8F8]" : "bg-[#F6F6F6]"}
+                `}
+              >
+                <Image
+                  src={img}
+                  alt={product.name.en}
+                  className="w-[109px] h-[54px] object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
@@ -199,23 +186,33 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
             )}
           </div>
           <div className="flex items-end md:gap-6 gap-4 md:mt-8 mt-6 mb-6">
-            {productImages.map((img, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedImageIndex(index)}
-                className={`md:w-[133px] w-[73px] md:h-[133px] h-[73px] rounded-xl flex items-center justify-center p-2 cursor-pointer transition-colors relative
-                  ${selectedImageIndex === index ? "bg-[#F1F8F8]" : "bg-[#F6F6F6]"}
-                `}
-              >
-                <Image
-                  src={img}
-                  alt={product.name.en}
-                  className="w-[109px] h-[54px] object-cover"
-                />
-              </div>
-            ))}
-          </div>
+            {product.variants.map((variant, index) => {
+              const color = variant.attributes.find(
+                (a) => a.attribute.type === "Color",
+              )?.value?.special_value;
 
+              const variantImage = variant.images?.[0]?.url || productImages[0];
+
+              return (
+                <div
+                  key={variant.id}
+                  onClick={() => {
+                    setSelectedVariantIndex(index);
+                    setSelectedImageIndex(0);
+                  }}
+                  className={`md:w-[133px] w-[73px] md:h-[133px] h-[73px] rounded-xl flex flex-col items-center justify-center p-2 cursor-pointer transition-colors relative
+                    ${selectedVariantIndex === index ? "bg-[#F1F8F8] border-2 border-black" : "bg-[#F6F6F6] border border-transparent"}
+                  `}
+                >
+                  <Image
+                    src={variantImage}
+                    alt={product.name.en}
+                    className="w-[109px] h-[54px] object-cover rounded"
+                  />
+                </div>
+              );
+            })}
+          </div>
           <div className="md:mt-6 mt-4 flex items-center gap-6">
             <p className="text-[#0B0B0B] md:text-base text-[10px] font-medium">
               Frame : <span className="text-[#3B3B3B] text-sm">Black</span>
@@ -225,27 +222,6 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
             </p>
           </div>
 
-          <div className="flex gap-3 mt-6">
-            {product.variants.map((variant, index) => {
-              const color = variant.attributes.find(
-                (a) => a.attribute.type === "Color",
-              )?.value?.special_value;
-
-              return (
-                <button
-                  key={variant.id}
-                  onClick={() => {
-                    setSelectedVariantIndex(index);
-                    setSelectedImageIndex(0);
-                  }}
-                  className={`w-6 h-6 rounded-full border-2
-                    ${selectedVariantIndex === index ? "border-black" : "border-transparent"}
-                  `}
-                  style={{ backgroundColor: color }}
-                />
-              );
-            })}
-          </div>
 
           <button
             onClick={handleAddToCart}
