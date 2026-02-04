@@ -67,8 +67,9 @@ const hasDiscount = selectedVariant?.has_discount;
       .filter((variant) => {
         const colorAttr = variant.attributes.find(
           (attr) =>
+            attr.attribute.type === "Color" ||
             attr.attribute.type === "color" ||
-            attr.attribute.name.en.toLowerCase().includes("color"),
+            attr.attribute.name.en.toLowerCase().includes("color")
         );
         return colorAttr !== undefined;
       })
@@ -81,13 +82,15 @@ const hasDiscount = selectedVariant?.has_discount;
     return colorVariants.map((variant) => {
       const colorAttr = variant.attributes.find(
         (attr) =>
+          attr.attribute.type === "Color" ||
           attr.attribute.type === "color" ||
-          attr.attribute.name.en.toLowerCase().includes("color"),
+          attr.attribute.name.en.toLowerCase().includes("color")
       );
 
       if (colorAttr?.value.special_value) {
+        // Handle hex color codes
         if (colorAttr.value.special_value.startsWith("#")) {
-          return `bg-[${colorAttr.value.special_value}]`;
+          return colorAttr.value.special_value;
         }
         return colorAttr.value.special_value;
       }
@@ -215,33 +218,35 @@ const hasDiscount = selectedVariant?.has_discount;
       </Link>
 
       <div className="md:mt-6 mt-3 flex gap-3">
-        {colors.map((bg, index) => (
-          <motion.button
-            key={index}
-            whileTap={{ scale: 0.9 }}
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedColor(index);
-              if (product?.variants?.[index]) {
-                // Handle variant selection
+        {colors.map((bg, index) => {
+          const isHexColor = typeof bg === 'string' && bg.startsWith('#');
+          
+          return (
+            <motion.button
+              key={index}
+              whileTap={{ scale: 0.9 }}
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedColor(index);
+              }}
+              className={`
+                md:w-7 w-5 md:h-7 h-5 rounded-full
+                ${!isHexColor ? bg : ''}
+                ${
+                  selectedColor === index
+                    ? "ring-[3px] ring-[#0B0B0B] ring-offset-2"
+                    : ""
+                }
+                transition-all duration-200 hover:scale-110
+              `}
+              style={
+                isHexColor
+                  ? { backgroundColor: bg }
+                  : {}
               }
-            }}
-            className={`
-              md:w-7 w-5 md:h-7 h-5 rounded-full ${bg}
-              ${
-                selectedColor === index
-                  ? "border-[3px] border-[#0B0B0B]"
-                  : "border-transparent"
-              }
-              transition-all duration-200 hover:scale-110
-            `}
-            style={
-              bg.startsWith("bg-[") && !bg.includes("linear-gradient")
-                ? { backgroundColor: bg.replace("bg-[", "").replace("]", "") }
-                : {}
-            }
-          />
-        ))}
+            />
+          );
+        })}
       </div>
     </motion.div>
   );

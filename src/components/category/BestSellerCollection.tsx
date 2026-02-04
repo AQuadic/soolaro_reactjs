@@ -1,14 +1,48 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Card from "../home/GlassCard"
 import Filter from "../icons/explore/Filter"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { getProducts, type Product } from "@/lib/api/products/products";
+import { useQuery } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
+import ProductEmptyState from "../product_details/ProductEmptyState";
 
-const BestSellerCollection = () => {
+interface BestSellerCollectionProps {
+  parentId: number;
+}
+
+const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {    
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [minPrice, setMinPrice] = useState(200);
-    const [maxPrice, setMaxPrice] = useState(900);
+    const [minPrice, setMinPrice] = useState(100);
+    const [maxPrice, setMaxPrice] = useState(10000);
+    const [, setActiveTab] = useState("all");
     const MIN = 100;
-    const MAX = 1000;
+    const MAX = 10000;
+
+    const { data, isLoading } = useQuery({
+        queryKey: ["categoryProducts", parentId],
+        queryFn: () =>
+            getProducts({ page: 1 }).then((res) =>
+                res.data.filter((p) => p.category_id === parentId)
+            ),
+        enabled: !!parentId,
+    });
+
+    const filteredByPrice = useMemo(() => {
+        if (!data) return [];
+        return data.filter((product) => {
+            const price = product.variants[0]?.final_price || 0;
+            return price >= minPrice && price <= maxPrice;
+        });
+    }, [data, minPrice, maxPrice]);
+
+    const sortedByLatest = useMemo(() => {
+        if (!filteredByPrice) return [];
+        return [...filteredByPrice].sort(
+            (a, b) =>
+                new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+    }, [filteredByPrice]);
 
     const handleMinChange = (value: number) => {
         if (value <= maxPrice) setMinPrice(value);
@@ -22,6 +56,19 @@ const BestSellerCollection = () => {
         setMinPrice(MIN);
         setMaxPrice(MAX);
     };
+
+    const applyFilter = () => {
+        setIsSidebarOpen(false);
+    };
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center py-10">
+                <Loader className="animate-spin" />
+            </div>
+        );
+    }
+
     return (
         <section className="container md:py-17 py-8">
             <div className="flex justify-between">
@@ -41,7 +88,7 @@ const BestSellerCollection = () => {
             </div>
 
             <div className="md:mt-12 mt-6">
-            <Tabs defaultValue="all">
+            <Tabs defaultValue="all" onValueChange={setActiveTab}>
             <TabsList className="bg-transparent md:mb-17 mb-6 flex-wrap gap-4">
                 <TabsTrigger
                 value="all"
@@ -57,42 +104,58 @@ const BestSellerCollection = () => {
                 </TabsTrigger>
             </TabsList>
             <TabsContent value="all" className="grid lg:grid-cols-3 grid-cols-2 gap-8">
-                <Card image="/images/home/glass1.png" height="135"/>
-                <Card image="/images/home/glass2.png" height="135"/>
-                <Card image="/images/home/glass3.png" height="135"/>
-                <Card image="/images/home/glass1.png" height="135"/>
+                {filteredByPrice.length > 0 ? (
+                    filteredByPrice.map((product: Product) => (
+                        <Card
+                            key={product.id}
+                            product={product}
+                            showHeart={true}
+                        />
+                    ))
+                ) : (
+                    <ProductEmptyState />
+                )}
             </TabsContent>
+            
             <TabsContent value="latest" className="grid lg:grid-cols-3 grid-cols-2 gap-8">
-                <Card image="/images/home/glass3.png" height="135"/>
-                <Card image="/images/home/glass1.png" height="135"/>
-                <Card image="/images/home/glass2.png" height="135"/>
-                <Card image="/images/home/glass3.png" height="135"/>
+                {sortedByLatest.length > 0 ? (
+                    sortedByLatest.map((product: Product) => (
+                        <Card
+                            key={product.id}
+                            product={product}
+                            showHeart={true}
+                        />
+                    ))
+                ) : (
+                    <div>
+                        <ProductEmptyState />
+                    </div>
+                )}
             </TabsContent>
             </Tabs>
         </div>
 
-                <div
+        <div
             className={`fixed top-0 right-0 h-full w-85.75 bg-white shadow-lg transform transition-transform duration-300 ${
-            isSidebarOpen ? "translate-x-0" : "translate-x-full"
+                isSidebarOpen ? "translate-x-0" : "translate-x-full"
             } z-50 flex flex-col`}
         >
             <div className="p-8 flex flex-col gap-4">
-            <h3 className="text-2xl font-medium">Filter by price</h3>
-            <p className="text-[#3B3B3B] text-sm font-medium flex items-center">
-                Set prices between 100 
-                <img
-                    src="/images/currency.png"
-                    alt="c_currency"
-                    className="w-4.5 h-4.5"
-                />
-                    and 1000 
-                    
+                <h3 className="text-2xl font-medium">Filter by price</h3>
+                <p className="text-[#3B3B3B] text-sm font-medium flex items-center">
+                    Set prices between {MIN}
                     <img
                         src="/images/currency.png"
                         alt="c_currency"
-                        className="w-4.5 h-4.5"
-                    />.
-            </p>
+                        className="w-4.5 h-4.5 mx-1"
+                    />
+                    and {MAX}
+                        <img
+                            src="/images/currency.png"
+                            alt="c_currency"
+                            className="w-4.5 h-4.5 mx-1"
+                        />.
+                    </p>
 
             <div className="mt-6">
                 <div className="relative h-10">
@@ -141,7 +204,7 @@ const BestSellerCollection = () => {
                 </div>
             </div>
 
-            <button className="mt-6 w-full bg-[#018884] text-[#FEFEFE] py-4 text-lg rounded-4xl font-medium">
+            <button className="mt-6 w-full bg-[#018884] text-[#FEFEFE] py-4 text-lg rounded-4xl font-medium"onClick={applyFilter}>
                 Apply
             </button>
             <button
