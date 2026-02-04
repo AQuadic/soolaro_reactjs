@@ -187,9 +187,9 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
           </div>
           <div className="flex items-end md:gap-6 gap-4 md:mt-8 mt-6 mb-6">
             {product.variants.map((variant, index) => {
-              const color = variant.attributes.find(
-                (a) => a.attribute.type === "Color",
-              )?.value?.special_value;
+              // const color = variant.attributes.find(
+              //   (a) => a.attribute.type === "Color",
+              // )?.value?.special_value;
 
               const variantImage = variant.images?.[0]?.url || productImages[0];
 

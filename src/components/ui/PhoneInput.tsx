@@ -13,9 +13,11 @@ import { Image } from "@/components/ui/image";
 import { useTranslation } from "react-i18next";
 
 export interface PhoneValue {
-  // iso2 country code (e.g. 'EG'), not the dial code
   code: string;
   number: string;
+  e164: string;
+  countryCode: string;
+  national: string;
 }
 
 interface PhoneInputProps {
@@ -124,6 +126,9 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       onChange({
         code: country.iso2,
         number: value.number,
+        e164: "",
+        countryCode: "",
+        national: ""
       });
       setIsOpen(false);
       setSearchTerm("");
@@ -158,6 +163,9 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       onChange({
         code: value.code,
         number: newNumber,
+        e164: "",
+        countryCode: "",
+        national: ""
       });
     };
 

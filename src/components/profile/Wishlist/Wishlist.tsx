@@ -44,7 +44,7 @@ const Wishlist = () => {
                 <Card
                 key={item.id}
                 showHeart
-                product={item.favorable}
+                product={item as any}
                 />
             ))}
             </div>

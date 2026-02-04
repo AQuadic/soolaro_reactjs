@@ -16,7 +16,7 @@ const CheckoutPage = () => {
     firstName: "",
     lastName: "",
     email: "",
-    phone: { code: "AE", number: "" },
+    phone: { code: "AE", number: "", e164: "", countryCode: "AE", national: "" },
   });
 
   // Shipping Address State
