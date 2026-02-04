@@ -141,3 +141,22 @@ export const resendOtp = async (email: string): Promise<void> => {
     type: "reset",
   });
 };
+
+/**
+ * Social Login Request Interface
+ */
+export interface SocialLoginRequest {
+  provider: string;
+  access_token: string;
+}
+
+/**
+ * Social Login
+ * POST /user/social
+ */
+export const socialLogin = async (
+  payload: SocialLoginRequest,
+): Promise<AuthResponse> => {
+  const { data } = await axios.post<AuthResponse>("/user/social", payload);
+  return data;
+};

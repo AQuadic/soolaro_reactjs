@@ -1,18 +1,24 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getMessaging, getToken, deleteToken } from "firebase/messaging";
 
-// Firebase configuration - replace with your actual config
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyDQ_URZ7nZelpTYAJNJWj1UpwkMhh5zFho",
+  authDomain: "soolaro-93486.firebaseapp.com",
+  projectId: "soolaro-93486",
+  storageBucket: "soolaro-93486.firebasestorage.app",
+  messagingSenderId: "263228261383",
+  appId: "1:263228261383:web:b2f6d15ef5b39aaeb5d6a2",
+  measurementId: "G-WDHDPTR59X",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Auth
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
 
 // Initialize Firebase Cloud Messaging
 let messaging: ReturnType<typeof getMessaging> | null = null;

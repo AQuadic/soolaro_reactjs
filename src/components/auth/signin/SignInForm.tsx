@@ -1,7 +1,6 @@
 // import Apple from "@/components/icons/auth/Apple";
 import ClosedEye from "@/components/icons/auth/ClosedEye";
 // import Facebook from "@/components/icons/auth/Facebook";
-// import Google from "@/components/icons/auth/Google";
 import Logo from "@/components/icons/header/Logo";
 import { Eye, Loader2 } from "lucide-react";
 import { useState } from "react";
@@ -12,6 +11,7 @@ import { login } from "@/lib/api/auth";
 import { setToken } from "@/lib/axios";
 import { useAuthStore } from "@/store/useAuthStore";
 import { getErrorMessage } from "@/lib/utils/auth";
+import SocialLogin from "@/components/auth/SocialLogin";
 
 const SignInForm = () => {
   const { t } = useTranslation("auth");
@@ -147,20 +147,8 @@ const SignInForm = () => {
             </Link>
           </div>
 
-          {/* Social Login - Hidden for now */}
-          {/* <div className="mt-10 flex items-center gap-2">
-            <div className="w-full h-px bg-[#DEDDDD]"></div>
-            <p className="text-[#3B3B3B] md:text-sm text-[10px] font-medium">
-              {t("or")}
-            </p>
-            <div className="w-full h-px bg-[#DEDDDD]"></div>
-          </div>
-
-          <div className="flex items-center justify-center gap-8 md:mt-8 mt-4">
-            <Facebook />
-            <Google />
-            <Apple />
-          </div> */}
+          {/* Social Login */}
+          <SocialLogin />
 
           <button
             type="submit"
