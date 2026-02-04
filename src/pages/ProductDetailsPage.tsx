@@ -25,7 +25,10 @@ const ProductDetailsPage = () => {
     return (
         <div>
             <ProductDetailsHeader product={product} />
-            <ProductDetialsData reviewable_id={product.id.toString()} />
+            <ProductDetialsData
+              reviewable_id={product.id.toString()}
+              description={product.description}
+            />
             <ComplateSelection />
             <SeeStyle />
             <ProductExploreShop />

@@ -8,12 +8,14 @@ import { createReview } from "@/lib/api/review/postreview";
 
 interface ProductDetialsDataProps {
   reviewable_id: string;
+  description?: { ar: string; en: string };
 }
 
 const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
   reviewable_id,
+  description,
 }) => {
-  const { t } = useTranslation("product");
+  const { t, i18n } = useTranslation("product");
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
@@ -60,7 +62,7 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
             >
               {t("description")}
             </TabsTrigger>
-            <TabsTrigger
+            {/* <TabsTrigger
               value="measurement"
               className="data-[state=active]:border-b-[#018884] rounded-none data-[state=active]:shadow-none bg-transparent data-[state=active]:text-[#025D5B] text-base font-bold text-[#3B3B3B] md:px-8 py-4"
             >
@@ -71,7 +73,7 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
               className="data-[state=active]:border-b-[#018884] rounded-none data-[state=active]:shadow-none bg-transparent data-[state=active]:text-[#025D5B] text-base font-bold text-[#3B3B3B] md:px-8 py-4"
             >
               {t("shipping")}
-            </TabsTrigger>
+            </TabsTrigger> */}
             <TabsTrigger
               value="reviews"
               className="data-[state=active]:border-b-[#018884] rounded-none data-[state=active]:shadow-none bg-transparent data-[state=active]:text-[#025D5B] text-base font-bold text-[#3B3B3B] md:px-8 py-4"
@@ -83,16 +85,15 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
             value="description"
             className="text-[#3B3B3B] text-base font-semibold leading-[150%]"
           >
-            Crafted from high–quality materials, these sunglasses are designed
-            to deliver both style and durability. Each pair features lightweight
-            yet sturdy frames for all–day comfort, along with premium lenses
-            that provide full UV400 protection against harmful rays. Whether
-            you’re driving, chilling on the beach, or exploring the city, these
-            shades are built to resist scratches, reduce glare, and keep your
-            eyes safe while giving you a modern, confident look. A perfect blend
-            of fashion and function — made to last and made for you.
+            <div
+              dangerouslySetInnerHTML={{
+                __html: description
+                  ? description[i18n.language as "ar" | "en"]
+                  : "",
+              }}
+            />
           </TabsContent>
-          <TabsContent value="measurement">
+          {/* <TabsContent value="measurement">
             <ul className="list-disc px-10">
               <li className="text-[#3B3B3B] text-base font-semibold leading-[150%] mt-1">
                 Lens Width: 52 mm
@@ -129,7 +130,7 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
                 </p>
               </li>
             </ul>
-          </TabsContent>
+          </TabsContent> */}
           <TabsContent value="reviews">
             <div className="flex lg:flex-row flex-col gap-8">
               <div className="w-full h-full p-6 border border-[#DEDDDD] rounded-4xl">
@@ -233,5 +234,6 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
     </section>
   );
 };
+
 
 export default ProductDetialsData;
