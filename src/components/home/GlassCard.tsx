@@ -42,16 +42,20 @@ const Card = ({
     "bg-[linear-gradient(135deg,#6A6A6A_50%,#0F0F0F_50%)]",
   ];
 
+  const selectedVariant = product?.variants?.[selectedColor];
   const productImage =
-    product?.image?.url || image || "/images/home/glass1.png";
+    selectedVariant?.images?.[0]?.url ||
+    product?.image?.url ||
+    image ||
+    "";
+
   const productName = product
     ? product.name[i18n.language as keyof typeof product.name] ||
       product.name.en
     : "";
-
-  const productPrice = Number(product?.variants?.[0]?.final_price || 0);
-  const originalPrice = product?.variants?.[0]?.price;
-  const hasDiscount = product?.variants?.[0]?.has_discount;
+const productPrice = Number(selectedVariant?.final_price || 0);
+const originalPrice = selectedVariant?.price;
+const hasDiscount = selectedVariant?.has_discount;
   const productId = product?.id;
 
   const getProductColors = () => {
@@ -140,7 +144,7 @@ const Card = ({
       <Link
         to={productId ? `/product_details/${productId}` : "/product_details"}
       >
-        <div className="bg-[#F6F6F6] rounded-4xl flex items-center justify-center relative overflow-hidden">
+        <div className="bg-[#F6F6F6] rounded-4xl flex items-center justify-center relative overflow-hidden w-[378px] h-[349px]">
           {hasDiscount && discountPercentage > 0 && (
             <motion.div
               initial={{ scale: 0, rotate: -12 }}
@@ -168,7 +172,7 @@ const Card = ({
             transition={{ duration: 0.5 }}
             src={productImage}
             alt={productName}
-            className={`${width} ${height} object-cover z-10`}
+            className={`w-full object-cover z-10`}
           />
           <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
           {product?.variants?.[0]?.is_out_of_stock && (
