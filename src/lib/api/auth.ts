@@ -45,6 +45,7 @@ export interface AuthResponse {
   user: User;
   token: string;
   message?: string;
+  reset_token?: string;
 }
 
 /**

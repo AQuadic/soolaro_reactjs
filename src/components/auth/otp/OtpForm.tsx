@@ -76,9 +76,9 @@ const OtpForm = () => {
         otp,
       });
 
-      // Store reset token if returned (some APIs return a token for reset)
-      if (response.token) {
-        setResetToken(response.token);
+      // Store reset token from the API response
+      if (response.reset_token) {
+        setResetToken(response.reset_token);
       }
 
       // Update step
