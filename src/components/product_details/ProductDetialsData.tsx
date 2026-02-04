@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import EmptyStar from "../icons/product/EmptyStar";
 import FullStar from "../icons/product/FullStar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { toast } from "react-hot-toast";
 import { createReview } from "@/lib/api/review/postreview";
+import { getReviewSummary } from "@/lib/api/review";
 
 interface ProductDetialsDataProps {
   reviewable_id: string;
@@ -16,19 +18,36 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
   description,
 }) => {
   const { t, i18n } = useTranslation("product");
+  const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [selectedStar, setSelectedStar] = useState(0);
 
-  const [averageRating, setAverageRating] = useState(4.8);
-  const [ratingsDistribution, setRatingsDistribution] = useState([
-    { stars: 5, percent: 70 },
-    { stars: 4, percent: 50 },
-    { stars: 3, percent: 30 },
-    { stars: 2, percent: 0 },
-    { stars: 1, percent: 0 },
-  ]);
+  const { data: summaryData } = useQuery({
+    queryKey: ["review-summary", reviewable_id],
+    queryFn: () => getReviewSummary(reviewable_id),
+    enabled: !!reviewable_id,
+  });
+
+  const ratingsDistribution = summaryData
+    ? Object.entries(summaryData)
+        .map(([stars, count]) => ({
+          stars: Number(stars),
+          count,
+          percent: 0,
+        }))
+        .sort((a, b) => b.stars - a.stars)
+    : [];
+
+  const totalReviews = ratingsDistribution.reduce((acc, r) => acc + r.count, 0);
+  ratingsDistribution.forEach((r) => {
+    r.percent = totalReviews ? Math.round((r.count / totalReviews) * 100) : 0;
+  });
+
+  const averageRating = totalReviews
+    ? ratingsDistribution.reduce((acc, r) => acc + r.stars * r.count, 0) / totalReviews
+    : 0;
 
   const handleSubmitReview = async () => {
     if (!name || !selectedStar) {
@@ -42,10 +61,12 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
         rating: selectedStar,
         comment,
       });
-      // toast.success(t("review_success"));
       setName("");
       setComment("");
       setSelectedStar(0);
+
+      queryClient.invalidateQueries({ queryKey: ["review-summary", reviewable_id] });
+      queryClient.invalidateQueries({ queryKey: ["reviewable-reviews", reviewable_id] });
     } catch (error: any) {
       toast.error(error.message || t("review_error"));
     }
@@ -198,7 +219,7 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
                 </h2>
                 <div className="flex items-center gap-3 mt-4">
                   <p className="text-[#000000] md:text-lg text-sm font-medium">
-                    {averageRating}
+                    {averageRating.toFixed(1)}
                   </p>
                   <div className="flex items-center">
                     {[1, 2, 3, 4, 5].map((star) => (
