@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import FavHeart from "../icons/product/FavHeart";
 import { useAuthStore } from "@/store/useAuthStore";
 import { toggleFavorite } from "@/lib/api/favorites/toggle";
+import FavoriteSpinner from "../icons/product/FavoriteSpinner";
 
 interface ProductDetailsHeaderProps {
   product: Product;
@@ -83,8 +84,20 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
 
           {isLoggedIn && (
             <div className="md:hidden block absolute top-3 right-3">
-              <button onClick={handleToggleFavorite} disabled={loadingFavorite}>
-                {isFavorite ? <FavHeart /> : <MobileHeart />}
+              <button
+                onClick={handleToggleFavorite}
+                disabled={loadingFavorite}
+                className={`transition-opacity ${
+                  loadingFavorite ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                {loadingFavorite ? (
+                  <FavoriteSpinner />
+                ) : isFavorite ? (
+                  <FavHeart />
+                ) : (
+                  <MobileHeart />
+                )}
               </button>
             </div>
           )}
@@ -133,9 +146,21 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
             </div>
             {isLoggedIn && (
               <div className="md:block hidden">
-                <button onClick={handleToggleFavorite} disabled={loadingFavorite}>
-                  {isFavorite ? <FavHeart /> : <Heart />}
-                </button>
+                <button
+                    onClick={handleToggleFavorite}
+                    disabled={loadingFavorite}
+                    className={`transition-opacity ${
+                      loadingFavorite ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                  >
+                    {loadingFavorite ? (
+                      <FavoriteSpinner />
+                    ) : isFavorite ? (
+                      <FavHeart />
+                    ) : (
+                      <Heart />
+                    )}
+                  </button>
               </div>
             )}
           </div>
