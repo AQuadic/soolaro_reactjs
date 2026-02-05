@@ -61,5 +61,8 @@
     "pleaseSelectCountryAndCity": "يرجى اختيار الدولة والمدينة",
     "pleaseEnterRequiredFields": "يرجى إدخال جميع الحقول المطلوبة (المنطقة والشارع)",
     "errorAddingAddress": "خطأ في إضافة العنوان. يرجى المحاولة مرة أخرى.",
-    "editAddress": "تعديل العنوان"
+    "editAddress": "تعديل العنوان",
+    "addressUpdatedSuccess": "تم تحديث العنوان بنجاح.",
+    "deleteAddress": "حذف العنوان",
+    "deleteAddressConfirmation": "هل أنت متأكد أنك تريد حذف هذا العنوان؟"
 }

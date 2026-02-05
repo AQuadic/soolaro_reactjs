@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next"
 import { useQuery } from "@tanstack/react-query"
 import { getAddresses, type Address } from "@/lib/api/addresses/getAddresses"
 import { Skeleton } from "@/components/ui/skeleton"
+import Delete from "@/components/icons/profile/Delete"
+import DeleteAddressDialog from "./DeleteAddressDialog"
 
 const Addresses = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -59,18 +61,36 @@ const Addresses = () => {
                     {address.details || address.title}
                     </p>
 
-                    <Dialog open={editAddressId === address.id} onOpenChange={open => !open && setEditAddressId(null)}>
-                    <DialogTrigger onClick={() => setEditAddressId(address.id)}>
-                        <div>
-                            <Edit />
-                        </div>
-                    </DialogTrigger>
-                    <DialogContent className="w-163.75 max-h-[90vh] flex flex-col p-0">
-                        <div className="flex-1 overflow-y-auto px-6 py-6">
-                        <AddNewAddress addressId={address.id} onSuccess={() => setEditAddressId(null)} />
-                        </div>
-                    </DialogContent>
-                    </Dialog>
+                    <div className="flex items-center gap-3">
+                        <Dialog >
+                            <DialogTrigger>
+                                <div>
+                                    <Delete />
+                                </div>
+                            </DialogTrigger>
+                            <DialogContent className="w-163.75 max-h-[90vh] flex flex-col p-0">
+                                <div className="flex-1 overflow-y-auto px-6 py-6">
+                                    <DeleteAddressDialog
+                                    addressId={address.id}
+                                    onClose={() => setSelectedIndex(null)}
+                                    />
+                                </div>
+                            </DialogContent>
+                            </Dialog>
+
+                            <Dialog open={editAddressId === address.id} onOpenChange={open => !open && setEditAddressId(null)}>
+                            <DialogTrigger onClick={() => setEditAddressId(address.id)}>
+                                <div>
+                                    <Edit />
+                                </div>
+                            </DialogTrigger>
+                            <DialogContent className="w-163.75 max-h-[90vh] flex flex-col p-0">
+                                <div className="flex-1 overflow-y-auto px-6 py-6">
+                                <AddNewAddress addressId={address.id} onSuccess={() => setEditAddressId(null)} />
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                 </div>
                 ))}
 

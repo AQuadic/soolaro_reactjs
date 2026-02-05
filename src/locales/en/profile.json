@@ -61,5 +61,8 @@
     "pleaseSelectCountryAndCity": "Please select country and city",
     "pleaseEnterRequiredFields": "Please enter all required fields (Area and Street)",
     "errorAddingAddress": "Error adding address. Please try again.",
-    "editAddress": "Edit Address"
+    "editAddress": "Edit Address",
+    "addressUpdatedSuccess": "Address updated successfully.",
+    "deleteAddress": "Delete Address",
+    "deleteAddressConfirmation": "Are you sure you want to delete this address?"
 }
