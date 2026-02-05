@@ -26,7 +26,8 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
   const calculations = cart?.calculations;
   const subtotal = calculations?.subtotal || 0;
   const shipping = calculations?.delivery_fees || 0;
-  const discount = calculations?.discount || 0;
+  const tax = calculations?.tax || 0;
+  const totalDiscount = calculations?.total_discount || 0;
   const total = calculations?.total || 0;
 
   const handleApplyCoupon = async () => {
@@ -108,7 +109,7 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
             {isCouponLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
             ) : couponStatus === "success" ? (
-              t("clear", "Clear")
+              t("clear")
             ) : (
               t("apply")
             )}
@@ -142,22 +143,37 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
             />
           </span>
         </div>
-        <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
-          <span>{t("shippingCost")}:</span>
-          <span className="flex items-center gap-1">
-            {shipping.toFixed(2)}
-            <img
-              src="/images/currency.png"
-              alt="c_currency"
-              className="w-4.5 h-4.5"
-            />
-          </span>
-        </div>
-        {discount > 0 && (
-          <div className="flex justify-between items-center text-[#2A6F02] text-lg font-medium">
-            <span>{t("discount", "Discount")}:</span>
+        {shipping > 0 && (
+          <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
+            <span>{t("shippingCost")}:</span>
             <span className="flex items-center gap-1">
-              -{discount.toFixed(2)}
+              {shipping.toFixed(2)}
+              <img
+                src="/images/currency.png"
+                alt="c_currency"
+                className="w-4.5 h-4.5"
+              />
+            </span>
+          </div>
+        )}
+        {tax > 0 && (
+          <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
+            <span>{t("tax")}:</span>
+            <span className="flex items-center gap-1">
+              {tax.toFixed(2)}
+              <img
+                src="/images/currency.png"
+                alt="c_currency"
+                className="w-4.5 h-4.5"
+              />
+            </span>
+          </div>
+        )}
+        {totalDiscount > 0 && (
+          <div className="flex justify-between items-center text-[#2A6F02] text-lg font-medium">
+            <span>{t("discount")}:</span>
+            <span className="flex items-center gap-1">
+              -{totalDiscount.toFixed(2)}
               <img
                 src="/images/currency.png"
                 alt="c_currency"

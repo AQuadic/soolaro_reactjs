@@ -32,6 +32,7 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated());
   const addToCart = useCartStore((state) => state.addToCart);
+  const cart = useCartStore((state) => state.cart);
 
   const breadcrumbItems = [
     { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
@@ -79,7 +80,30 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
 
     setIsAddingToCart(true);
     try {
-      await addToCart(product.id, "product", quantity);
+      // Check if item already exists in cart by matching the variant ID
+      const existingItem = cart?.items.find(
+        (item) => Number(item.variant?.id) === Number(selectedVariant?.id),
+      );
+
+      console.log("Cart items:", cart?.items);
+      console.log("Looking for variant:", selectedVariant?.id);
+      console.log("Existing item found:", existingItem);
+      console.log("Current quantity in cart:", existingItem?.quantity || 0);
+      console.log("New quantity to add:", quantity);
+
+      // If item exists, add to existing quantity, otherwise use the new quantity
+      const totalQuantity = existingItem
+        ? existingItem.quantity + quantity
+        : quantity;
+
+      console.log("Total quantity to send:", totalQuantity);
+
+      await addToCart(
+        product.id,
+        "product",
+        totalQuantity,
+        selectedVariant?.id,
+      );
       toast.success(t("added_to_cart_success") || "Added to cart");
       setQuantity(1); // Reset quantity after adding
     } catch (error: any) {
