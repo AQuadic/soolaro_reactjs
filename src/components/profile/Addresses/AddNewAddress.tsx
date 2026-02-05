@@ -1,9 +1,16 @@
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { getCountries } from "@/lib/api/country";
 
 const AddNewAddress = () => {
-    const { t } = useTranslation("profile");
+    const { t, i18n } = useTranslation("profile");
+
+    const { data: countries, isLoading } = useQuery({
+        queryKey: ["countries"],
+        queryFn: getCountries,
+    });
 
     return (
         <section>
@@ -17,12 +24,28 @@ const AddNewAddress = () => {
                 </label>
                 <Select>
                     <SelectTrigger className="w-full h-14! mt-3 rounded-4xl">
-                        <SelectValue placeholder={t("chooseCountry")} />
+                        <SelectValue
+                        placeholder={
+                            isLoading ? t("loading") : t("chooseCountry")
+                        }
+                        />
                     </SelectTrigger>
+
                     <SelectContent>
-                        <SelectItem value="a">A</SelectItem>
-                        <SelectItem value="b">B</SelectItem>
-                        <SelectItem value="c">C</SelectItem>
+                        {countries?.map((country) => {
+                        const name =
+                            country.name[i18n.language as "ar" | "en"] ??
+                            country.name.en;
+
+                        return (
+                            <SelectItem
+                            key={country.id}
+                            value={String(country.id)}
+                            >
+                            {name}
+                            </SelectItem>
+                        );
+                        })}
                     </SelectContent>
                     </Select>
             </div>
