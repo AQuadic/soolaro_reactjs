@@ -24,5 +24,10 @@
   "remove_this_item": "هل تريد إزالة هذا المنتج؟",
   "are_you_sure_remove_item": "هل أنت متأكد أنك تريد إزالة هذا المنتج من سلتك؟",
   "remove": "إزالة",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "item_removed": "تمت إزالة المنتج من السلة",
+  "failed_update_quantity": "فشل في تحديث الكمية",
+  "failed_remove_item": "فشل في إزالة المنتج",
+  "couponCleared": "تم مسح الكوبون بنجاح",
+  "couponClearError": "فشل في مسح الكوبون"
 }

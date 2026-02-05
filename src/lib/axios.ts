@@ -189,7 +189,12 @@ axios.interceptors.response.use(
         if (typeof window !== "undefined") {
           // Avoid redundant navigation if already on signin
           if (window.location.pathname !== "/signin") {
-            toast.error("Session expired. Please sign in again.");
+            const currentLang = i18n.language;
+            const message =
+              currentLang === "ar"
+                ? "انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى."
+                : "Session expired. Please sign in again.";
+            toast.error(message);
             // window.location.replace("/signin");
           }
         }

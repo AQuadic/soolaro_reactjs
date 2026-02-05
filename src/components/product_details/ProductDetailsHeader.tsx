@@ -53,7 +53,8 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
     if (!product.id) return;
 
     if (!isLoggedIn) {
-      toast.error("You need to log in to add favorites");
+      toast.dismiss();
+      toast.error(t("login_required_for_favorites"));
       return;
     }
 
@@ -64,12 +65,14 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
         favorable_type: "product",
       });
       setIsFavorite(!isFavorite);
+      toast.dismiss();
       toast.success(
         isFavorite ? t("removed_from_favorites") : t("added_to_favorites"),
       );
     } catch (error: any) {
       console.error(error);
-      toast.error("Failed to update favorite");
+      toast.dismiss();
+      toast.error(t("failed_update_favorite"));
     } finally {
       setLoadingFavorite(false);
     }
@@ -104,11 +107,13 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
         totalQuantity,
         selectedVariant?.id,
       );
-      toast.success(t("added_to_cart_success") || "Added to cart");
+      toast.dismiss();
+      toast.success(t("added_to_cart_success"));
       setQuantity(1); // Reset quantity after adding
     } catch (error: any) {
       console.error(error);
-      toast.error(error?.message || "Failed to add to cart");
+      toast.dismiss();
+      toast.error(error?.message || t("failed_add_to_cart"));
     } finally {
       setIsAddingToCart(false);
     }

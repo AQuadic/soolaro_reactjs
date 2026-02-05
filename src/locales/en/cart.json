@@ -24,5 +24,10 @@
   "remove_this_item": "Remove this Item?",
   "are_you_sure_remove_item": "Do you really want to remove this item from your cart",
   "remove": "Remove",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "item_removed": "Item removed from cart",
+  "failed_update_quantity": "Failed to update quantity",
+  "failed_remove_item": "Failed to remove item",
+  "couponCleared": "Coupon cleared successfully",
+  "couponClearError": "Failed to clear coupon"
 }

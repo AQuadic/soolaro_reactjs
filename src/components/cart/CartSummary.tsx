@@ -36,10 +36,12 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
     try {
       await applyCoupon(couponCode.trim());
       setCouponStatus("success");
-      toast.success(t("couponSuccess", "Coupon applied successfully"));
+      toast.dismiss();
+      toast.success(t("couponSuccess"));
     } catch {
       setCouponStatus("error");
-      toast.error(t("couponError", "Invalid coupon code"));
+      toast.dismiss();
+      toast.error(t("couponError"));
     }
   };
 
@@ -48,9 +50,11 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
       await clearCoupon();
       setCouponCode("");
       setCouponStatus("idle");
-      toast.success(t("couponCleared", "Coupon removed"));
+      toast.dismiss();
+      toast.success(t("couponCleared"));
     } catch {
-      toast.error(t("couponClearError", "Failed to remove coupon"));
+      toast.dismiss();
+      toast.error(t("couponClearError"));
     }
   };
 

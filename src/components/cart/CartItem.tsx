@@ -80,7 +80,8 @@ const CartItem = ({ item }: CartItemProps) => {
     try {
       await updateItemQuantity(item.id, item.quantity + 1);
     } catch {
-      toast.error(t("failed_update_quantity", "Failed to update quantity"));
+      toast.dismiss();
+      toast.error(t("failed_update_quantity"));
     } finally {
       setIsUpdating(false);
     }
@@ -93,7 +94,8 @@ const CartItem = ({ item }: CartItemProps) => {
     try {
       await updateItemQuantity(item.id, item.quantity - 1);
     } catch {
-      toast.error(t("failed_update_quantity", "Failed to update quantity"));
+      toast.dismiss();
+      toast.error(t("failed_update_quantity"));
     } finally {
       setIsUpdating(false);
     }
@@ -103,9 +105,11 @@ const CartItem = ({ item }: CartItemProps) => {
     setIsRemoving(true);
     try {
       await removeItem(item.id);
-      toast.success(t("item_removed", "Item removed from cart"));
+      toast.dismiss();
+      toast.success(t("item_removed"));
     } catch {
-      toast.error(t("failed_remove_item", "Failed to remove item"));
+      toast.dismiss();
+      toast.error(t("failed_remove_item"));
     } finally {
       setIsRemoving(false);
     }
