@@ -55,5 +55,10 @@
     "passwordMismatch": "New password and confirmation do not match",
     "success": "Password changed successfully",
     "failed": "Failed to change password",
-    "successDialogTitle": "Your password has been changed successfully."
+    "successDialogTitle": "Your password has been changed successfully.",
+    "loading": "Loading...",
+    "chooseCountryFirst": "Choose Country First",
+    "pleaseSelectCountryAndCity": "Please select country and city",
+    "pleaseEnterRequiredFields": "Please enter all required fields (Area and Street)",
+    "errorAddingAddress": "Error adding address. Please try again."
 }

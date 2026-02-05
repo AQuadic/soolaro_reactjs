@@ -55,5 +55,10 @@
     "passwordMismatch": "كلمة المرور الجديدة وتأكيدها غير متطابقين",
     "success": "تم تغيير كلمة المرور بنجاح",
     "failed": "فشل في تغيير كلمة المرور",
-    "successDialogTitle": "تم تغيير كلمة المرور الخاصة بك بنجاح."
+    "successDialogTitle": "تم تغيير كلمة المرور الخاصة بك بنجاح.",
+    "loading": "جاري التحميل...",
+    "chooseCountryFirst": "اختر الدولة أولاً",
+    "pleaseSelectCountryAndCity": "يرجى اختيار الدولة والمدينة",
+    "pleaseEnterRequiredFields": "يرجى إدخال جميع الحقول المطلوبة (المنطقة والشارع)",
+    "errorAddingAddress": "خطأ في إضافة العنوان. يرجى المحاولة مرة أخرى."
 }
