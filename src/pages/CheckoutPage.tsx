@@ -16,7 +16,13 @@ const CheckoutPage = () => {
     firstName: "",
     lastName: "",
     email: "",
-    phone: { code: "AE", number: "", e164: "", countryCode: "AE", national: "" },
+    phone: {
+      code: "AE",
+      number: "",
+      e164: "",
+      countryCode: "AE",
+      national: "",
+    },
   });
 
   // Shipping Address State
@@ -30,19 +36,6 @@ const CheckoutPage = () => {
     orderNote: "",
   });
 
-  // Mock product data - replace with actual cart data
-  const mockProducts = [
-    {
-      id: "1",
-      name: "Liwa-Black",
-      image: "/images/home/glass1.png",
-      price: 269.0,
-      quantity: 1,
-    },
-  ];
-
-  const subtotal = 269.0;
-  const shippingCost = 25.0;
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleContactInfoChange = (
@@ -134,13 +127,7 @@ const CheckoutPage = () => {
           </div>
 
           {/* Order Summary Sidebar */}
-          <CheckoutOrderSummary
-            products={mockProducts}
-            subtotal={subtotal}
-            shippingCost={shippingCost}
-            onPlaceOrder={handlePlaceOrder}
-            isProcessing={isProcessing}
-          />
+          <CheckoutOrderSummary />
         </div>
       </div>
     </div>
