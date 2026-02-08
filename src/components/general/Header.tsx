@@ -188,7 +188,7 @@ const Header = ({ className }: HeaderProps) => {
                         closeSidebar();
                       }}
                     >
-                      {category.name.en}
+                    {category.name[i18n.language as keyof typeof category.name] || category.name.en}
                     </Link>
                   ))}
                 </nav>

@@ -127,6 +127,7 @@ const CheckoutPage = () => {
       }
     } catch (error: any) {
       console.error("Checkout error:", error);
+      toast.dismiss()
       toast.error(
         error.response?.data?.message || error.message || t("orderPlacedError"),
       );

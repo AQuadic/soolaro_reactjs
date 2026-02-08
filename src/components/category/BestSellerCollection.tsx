@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
-import Card from "../home/GlassCard"
-import Filter from "../icons/explore/Filter"
+import Card from "../home/GlassCard";
+import Filter from "../icons/explore/Filter";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { getProducts, type Product } from "@/lib/api/products/products";
 import { useQuery } from "@tanstack/react-query";
@@ -9,9 +9,13 @@ import ProductEmptyState from "../product_details/ProductEmptyState";
 
 interface BestSellerCollectionProps {
   parentId: number;
+  categoryName?: string;
 }
 
-const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {    
+const BestSellerCollection = ({
+  parentId,
+  categoryName,
+}: BestSellerCollectionProps) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [minPrice, setMinPrice] = useState(100);
     const [maxPrice, setMaxPrice] = useState(10000);
@@ -86,11 +90,14 @@ const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {
         );
     }
 
-    return (
+
+  return (
         <section className="container md:py-17 py-8">
             <div className="flex justify-between">
-                <h2 className="text-[#000000] md:text-[40px] text-base font-medium leading-[100%]">
-                    Best Seller Collection 2026
+                <h2 className="text-[#000000] md:text-[40px] text-base font-medium leading-[100%] px-12 md:px-0">
+                {categoryName
+                    ? `${categoryName}`
+                    : "-"}
                 </h2>
 
                 <div
