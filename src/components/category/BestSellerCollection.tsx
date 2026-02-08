@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Card from "../home/GlassCard"
 import Filter from "../icons/explore/Filter"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -15,7 +15,9 @@ const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [minPrice, setMinPrice] = useState(100);
     const [maxPrice, setMaxPrice] = useState(10000);
-    const [, setActiveTab] = useState("all");
+    const [tempMinPrice, setTempMinPrice] = useState(100);
+    const [tempMaxPrice, setTempMaxPrice] = useState(10000);
+    const [activeTab, setActiveTab] = useState("all");
     const MIN = 100;
     const MAX = 10000;
 
@@ -45,21 +47,36 @@ const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {
     }, [filteredByPrice]);
 
     const handleMinChange = (value: number) => {
-        if (value <= maxPrice) setMinPrice(value);
+        if (value <= tempMaxPrice) {
+            setTempMinPrice(value);
+        }
     };
 
     const handleMaxChange = (value: number) => {
-        if (value >= minPrice) setMaxPrice(value);
+        if (value >= tempMinPrice) {
+            setTempMaxPrice(value);
+        }
     };
 
     const resetFilter = () => {
+        setTempMinPrice(MIN);
+        setTempMaxPrice(MAX);
         setMinPrice(MIN);
         setMaxPrice(MAX);
     };
 
     const applyFilter = () => {
+        setMinPrice(tempMinPrice);
+        setMaxPrice(tempMaxPrice);
         setIsSidebarOpen(false);
     };
+
+    useEffect(() => {
+        if (isSidebarOpen) {
+            setTempMinPrice(minPrice);
+            setTempMaxPrice(maxPrice);
+        }
+    }, [isSidebarOpen, minPrice, maxPrice]);
 
     if (isLoading) {
         return (
@@ -79,7 +96,7 @@ const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {
                 <div
                     className="md:w-34 w-27.5 md:h-14 h-12 md:bg-[#F6F6F6] bg-[#018884] rotate-90 flex items-center justify-center gap-2 cursor-pointer absolute -right-7 md:top-137.5 top-61.5"
                     onClick={() => setIsSidebarOpen(true)}
-                    >
+                >
                     <Filter />
                     <p className="md:text-[#3B3B3B] text-white text-lg font-semibold leading-[100%] rotate-180">
                         Filter
@@ -88,7 +105,7 @@ const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {
             </div>
 
             <div className="md:mt-12 mt-6">
-            <Tabs defaultValue="all" onValueChange={setActiveTab}>
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="bg-transparent md:mb-17 mb-6 flex-wrap gap-4">
                 <TabsTrigger
                 value="all"
@@ -159,47 +176,47 @@ const BestSellerCollection = ({ parentId }: BestSellerCollectionProps) => {
 
             <div className="mt-6">
                 <div className="relative h-10">
-                <div className="absolute top-1/2 w-full h-1 bg-gray-300 rounded transform -translate-y-1/2"></div>
+                <div className="absolute top-1/2 w-full h-1 bg-gray-300 rounded transform -translate-y-1/2 pointer-events-none"></div>
                 <div
                     className="absolute top-1/2 h-1 bg-[#018884] rounded transform -translate-y-1/2"
                     style={{
-                    left: `${((minPrice - MIN) / (MAX - MIN)) * 100}%`,
-                    width: `${((maxPrice - minPrice) / (MAX - MIN)) * 100}%`,
+                    left: `${((tempMinPrice - MIN) / (MAX - MIN)) * 100}%`,
+                    width: `${((tempMaxPrice - tempMinPrice) / (MAX - MIN)) * 100}%`,
                     }}
                 />
                 <input
                     type="range"
                     min={MIN}
                     max={MAX}
-                    value={minPrice}
+                    value={tempMinPrice}
                     onChange={(e) => handleMinChange(Number(e.target.value))}
-                    className="absolute w-full h-10 bg-transparent pointer-events-none appearance-none"
-                    style={{ zIndex: 3 }}
+                    className="absolute w-full h-6 bg-transparent appearance-none price-range-slider"
+                    style={{ zIndex: tempMinPrice > (MIN + MAX) / 2 ? 5 : 3 }}
                 />
                 <input
                     type="range"
                     min={MIN}
                     max={MAX}
-                    value={maxPrice}
+                    value={tempMaxPrice}
                     onChange={(e) => handleMaxChange(Number(e.target.value))}
-                    className="absolute w-full h-10 bg-transparent pointer-events-none appearance-none"
-                    style={{ zIndex: 4 }}
+                    className="absolute w-full h-6 bg-transparent appearance-none price-range-slider"
+                    style={{ zIndex: tempMaxPrice > (MIN + MAX) / 2 ? 5 : 3 }}
                 />
                 </div>
 
                 <div className="flex justify-between gap-4 mt-10">
                 <input
                     type="number"
-                    value={minPrice}
+                    value={tempMinPrice}
                     onChange={(e) => handleMinChange(Number(e.target.value))}
-                    className="rounded-xl w-full py-4 px-3 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium"
+                    className="rounded-xl w-full py-4 px-3 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
                 />
                 <span className="flex items-center justify-center text-[#0B0B0B] text-2xl font-medium">:</span>
                 <input
                     type="number"
-                    value={maxPrice}
+                    value={tempMaxPrice}
                     onChange={(e) => handleMaxChange(Number(e.target.value))}
-                    className="rounded-xl w-full py-4 px-3 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium"
+                    className="rounded-xl w-full py-4 px-3 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
                 />
                 </div>
             </div>
