@@ -39,7 +39,11 @@ export const CheckoutProductItem = ({ product }: CheckoutProductItemProps) => {
           <span className="text-[#025D5B] text-sm md:text-xl font-semibold">
             {product.price.toFixed(2)}
           </span>
-          <DirhamIcon className="w-4 h-3.5 md:w-[22.5px] md:h-5" />
+          <img
+                src="/images/currency.png"
+                alt="c_currency"
+                className="w-4.5 h-4.5"
+              />
         </div>
       </div>
     </div>
