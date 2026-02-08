@@ -238,12 +238,19 @@ const Footer = () => {
                   </p>
                 </a>
               )}
-              <a href="" className="flex items-center gap-2">
-                <Clover />
-                <p className="text-[#F6F6F6] text-sm font-medium">
-                  {t("clover_bay_tower")}
-                </p>
-              </a>
+                {social?.location && (
+                  <a
+                    href={`https://www.google.com/maps?q=${social.location.lat},${social.location.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <Clover />
+                    <p className="text-[#F6F6F6] text-sm font-medium">
+                      {social?.details}
+                    </p>
+                  </a>
+                )}
             </div>
 
             <div className="flex flex-col items-center md:items-start gap-3">
