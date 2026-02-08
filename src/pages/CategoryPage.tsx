@@ -23,7 +23,6 @@ const CategoryPage = () => {
       : currentCategory.name.en
     : "Best Seller Collection";
 
-  const backgroundImage = currentCategory?.image?.url || "";
 
   if (isLoading) {
     return <div className="text-center py-20">Loading...</div>;

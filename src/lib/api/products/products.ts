@@ -71,6 +71,7 @@ export interface Category {
 }
 
 export interface Product {
+  additional_images: any;
   id: number;
   image: Image;
   images: Image[];

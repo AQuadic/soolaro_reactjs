@@ -30,7 +30,7 @@ const ProductDetailsPage = () => {
               description={product.description}
             />
             <ComplateSelection categoryId={product.category.id} />
-            <SeeStyle />
+            <SeeStyle images={product.additional_images.map((img: { url: any; file_name: any; }) => ({ url: img.url, file_name: img.file_name }))} />
             <ProductExploreShop />
             <YouMayLike categoryId={product.category.id}/>
         </div>

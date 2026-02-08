@@ -4,10 +4,17 @@ import { motion } from "framer-motion";
 import { Image } from "@/components/ui/image";
 import { useTranslation } from "react-i18next";
 
-const SeeStyle = () => {
+interface SeeStyleProps {
+  images: { url: string; file_name?: string }[];
+}
+
+const SeeStyle = ({ images }: SeeStyleProps) => {
   const { t } = useTranslation("product");
+
+  if (!images || images.length === 0) return null;
+
   return (
-    <section className="container">
+    <section className="container mt-10">
       <h2 className="text-[#0B0B0B] md:text-[40px] text-lg font-semibold">
         {t('see_style')}
       </h2>
@@ -28,27 +35,15 @@ const SeeStyle = () => {
             },
           }}
         >
-          <SwiperSlide>
-            <Image
-              src="/images/product/style1.png"
-              alt="style"
-              className="md:w-[379px] w-[226px] md:h-[455px] h-[271px] rounded-4xl object-cover"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              src="/images/product/style2.png"
-              alt="style"
-              className="md:w-[379px] w-[226px] md:h-[455px] h-[271px] rounded-4xl object-cover"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              src="/images/product/style2.png"
-              alt="style"
-              className="md:w-[379px] w-[226px] md:h-[455px] h-[271px] rounded-4xl object-cover"
-            />
-          </SwiperSlide>
+          {images.map((img, index) => (
+            <SwiperSlide key={index}>
+              <Image
+                src={img.url}
+                alt={img.file_name || `style-${index + 1}`}
+                className="md:w-[379px] w-[226px] md:h-[455px] h-[271px] rounded-4xl object-cover"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </motion.div>
     </section>
