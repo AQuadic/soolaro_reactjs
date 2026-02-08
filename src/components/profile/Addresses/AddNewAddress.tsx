@@ -3,14 +3,6 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -33,9 +25,10 @@ import { Loader2 } from "lucide-react";
 interface AddNewAddressProps {
   addressId?: number;
   onSuccess?: () => void;
+  onShowSuccess?: (isEdit: boolean) => void;
 }
 
-const AddNewAddress = ({ addressId, onSuccess }: AddNewAddressProps) => {
+const AddNewAddress = ({ addressId, onSuccess, onShowSuccess }: AddNewAddressProps) => {
   const { t, i18n } = useTranslation("profile");
   const queryClient = useQueryClient();
 
@@ -43,7 +36,6 @@ const AddNewAddress = ({ addressId, onSuccess }: AddNewAddressProps) => {
     null,
   );
   const [selectedCityId, setSelectedCityId] = useState<number | null>(null);
-  const [showSuccess, setShowSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
     area: "",
@@ -96,11 +88,14 @@ const AddNewAddress = ({ addressId, onSuccess }: AddNewAddressProps) => {
   const createMutation = useMutation({
     mutationFn: (data: AddressRequest) => createAddress(data),
     onSuccess: () => {
-      setShowSuccess(true);
       setFormData({ area: "", street: "", floor: "", apartment: "" });
       setSelectedCountryId(null);
       setSelectedCityId(null);
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
+      onSuccess?.();
+      setTimeout(() => {
+        onShowSuccess?.(false);
+      }, 100);
     },
     onError: (error: any) => {
       const message =
@@ -114,9 +109,12 @@ const AddNewAddress = ({ addressId, onSuccess }: AddNewAddressProps) => {
   const updateMutation = useMutation({
     mutationFn: (data: UpdateAddressPayload) => updateAddress(addressId!, data),
     onSuccess: () => {
-      setShowSuccess(true);
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
       queryClient.invalidateQueries({ queryKey: ["address", addressId] });
+      onSuccess?.();
+      setTimeout(() => {
+        onShowSuccess?.(true);
+      }, 100);
     },
     onError: (error: any) => {
       const message =
@@ -303,43 +301,6 @@ const AddNewAddress = ({ addressId, onSuccess }: AddNewAddressProps) => {
         {isPending && <Loader2 className="animate-spin w-5 h-5" />}
         {isPending ? t("saving") : t("save")}
       </button>
-
-      <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
-        <DialogContent className="md:w-[655px] flex flex-col items-center justify-end">
-          <DialogHeader>
-            <img
-              src="/images/profile/check.gif"
-              alt="success"
-              className="w-[213px] h-[213px] mx-auto"
-            />
-            <DialogTitle className="text-[#0B0B0B] md:text-2xl text-base font-semibold text-center">
-              {addressId
-                ? t("addressUpdatedSuccess")
-                : t("addressAddedSuccess")}
-            </DialogTitle>
-            <DialogFooter className="sm:justify-start flex flex-row md:mt-0 mt-6 gap-4">
-              <DialogClose asChild>
-                <button
-                  type="button"
-                  className="w-full h-14 border border-[#DEDDDD] rounded-4xl md:mt-10 text-[#3B3B3B] text-base font-bold"
-                >
-                  {t("cancel")}
-                </button>
-              </DialogClose>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowSuccess(false);
-                  onSuccess?.();
-                }}
-                className="w-full h-14 bg-[#018884] rounded-4xl md:mt-10 text-[#FEFEFE] text-base font-bold"
-              >
-                {t("continue")}
-              </button>
-            </DialogFooter>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };
