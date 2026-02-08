@@ -4,6 +4,7 @@ import HomeSlider from "./HomeSlider";
 // import { Image } from "@/components/ui/image";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { Image } from "../ui/image";
 
 const HomeHero = () => {
   const { t } = useTranslation("home");
@@ -52,7 +53,7 @@ const HomeHero = () => {
             </Link>
           </motion.button>
 
-          {/* <motion.div className="mt-4 md:flex hidden items-center ltr:gap-4 rtl:gap-8">
+          <motion.div className="mt-4 md:flex hidden items-center ltr:gap-4 rtl:gap-8">
             <div className="flex items-center">
               <Image
                 src="/images/home/customer.jpg"
@@ -61,19 +62,19 @@ const HomeHero = () => {
                 wrapperClassName="w-14 h-14 rounded-full border-2 border-white rtl:-ml-6"
               />
               <Image
-                src="/images/home/customer.jpg"
+                src="/images/home/customer2.jpg"
                 alt="customer"
                 className="w-full h-full object-cover"
                 wrapperClassName="w-14 h-14 rounded-full border-2 border-white -ml-6"
               />
               <Image
-                src="/images/home/customer.jpg"
+                src="/images/home/customer3.jpg"
                 alt="customer"
                 className="w-1full h-full object-cover"
                 wrapperClassName="w-14 h-14 rounded-full border-2 border-white -ml-6"
               />
               <Image
-                src="/images/home/customer.jpg"
+                src="/images/home/customer4.jpg"
                 alt="customer"
                 className="w-full h-full object-cover"
                 wrapperClassName="w-14 h-14 rounded-full border-2 border-white -ml-6"
@@ -88,7 +89,7 @@ const HomeHero = () => {
                 {t("satisfied_customer")}
               </p>
             </div>
-          </motion.div> */}
+          </motion.div>
         </motion.div>
 
         <motion.div
