@@ -29,6 +29,7 @@ import PageDetail from "./pages/PageDetail";
 import CartInitializer from "./components/cart/CartInitializer";
 import SuccessPage from "./pages/SuccessPage";
 import FailPage from "./pages/FailPage";
+import CartPopUp from "./components/cart/CartPopUp";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="/explore" element={<ExploreProductsPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/carts" element={<CartPopUp />} />
             <Route
               path="/checkout"
               element={

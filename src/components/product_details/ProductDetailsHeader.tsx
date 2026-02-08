@@ -16,6 +16,7 @@ import { toggleFavorite } from "@/lib/api/favorites/toggle";
 import { useCartStore } from "@/store/useCartStore";
 import { Loader2 } from "lucide-react";
 import FavoriteSpinner from "../icons/product/FavoriteSpinner";
+import CartPopUp from "../cart/CartPopUp";
 
 interface ProductDetailsHeaderProps {
   product: Product;
@@ -33,6 +34,7 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated());
   const addToCart = useCartStore((state) => state.addToCart);
   const cart = useCartStore((state) => state.cart);
+  const [showCartPopUp, setShowCartPopUp] = useState(false);
 
   const breadcrumbItems = [
     { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
@@ -87,29 +89,13 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
       const existingItem = cart?.items.find(
         (item) => Number(item.variant?.id) === Number(selectedVariant?.id),
       );
+        const totalQuantity = existingItem ? existingItem.quantity + quantity : quantity;
 
-      console.log("Cart items:", cart?.items);
-      console.log("Looking for variant:", selectedVariant?.id);
-      console.log("Existing item found:", existingItem);
-      console.log("Current quantity in cart:", existingItem?.quantity || 0);
-      console.log("New quantity to add:", quantity);
-
-      // If item exists, add to existing quantity, otherwise use the new quantity
-      const totalQuantity = existingItem
-        ? existingItem.quantity + quantity
-        : quantity;
-
-      console.log("Total quantity to send:", totalQuantity);
-
-      await addToCart(
-        product.id,
-        "product",
-        totalQuantity,
-        selectedVariant?.id,
-      );
-      toast.dismiss();
-      toast.success(t("added_to_cart_success"));
-      setQuantity(1); // Reset quantity after adding
+        await addToCart(product.id, "product", totalQuantity, selectedVariant?.id);
+        toast.dismiss();
+        setQuantity(1);
+    setShowCartPopUp(true);
+    setTimeout(() => setShowCartPopUp(false), 200000);
     } catch (error: any) {
       console.error(error);
       toast.dismiss();
@@ -281,6 +267,15 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
             </button>
           </div>
         </div>
+
+        {showCartPopUp && (
+          <CartPopUp
+            productName={product.name[i18n.language as "ar" | "en"] || product.name.en}
+            productImage={productImages[0]}
+            productPrice={selectedVariant?.final_price || 0}
+            onClose={() => setShowCartPopUp(false)}
+          />
+        )}
       </div>
     </section>
   );
