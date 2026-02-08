@@ -13,11 +13,13 @@ import {
   type GetProductsParams,
   type Product,
 } from "@/lib/api/products/products";
+import i18n from "@/i18n";
 
 const ExploreProductsPage = () => {
   const { t } = useTranslation("explore");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLanguageChanging, setIsLanguageChanging] = useState(false);
   const [minPrice, setMinPrice] = useState(100);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [tempMinPrice, setTempMinPrice] = useState(100);
@@ -128,6 +130,21 @@ const ExploreProductsPage = () => {
     }
   }, [isSidebarOpen, minPrice, maxPrice]);
 
+  // Close sidebar when language changes to avoid visual transition
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setIsLanguageChanging(true);
+      setIsSidebarOpen(false);
+      setTimeout(() => setIsLanguageChanging(false), 50);
+    };
+
+    i18n.on("languageChanged", handleLanguageChange);
+
+    return () => {
+      i18n.off("languageChanged", handleLanguageChange);
+    };
+  }, []);
+
   if (loading) {
     return (
       <section className="container md:py-8 pb-8 relative">
@@ -236,7 +253,9 @@ const ExploreProductsPage = () => {
       </div>
 
       <div
-        className={`fixed top-0 right-0 h-full w-85.75 bg-white shadow-lg transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-68.6 bg-white shadow-lg transform ${
+          isLanguageChanging ? "" : "transition-transform duration-300"
+        } ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         } z-50 flex flex-col`}
       >
