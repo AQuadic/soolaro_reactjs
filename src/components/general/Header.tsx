@@ -8,6 +8,7 @@ import User from "../icons/header/User";
 import Menu from "../icons/header/Menu";
 import MobileLogo from "../icons/header/MobileLogo";
 import SearchEmptyState from "./SearchEmptyState";
+import SearchResults from "./SearchResults";
 import SidebarUser from "../icons/header/SidebarUser";
 import CategoryLogo from "../icons/category/Logo";
 import ChangeLanguage from "./ChangeLanguage";
@@ -16,6 +17,8 @@ import { useAuthStore } from "../../store/useAuthStore";
 import { useCartItemsCount } from "@/store/useCartStore";
 import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "@/lib/api/home/category";
+import { getProducts } from "@/lib/api/products/products";
+import { useDebounce } from "@/lib/hooks/useDebounce";
 
 interface HeaderProps {
   className?: string;
@@ -27,6 +30,10 @@ const Header = ({ className }: HeaderProps) => {
   const cartItemsCount = useCartItemsCount();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Debounce search term
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -42,6 +49,7 @@ const Header = ({ className }: HeaderProps) => {
 
   const closeSearch = () => {
     setIsSearchOpen(false);
+    setSearchTerm("");
   };
 
   const location = useLocation();
@@ -51,6 +59,14 @@ const Header = ({ className }: HeaderProps) => {
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
+  });
+
+  // Search products query
+  const { data: searchResults, isLoading: isSearchLoading } = useQuery({
+    queryKey: ["search-products", debouncedSearchTerm],
+    queryFn: () => getProducts({ q: debouncedSearchTerm }),
+    enabled: debouncedSearchTerm.length >= 2,
+    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
   });
 
   const lastThreeCategories = categories?.slice(-3);
@@ -163,19 +179,19 @@ const Header = ({ className }: HeaderProps) => {
                   {t("home")}
                 </Link>
                 <nav className="flex flex-col items-center gap-4 ">
-                {lastThreeCategories?.map((category) => (
-                  <Link
-                    key={category.id}
-                    to={`/category?parent_id=${category.id}`}
-                    className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
-                    onClick={() => {
-                      closeSidebar();
-                    }}
-                  >
-                    {category.name.en}
-                  </Link>
-                ))}
-              </nav>
+                  {lastThreeCategories?.map((category) => (
+                    <Link
+                      key={category.id}
+                      to={`/category?parent_id=${category.id}`}
+                      className="text-[#0B0B0B] text-base font-semibold hover:text-[#003D3B] hover:font-bold"
+                      onClick={() => {
+                        closeSidebar();
+                      }}
+                    >
+                      {category.name.en}
+                    </Link>
+                  ))}
+                </nav>
               </nav>
 
               <button className="w-53.75 h-12 bg-[#018884] rounded-4xl flex items-center justify-center gap-2 mx-auto mt-14.5">
@@ -256,6 +272,8 @@ const Header = ({ className }: HeaderProps) => {
                     <input
                       type="text"
                       placeholder="Search..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full px-12 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:border-[#A8D4D3]"
                       autoFocus
                     />
@@ -265,29 +283,19 @@ const Header = ({ className }: HeaderProps) => {
                   </div>
                 </div>
 
-                {/* <div className="space-y-4">
-                                {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-                                    <div
-                                        key={item}
-                                        className="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
-                                    >
-                                        <div className="w-21 h-21 bg-[#F6F6F6] rounded-lg flex items-center justify-center">
-                                            <img
-                                                src="/images/home/glass3.png"
-                                                alt="glass"
-                                            />
-                                        </div>
-                                        <div className="flex-1">
-                                            <h3 className="text-[#0B0B0B] font-medium text-2xl">Liva-Black</h3>
-                                            <p className="text-[#3B3B3B] text-sm mt-4">AED 26900</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div> */}
-
-                <div className="py-32">
-                  <SearchEmptyState />
-                </div>
+                {/* Search Results */}
+                {debouncedSearchTerm.length >= 2 ? (
+                  <SearchResults
+                    products={searchResults?.data || []}
+                    isLoading={isSearchLoading}
+                    searchTerm={debouncedSearchTerm}
+                    onClose={closeSearch}
+                  />
+                ) : (
+                  <div className="py-32">
+                    <SearchEmptyState />
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>

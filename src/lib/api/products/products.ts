@@ -13,6 +13,7 @@ export interface GetProductsParams {
   min_price?: number;
   max_price?: number;
   search?: string;
+  q?: string; // Search query parameter
   category_id?: number;
 }
 
