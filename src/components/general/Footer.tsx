@@ -168,14 +168,14 @@ const Footer = () => {
               >
                 {t("home")}
               </Link>
-              <nav className="flex flex-col gap-4">
+              <nav className="flex flex-col items-center md:items-start gap-4">
                 {lastThreeCategories?.map((category) => (
                   <Link
                     key={category.id}
                     to={`/category?parent_id=${category.id}`}
                     className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
                   >
-                    {category.name.en}
+                    {category.name[i18n.language as keyof typeof category.name] || category.name.en}
                   </Link>
                 ))}
               </nav>

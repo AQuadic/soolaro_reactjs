@@ -25,7 +25,7 @@ interface HeaderProps {
 }
 
 const Header = ({ className }: HeaderProps) => {
-  const { t } = useTranslation("header");
+  const { t, i18n } = useTranslation("header");
   const { user } = useAuthStore();
   const cartItemsCount = useCartItemsCount();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -106,7 +106,7 @@ const Header = ({ className }: HeaderProps) => {
                     closeSidebar();
                   }}
                 >
-                  {category.name.en}
+                  {category.name[i18n.language as keyof typeof category.name] || category.name.en}
                 </Link>
               ))}
             </nav>

@@ -82,7 +82,7 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
         comment,
       });
 
-      toast.success(t("review_success"));
+      // toast.success(t("review_success"));
       setName("");
       setComment("");
       setSelectedStar(0);
