@@ -27,6 +27,8 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import GuestRoute from "./components/auth/GuestRoute";
 import PageDetail from "./pages/PageDetail";
 import CartInitializer from "./components/cart/CartInitializer";
+import SuccessPage from "./pages/SuccessPage";
+import FailPage from "./pages/FailPage";
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="/fail" element={<FailPage />} />
             <Route
               path="/product_details/:id"
               element={<ProductDetailsPage />}
