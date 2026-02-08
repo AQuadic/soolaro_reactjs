@@ -180,7 +180,7 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
               </li>
             </ul>
           </TabsContent> */}
-          <TabsContent value="reviews">
+          <TabsContent value="reviews" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
             <div className="flex lg:flex-row flex-col gap-8">
               <div className="w-full h-full p-6 border border-[#DEDDDD] rounded-4xl">
                 <p className="text-[#0B0B0B] text-xl font-medium">
