@@ -10,10 +10,12 @@ import {
   type StoreSettingResponse,
 } from "@/lib/api/storeSetting";
 import Strip from "../icons/footer/Strip";
+import Amex from "../icons/footer/Amex";
 import Mastercard from "../icons/footer/Mastercard";
 import GooglePay from "../icons/footer/GooglePay";
 import Visa from "../icons/footer/Visa";
 import ApplePay from "../icons/footer/ApplePay";
+// import Tabby from "../icons/footer/Tabby";
 import { useState } from "react";
 import { subscribeToNewsletter } from "@/lib/api/subscribe";
 import toast from "react-hot-toast";
@@ -274,10 +276,12 @@ const Footer = () => {
           </p>
           <div className="flex items-center mt-4">
             <Strip />
+            <Amex />
             <Mastercard />
             <GooglePay />
             <Visa />
             <ApplePay />
+            {/* <Tabby /> */}
           </div>
         </div>
       </div>
