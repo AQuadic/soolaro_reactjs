@@ -1,0 +1,79 @@
+/**
+ * Type representing any API image object that has url and optionally responsive_urls.
+ * This is structurally compatible with SliderImage, Image, and other API image types.
+ */
+export type ApiImage = {
+  url?: string;
+  responsive_urls?: string[];
+};
+
+export type ImageSize = "small" | "medium" | "large" | "thumbnail";
+
+/**
+ * Gets the most appropriate responsive URL based on the requested size.
+ * - 'large' -> largest available (index 0)
+ * - 'medium' -> middle quality
+ * - 'small' -> lower quality (~2/3 down the list)
+ * - 'thumbnail' -> smallest available (last index)
+ */
+export function getResponsiveImageUrl(
+  image: ApiImage | null | undefined,
+  size: ImageSize = "medium",
+): string {
+  if (!image) return "";
+
+  const urls = image.responsive_urls;
+
+  // Use main url if no responsive urls are present
+  if (!urls || !Array.isArray(urls) || urls.length === 0) {
+    return image.url || "";
+  }
+
+  const count = urls.length;
+  let index = 0;
+
+  switch (size) {
+    case "large":
+      index = 0;
+      break;
+    case "medium":
+      // Approximately middle index
+      index = Math.floor((count - 1) / 2);
+      break;
+    case "small":
+      // Approximately 2/3rds index
+      index = Math.floor((count - 1) * (2 / 3));
+      break;
+    case "thumbnail":
+      // Last index (smallest)
+      index = count - 1;
+      break;
+    default:
+      index = 0;
+  }
+
+  // Ensure index is within valid bounds
+  index = Math.max(0, Math.min(index, count - 1));
+
+  return urls[index] || image.url || "";
+}
+
+/**
+ * Helper to get standard img props (src) for an ApiImage.
+ */
+export function getImgProps(
+  image: ApiImage | null | undefined,
+  alt: string = "",
+  preferredSize: ImageSize = "medium",
+) {
+  if (!image) {
+    return { src: "", alt };
+  }
+
+  const src = getResponsiveImageUrl(image, preferredSize);
+
+  return {
+    src,
+    alt,
+  };
+}

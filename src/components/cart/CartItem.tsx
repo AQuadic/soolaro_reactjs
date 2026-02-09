@@ -7,6 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import type { CartItem as CartItemType } from "@/lib/api/cart";
+import { getResponsiveImageUrl } from "@/lib/utils/imageUtils";
 
 interface CartItemProps {
   item: CartItemType;
@@ -72,7 +73,8 @@ const CartItem = ({ item }: CartItemProps) => {
     typeof item.name === "object"
       ? item.name[i18n.language as keyof typeof item.name] || item.name.en
       : item.name;
-  const image = item.image?.url || "/images/home/glass1.png";
+  const image =
+    getResponsiveImageUrl(item.image, "thumbnail") || "/images/home/glass1.png";
 
   const handleIncrease = async () => {
     if (isUpdating) return;

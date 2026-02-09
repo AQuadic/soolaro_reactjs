@@ -3,9 +3,10 @@ import { Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import { Image } from "@/components/ui/image";
 import { useTranslation } from "react-i18next";
+import type { ApiImage } from "@/lib/utils/imageUtils";
 
 interface SeeStyleProps {
-  images: { url: string; file_name?: string }[];
+  images: ApiImage[];
 }
 
 const SeeStyle = ({ images }: SeeStyleProps) => {
@@ -16,7 +17,7 @@ const SeeStyle = ({ images }: SeeStyleProps) => {
   return (
     <section className="container mt-10">
       <h2 className="text-[#0B0B0B] md:text-[40px] text-lg font-semibold">
-        {t('see_style')}
+        {t("see_style")}
       </h2>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -38,8 +39,9 @@ const SeeStyle = ({ images }: SeeStyleProps) => {
           {images.map((img, index) => (
             <SwiperSlide key={index}>
               <Image
-                src={img.url}
-                alt={img.file_name || `style-${index + 1}`}
+                apiImage={img}
+                preferredSize="large"
+                alt={`style-${index + 1}`}
                 className="md:w-[379px] w-[226px] md:h-[455px] h-[271px] rounded-4xl object-cover"
               />
             </SwiperSlide>

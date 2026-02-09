@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Product } from "@/lib/api/products/products";
 import { useTranslation } from "react-i18next";
+import { getResponsiveImageUrl } from "@/lib/utils/imageUtils";
 
 interface SearchResultsProps {
   products: Product[];
@@ -15,7 +16,7 @@ const SearchResults = ({
   searchTerm,
   onClose,
 }: SearchResultsProps) => {
-  const { t, i18n } = useTranslation('header');
+  const { t, i18n } = useTranslation("header");
   const currentLang = i18n.language;
 
   if (isLoading) {
@@ -42,7 +43,7 @@ const SearchResults = ({
     return (
       <div className="text-center py-8">
         <p className="text-[#3B3B3B] text-base">
-          {t('no_products_found')} "{searchTerm}"
+          {t("no_products_found")} "{searchTerm}"
         </p>
       </div>
     );
@@ -63,7 +64,7 @@ const SearchResults = ({
           >
             <div className="w-21 h-21 bg-[#F6F6F6] rounded-lg flex items-center justify-center overflow-hidden">
               <img
-                src={image?.url}
+                src={getResponsiveImageUrl(image, "thumbnail")}
                 alt={product.name[currentLang as "en" | "ar"]}
                 className="w-full h-full object-cover"
               />

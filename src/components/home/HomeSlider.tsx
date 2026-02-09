@@ -116,7 +116,7 @@ function HomeSlider() {
       <SliderSlick {...settings}>
         {slides.map((slide) => {
           const slideImage =
-            i18n.language === "ar" ? slide.ar_image.url : slide.en_image.url;
+            i18n.language === "ar" ? slide.ar_image : slide.en_image;
           const slideTitle = slide.title ?? slide.name;
           const slideButton = slide.text_button ?? slide.name;
 
@@ -124,7 +124,8 @@ function HomeSlider() {
             <div className="slider-card relative mx-2 group">
               <div className="relative md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl overflow-hidden">
                 <Image
-                  src={slideImage}
+                  apiImage={slideImage}
+                  preferredSize="medium"
                   alt={slideTitle}
                   wrapperClassName="md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl"
                   className="w-full h-full object-cover"

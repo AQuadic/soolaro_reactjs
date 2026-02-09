@@ -10,6 +10,7 @@ import FavHeart from "../icons/product/FavHeart";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useQueryClient } from "@tanstack/react-query";
 import type { FavoriteItem } from "@/lib/api/favorites/getFavorites";
+import { getResponsiveImageUrl } from "@/lib/utils/imageUtils";
 
 type CardProps = {
   image?: string;
@@ -28,7 +29,7 @@ const Card = ({
   showHeart = false,
   product,
 }: CardProps) => {
-  const {t, i18n } = useTranslation('product');
+  const { t, i18n } = useTranslation("product");
   const [selectedColor, setSelectedColor] = useState(0);
   const [isFavorite, setIsFavorite] = useState(product?.is_favorite || false);
   const [loadingFavorite, setLoadingFavorite] = useState(false);
@@ -43,9 +44,10 @@ const Card = ({
   ];
 
   const selectedVariant = product?.variants?.[selectedColor];
+  // Use responsive image URLs for better performance
   const productImage =
-    selectedVariant?.images?.[0]?.url ||
-    product?.image?.url ||
+    getResponsiveImageUrl(selectedVariant?.images?.[0], "medium") ||
+    getResponsiveImageUrl(product?.image, "medium") ||
     image ||
     "";
 
@@ -53,9 +55,9 @@ const Card = ({
     ? product.name[i18n.language as keyof typeof product.name] ||
       product.name.en
     : "";
-const productPrice = Number(selectedVariant?.final_price || 0);
-const originalPrice = selectedVariant?.price;
-const hasDiscount = selectedVariant?.has_discount;
+  const productPrice = Number(selectedVariant?.final_price || 0);
+  const originalPrice = selectedVariant?.price;
+  const hasDiscount = selectedVariant?.has_discount;
   const productId = product?.id;
 
   const getProductColors = () => {
@@ -69,7 +71,7 @@ const hasDiscount = selectedVariant?.has_discount;
           (attr) =>
             attr.attribute.type === "Color" ||
             attr.attribute.type === "color" ||
-            attr.attribute.name.en.toLowerCase().includes("color")
+            attr.attribute.name.en.toLowerCase().includes("color"),
         );
         return colorAttr !== undefined;
       })
@@ -84,7 +86,7 @@ const hasDiscount = selectedVariant?.has_discount;
         (attr) =>
           attr.attribute.type === "Color" ||
           attr.attribute.type === "color" ||
-          attr.attribute.name.en.toLowerCase().includes("color")
+          attr.attribute.name.en.toLowerCase().includes("color"),
       );
 
       if (colorAttr?.value.special_value) {
@@ -122,14 +124,19 @@ const hasDiscount = selectedVariant?.has_discount;
         favorable_type: "product",
       });
 
-      toast.success(isFavorite ? t('removed_from_favorites') : t('added_to_favorites'));
+      toast.success(
+        isFavorite ? t("removed_from_favorites") : t("added_to_favorites"),
+      );
 
       setIsFavorite(!isFavorite);
 
-      queryClient.setQueryData<FavoriteItem[]>(["favorites"], (oldFavorites) => {
-        if (!oldFavorites) return [];
-        return oldFavorites.filter((fav) => fav.favorable.id !== productId);
-      });
+      queryClient.setQueryData<FavoriteItem[]>(
+        ["favorites"],
+        (oldFavorites) => {
+          if (!oldFavorites) return [];
+          return oldFavorites.filter((fav) => fav.favorable.id !== productId);
+        },
+      );
     } catch (error: any) {
       console.error(error);
       toast.error("Failed to update favorite");
@@ -219,8 +226,8 @@ const hasDiscount = selectedVariant?.has_discount;
 
       <div className="md:mt-6 mt-3 flex gap-3">
         {colors.map((bg, index) => {
-          const isHexColor = typeof bg === 'string' && bg.startsWith('#');
-          
+          const isHexColor = typeof bg === "string" && bg.startsWith("#");
+
           return (
             <motion.button
               key={index}
@@ -231,7 +238,7 @@ const hasDiscount = selectedVariant?.has_discount;
               }}
               className={`
                 md:w-7 w-5 md:h-7 h-5 rounded-full
-                ${!isHexColor ? bg : ''}
+                ${!isHexColor ? bg : ""}
                 ${
                   selectedColor === index
                     ? "ring-[3px] ring-[#0B0B0B] ring-offset-2"
@@ -239,11 +246,7 @@ const hasDiscount = selectedVariant?.has_discount;
                 }
                 transition-all duration-200 hover:scale-110
               `}
-              style={
-                isHexColor
-                  ? { backgroundColor: bg }
-                  : {}
-              }
+              style={isHexColor ? { backgroundColor: bg } : {}}
             />
           );
         })}

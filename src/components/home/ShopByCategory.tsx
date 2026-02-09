@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "@/lib/api/home/category";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getResponsiveImageUrl } from "@/lib/utils/imageUtils";
 
 const ShopByCategory = () => {
   const { t, i18n } = useTranslation("home");
@@ -18,18 +19,18 @@ const ShopByCategory = () => {
     return (
       <section className="md:py-17 py-10 container">
         <Skeleton className="h-[40px] md:h-[50px] w-[250px] rounded-lg" />
-        
+
         <div className="md:mt-12 mt-6">
           <div className="flex gap-8">
             <div className="flex-[3]">
               <Skeleton className="w-full md:h-107 h-35.25 rounded-4xl" />
             </div>
-            
+
             <div className="flex-[2]">
               <Skeleton className="w-full md:h-107 h-35.25 rounded-4xl" />
             </div>
           </div>
-          
+
           <Skeleton className="w-full md:h-107 h-39.5 rounded-4xl md:mt-10 mt-4" />
         </div>
       </section>
@@ -66,7 +67,7 @@ const ShopByCategory = () => {
                 <motion.img
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6 }}
-                  src={first.image?.url}
+                  src={getResponsiveImageUrl(first.image, "large")}
                   alt={first.name[lang]}
                   className="w-full md:h-107 h-35.25 bg-[#0000001A] opacity-70 object-cover"
                 />
@@ -89,7 +90,7 @@ const ShopByCategory = () => {
                 <motion.img
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6 }}
-                  src={second.image?.url}
+                  src={getResponsiveImageUrl(second.image, "large")}
                   alt={second.name[lang]}
                   className="w-full md:h-107 h-35.25 bg-[#0000001A] opacity-70 object-cover"
                 />
@@ -113,7 +114,7 @@ const ShopByCategory = () => {
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.6 }}
-                src={third.image?.url}
+                src={getResponsiveImageUrl(third.image, "large")}
                 alt={third.name[lang]}
                 className="w-full md:h-107 h-39.5 bg-[#0000001A] opacity-70 object-cover"
               />

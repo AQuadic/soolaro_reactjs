@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getOrders, type Order } from "@/lib/api/orders/getOrders";
 import { formatDate } from "@/lib/utils/dateUtils";
+import { getResponsiveImageUrl } from "@/lib/utils/imageUtils";
 
 const Orders = () => {
   const { t, i18n } = useTranslation("profile");
@@ -80,7 +81,8 @@ const Orders = () => {
       firstItem.product_name[currentLanguage as "en" | "ar"] ||
       firstItem.product_name.en;
     const itemImage =
-      firstItem.variant.images[0]?.url || firstItem.productable.image.url;
+      getResponsiveImageUrl(firstItem.variant.images[0], "thumbnail") ||
+      getResponsiveImageUrl(firstItem.productable.image, "thumbnail");
 
     return (
       <div

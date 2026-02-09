@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useCartStore } from "@/store/useCartStore";
 import { CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
+import { getResponsiveImageUrl } from "@/lib/utils/imageUtils";
 
 export const CheckoutOrderSummary = () => {
   const { t } = useTranslation(["checkout", "cart"]);
@@ -75,7 +76,7 @@ export const CheckoutOrderSummary = () => {
                   image:
                     typeof item.image === "string"
                       ? item.image
-                      : item.image.url || "",
+                      : getResponsiveImageUrl(item.image, "thumbnail"),
                   price: item.variant.final_price,
                   quantity: item.quantity,
                 }}
