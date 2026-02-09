@@ -17,8 +17,10 @@ const CartPage = () => {
   const { t } = useTranslation("cart");
   const { cart, isLoading } = useCartStore();
 
-  const [recommendedProducts, setRecommendedProducts] = useState<ProductItem[]>([]);
-  const [isRecommendedLoading, setIsRecommendedLoading] = useState(false);
+  const [recommendedProducts, setRecommendedProducts] = useState<ProductItem[]>(
+    [],
+  );
+  const [_, setIsRecommendedLoading] = useState(false);
 
   const breadcrumbItems = [
     { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
@@ -34,18 +36,23 @@ const CartPage = () => {
 
         try {
           const categories: Category[] = await getCategories();
-          const categoryIds = categories.slice(0, 3).map(cat => cat.id);
+          const categoryIds = categories.slice(0, 3).map((cat) => cat.id);
           const results = await Promise.all(
-            categoryIds.map(catId => getProducts({ category_id: catId, page: 1 }))
+            categoryIds.map((catId) =>
+              getProducts({ category_id: catId, page: 1 }),
+            ),
           );
-          const allProducts = results.flatMap(res => res.data);
+          const allProducts = results.flatMap((res) => res.data);
           const uniqueProductsMap = new Map<number, Product>();
-          allProducts.forEach(p => {
+          allProducts.forEach((p) => {
             if (!uniqueProductsMap.has(p.id)) uniqueProductsMap.set(p.id, p);
           });
 
-          const formatted: ProductItem[] = Array.from(uniqueProductsMap.values()).map(p => ({
-            image: p.images[0]?.url || p.image?.url || "/images/placeholder.png",
+          const formatted: ProductItem[] = Array.from(
+            uniqueProductsMap.values(),
+          ).map((p) => ({
+            image:
+              p.images[0]?.url || p.image?.url || "/images/placeholder.png",
             product: p,
           }));
 
