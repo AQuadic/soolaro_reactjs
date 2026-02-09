@@ -26,6 +26,7 @@ function HomeSlider() {
     slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
+    rtl: i18n.language === "ar",
     responsive: [
       {
         breakpoint: 768,
@@ -49,11 +50,11 @@ function HomeSlider() {
 
   if (isLoading)
     return (
-      <div className="slider-container md:max-w-145 w-full mb-1 flex gap-4">
+      <div className="slider-container md:max-w-145 w-full mb-1 flex gap-4 overflow-hidden">
         {[1, 2].map((i) => (
           <div
             key={i}
-            className="md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl bg-gray-200 animate-pulse"
+            className="md:w-1/2 w-[70vw] shrink-0 md:h-[360px] h-[240px] rounded-4xl bg-gray-200 animate-pulse"
           />
         ))}
       </div>
@@ -65,19 +66,6 @@ function HomeSlider() {
   return (
     <div className="slider-container md:max-w-145 w-full mb-1">
       <style>{`
-        .slider-container .slick-track {
-          display: flex !important;
-          flex-direction: row !important;
-        }
-        .slider-container .slick-slide {
-          float: none !important;
-          display: flex !important;
-          height: auto !important;
-          flex-shrink: 0;
-        }
-        .slider-container .slick-slide > div {
-          width: 100%;
-        }
         .slick-dots li.slick-active .slick-dot-custom {
           width: 20px !important;
           background-color: #018884 !important;
@@ -95,15 +83,6 @@ function HomeSlider() {
         .slick-dots li button:before {
           display: none !important;
         }
-        .slick-list {
-          height: 240px !important;
-          overflow: hidden !important;
-        }
-        @media (min-width: 768px) {
-          .slick-list {
-            height: 360px !important;
-          }
-        }
         .slick-slide:not(.slick-current) .slider-overlay {
            opacity: 1;
         }
@@ -111,23 +90,34 @@ function HomeSlider() {
            opacity: 0;
            transition: opacity 0.5s ease;
         }
+        /* Custom spacing for slides */
+        .slick-slide {
+          padding: 0 4px; /* Creates gap between slides */
+        }
+        /* Fix for desktop layout overflow */
+        .slick-list {
+          margin: 0 -4px;
+        }
       `}</style>
 
       <SliderSlick {...settings}>
-        {slides.map((slide) => {
+        {slides.map((slide, index) => {
           const slideImage =
             i18n.language === "ar" ? slide.ar_image : slide.en_image;
           const slideTitle = slide.title ?? slide.name;
           const slideButton = slide.text_button ?? slide.name;
 
           return (
-            <div className="slider-card relative mx-2 group">
-              <div className="relative md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl overflow-hidden">
+            <div
+              key={index}
+              className="slider-card relative group outline-none"
+            >
+              <div className="relative w-full md:h-[360px] h-[240px] rounded-4xl overflow-hidden">
                 <Image
                   apiImage={slideImage}
                   preferredSize="medium"
                   alt={slideTitle}
-                  wrapperClassName="md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl"
+                  wrapperClassName="w-full h-full rounded-4xl"
                   className="w-full h-full object-cover"
                 />
                 <div className="slider-overlay absolute inset-0 bg-black/50 z-10 pointer-events-none" />
@@ -136,12 +126,12 @@ function HomeSlider() {
                 href={slide.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute md:w-68.75 w-[206px] h-10 bg-[#FFFFFF33] bottom-0 backdrop-blur-[20px] rounded-bl-4xl rounded-br-4xl flex items-center justify-between px-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0 z-20"
+                className="absolute w-full h-10 bg-[#FFFFFF33] bottom-0 backdrop-blur-[20px] rounded-bl-4xl rounded-br-4xl flex items-center justify-between px-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0 z-20"
               >
-                <p className="text-[#FFFFFF] md:text-xs text-[10px] font-medium">
+                <p className="text-[#FFFFFF] md:text-xs text-[10px] font-medium truncate max-w-[70%]">
                   {slideTitle}
                 </p>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   <p className="text-[#FFFFFF] md:text-sm text-xs font-medium">
                     {slideButton}
                   </p>
