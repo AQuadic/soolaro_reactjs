@@ -73,5 +73,6 @@
       "in_shipping": "قيد الشحن",
       "completed": "مكتمل",
       "cancelled": "ملغي"
-    }
+    },
+  "deleting": "جار الحذف ..."
 }

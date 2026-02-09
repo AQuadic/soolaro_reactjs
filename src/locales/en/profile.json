@@ -73,5 +73,6 @@
       "in_shipping": "In Shipping",
       "completed": "Completed",
       "cancelled": "Cancelled"
-    }
+    },
+  "deleting": "Deleting"
 }
