@@ -9,16 +9,16 @@ import ProductSlider, {
 import { useTranslation } from "react-i18next";
 import { useCartStore } from "@/store/useCartStore";
 import { Loader2 } from "lucide-react";
-
-const youMayLikeProducts: ProductItem[] = [
-  { image: "/images/home/glass1.png", height: "213" },
-  { image: "/images/home/glass2.png", priceColor: "#003D3B", height: "213" },
-  { image: "/images/home/glass3.png", height: "213" },
-];
+import { useEffect, useState } from "react";
+import { getProducts, type Product } from "@/lib/api/products/products";
+import { getCategories, type Category } from "@/lib/api/home/category";
 
 const CartPage = () => {
   const { t } = useTranslation("cart");
   const { cart, isLoading } = useCartStore();
+
+  const [recommendedProducts, setRecommendedProducts] = useState<ProductItem[]>([]);
+  const [isRecommendedLoading, setIsRecommendedLoading] = useState(false);
 
   const breadcrumbItems = [
     { nameEn: "Home", nameAr: "الرئيسية", Link: "/" },
@@ -26,6 +26,40 @@ const CartPage = () => {
   ];
 
   const isEmpty = !cart?.items || cart.items.length === 0;
+
+  useEffect(() => {
+    if (!isEmpty) {
+      const fetchRecommended = async () => {
+        setIsRecommendedLoading(true);
+
+        try {
+          const categories: Category[] = await getCategories();
+          const categoryIds = categories.slice(0, 3).map(cat => cat.id);
+          const results = await Promise.all(
+            categoryIds.map(catId => getProducts({ category_id: catId, page: 1 }))
+          );
+          const allProducts = results.flatMap(res => res.data);
+          const uniqueProductsMap = new Map<number, Product>();
+          allProducts.forEach(p => {
+            if (!uniqueProductsMap.has(p.id)) uniqueProductsMap.set(p.id, p);
+          });
+
+          const formatted: ProductItem[] = Array.from(uniqueProductsMap.values()).map(p => ({
+            image: p.images[0]?.url || p.image?.url || "/images/placeholder.png",
+            product: p,
+          }));
+
+          setRecommendedProducts(formatted);
+        } catch (err) {
+          console.error("Failed to fetch recommended products:", err);
+        } finally {
+          setIsRecommendedLoading(false);
+        }
+      };
+
+      fetchRecommended();
+    }
+  }, [cart, isEmpty]);
 
   return (
     <div className="min-h-screen">
@@ -59,11 +93,13 @@ const CartPage = () => {
       </div>
 
       {/* You may also like section */}
-      <ProductSlider
-        title={t("youMayAlsoLike")}
-        products={youMayLikeProducts}
-        containerClassName="container md:pb-20 pb-14"
-      />
+      {!isEmpty && recommendedProducts.length > 0 && (
+        <ProductSlider
+          title={t("youMayAlsoLike")}
+          products={recommendedProducts}
+          containerClassName="container md:pb-20 pb-14"
+        />
+      )}
     </div>
   );
 };
