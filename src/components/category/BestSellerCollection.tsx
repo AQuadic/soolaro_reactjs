@@ -97,7 +97,7 @@ const BestSellerCollection = ({
   return (
         <section className="container md:py-17 py-8">
             <div className="flex justify-between">
-                <h2 className="text-[#000000] md:text-[40px] text-base font-medium leading-[100%] px-12 md:px-0">
+                <h2 className="text-[#000000] md:text-[40px] text-base font-medium leading-[100%] px-12 md:px-8">
                 {categoryName
                     ? `${categoryName}`
                     : "-"}
@@ -116,7 +116,7 @@ const BestSellerCollection = ({
 
             <div className="md:mt-12 mt-6">
             <Tabs value={activeTab} onValueChange={setActiveTab} dir={i18n.language === "ar" ? "rtl" : "ltr"}>
-            <TabsList className="bg-transparent md:mb-17 mb-6 flex-wrap gap-4" >
+            <TabsList className="bg-transparent md:mb-17 mb-6 flex-wrap gap-4 px-10 md:px-0" >
                 <TabsTrigger
                 value="all"
                 className="data-[state=active]:bg-[#018884] bg-[#F6F6F6] data-[state=active]:text-white text-[#3B3B3B] rounded-[100px] md:px-8 py-4"

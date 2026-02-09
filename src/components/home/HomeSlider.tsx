@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
 function HomeSlider() {
-  const { i18n } = useTranslation();
+  const {t, i18n } = useTranslation('home');
   const { data: slides, isLoading, isError } = useQuery<Slider[]>({
     queryKey: ["sliders", i18n.language],
     queryFn: () => getSliders(),
@@ -56,7 +56,9 @@ function HomeSlider() {
     );
 
   if (isError || !slides || slides.length === 0)
-    return <div className="text-center py-20">No sliders available.</div>;
+    return <div className="text-center py-20">
+      {t('no_sliders')}
+    </div>;
 
   return (
     <div className="slider-container md:max-w-145 w-full mb-1">
