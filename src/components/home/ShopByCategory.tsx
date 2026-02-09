@@ -41,6 +41,10 @@ const ShopByCategory = () => {
 
   const [first, second, third] = categories;
 
+  const getImageUrl = (category: any) => {
+    return category.thumbnail?.url || getResponsiveImageUrl(category.image, "large");
+  };
+
   return (
     <section className="md:py-17 py-10 container">
       <motion.h2
@@ -67,7 +71,7 @@ const ShopByCategory = () => {
                 <motion.img
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6 }}
-                  src={getResponsiveImageUrl(first.image, "large")}
+                  src={getImageUrl(first)}
                   alt={first.name[lang]}
                   className="w-full md:h-107 h-35.25 bg-[#0000001A] opacity-70 object-cover"
                 />
@@ -90,7 +94,7 @@ const ShopByCategory = () => {
                 <motion.img
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6 }}
-                  src={getResponsiveImageUrl(second.image, "large")}
+                  src={getImageUrl(second)}
                   alt={second.name[lang]}
                   className="w-full md:h-107 h-35.25 bg-[#0000001A] opacity-70 object-cover"
                 />
@@ -114,7 +118,7 @@ const ShopByCategory = () => {
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.6 }}
-                src={getResponsiveImageUrl(third.image, "large")}
+                src={getImageUrl(third)}
                 alt={third.name[lang]}
                 className="w-full md:h-107 h-39.5 bg-[#0000001A] opacity-70 object-cover"
               />
