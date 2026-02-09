@@ -65,14 +65,18 @@ const ProfileInfo = () => {
       };
 
       if (formData.phone && typeof formData.phone !== "string") {
-        payload.phone = formData.phone || null;
-        payload.phone_country = formData.phone_country || null;
+        payload.phone = formData.phone.number || null;
+        payload.phone_country = formData.phone.countryCode || "EG";
         payload.phone_e164 = formData.phone.e164 || null;
-        payload.phone_country = formData.phone.countryCode || null;
         payload.phone_national = formData.phone.national || null;
         payload.phone_normalized = formData.phone.e164 || null;
-      } else {
-        payload.phone_e164 = formData.phone || null;
+      } else if (formData.phone && typeof formData.phone === "string") {
+        payload.phone = formData.phone.startsWith("+")
+          ? formData.phone
+          : `+20${formData.phone.replace(/^0/, "")}`;
+        payload.phone_country = "EG";
+        payload.phone_e164 = payload.phone;
+        payload.phone_normalized = payload.phone;
       }
 
       if (formData.password) {
