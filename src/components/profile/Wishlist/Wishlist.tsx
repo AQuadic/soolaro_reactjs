@@ -1,6 +1,6 @@
 import MobileBackHeader from "@/components/general/MobileBackHeader";
 import Card from "@/components/home/GlassCard";
-import { Link } from "react-router-dom";
+
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -26,12 +26,7 @@ const Wishlist = () => {
         {t("myWishlist")}
       </h1>
 
-      <Link to="/" className="md:hidden flex items-center gap-3">
-        <MobileBackHeader />
-        <p className="text-[#0B0B0B] text-base font-semibold mb-6">
-          {t("favorite")}
-        </p>
-      </Link>
+      <MobileBackHeader title={t("favorite")} link="/profile" />
 
       {isLoading ? (
         <div className="grid md:grid-cols-3 grid-cols-2 gap-8">

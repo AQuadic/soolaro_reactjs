@@ -2,7 +2,7 @@ import OrderAgain from "@/components/icons/profile/OrderAgain";
 import { Image } from "@/components/ui/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OrderEmptyState from "./OrderEmptyState";
-import { Link } from "react-router-dom";
+
 import MobileBackHeader from "@/components/general/MobileBackHeader";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
@@ -106,7 +106,7 @@ const Orders = () => {
             </h2>
             <h2 className="text-[#0B0B0B] md:text-xl text-sm font-semibold md:mt-1.5 mt-1 flex items-center">
               {order.total.toFixed(2)}
-              <img 
+              <img
                 src="/images/currency.png"
                 alt="currency"
                 className="w-[22.5px] h-6"
@@ -145,16 +145,14 @@ const Orders = () => {
         {t("myOrders")}
       </h1>
 
-      <Link to="/" className="md:hidden flex items-center gap-3">
-        <MobileBackHeader />
-        <p className="text-[#0B0B0B] text-base font-semibold mb-6">
-          {t("myOrders")}
-        </p>
-      </Link>
+      <MobileBackHeader title={t("myOrders")} link="/profile" />
 
       <div className="md:mt-8 mt-4 mb-12">
         <Tabs defaultValue="current">
-          <TabsList className="bg-[#F6F6F6] flex flex-wrap mb-8 md:gap-4 w-full py-6" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+          <TabsList
+            className="bg-[#F6F6F6] flex flex-wrap mb-8 md:gap-4 w-full py-6"
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
+          >
             <TabsTrigger
               value="current"
               className="data-[state=active]:bg-[#018884] data-[state=active]:shadow-none bg-transparent data-[state=active]:text-[#FEFEFE] text-base font-medium text-[#3B3B3B] md:px-8 py-4 rounded-[12px] -mt-4.25"

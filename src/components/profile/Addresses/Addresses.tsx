@@ -1,9 +1,17 @@
 import { useState } from "react";
 import Edit from "@/components/icons/profile/Edit";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+
 import MobileBackHeader from "@/components/general/MobileBackHeader";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import AddNewAddress from "./AddNewAddress";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
@@ -17,7 +25,7 @@ const Addresses = () => {
   const [editAddressId, setEditAddressId] = useState<number | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [showAddDialog, setShowAddDialog] = useState(false)
+  const [showAddDialog, setShowAddDialog] = useState(false);
   const { t } = useTranslation("profile");
 
   const {
@@ -45,12 +53,7 @@ const Addresses = () => {
         {t("myAddresses")}
       </h1>
 
-      <Link to="/" className="md:hidden flex items-center gap-3">
-        <MobileBackHeader />
-        <p className="text-[#0B0B0B] text-base font-semibold mb-6">
-          {t("myAddresses")}
-        </p>
-      </Link>
+      <MobileBackHeader title={t("myAddresses")} link="/profile" />
 
       <div className="md:mt-8 mt-4 space-y-6">
         {isLoading ? (
@@ -126,16 +129,19 @@ const Addresses = () => {
         )}
 
         <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-          <DialogTrigger className="w-full" onClick={() => setShowAddDialog(true)}>
+          <DialogTrigger
+            className="w-full"
+            onClick={() => setShowAddDialog(true)}
+          >
             <button className="w-full h-14 border border-[#018884] rounded-4xl md:mt-8 mt-4 text-[#018884] text-lg font-bold">
               {t("addNewAddress")}
             </button>
           </DialogTrigger>
           <DialogContent className="w-163.75 max-h-[90vh] flex flex-col p-0">
             <div className="flex-1 overflow-y-auto px-6 py-6">
-              <AddNewAddress 
-                onSuccess={() => {}} 
-                onShowSuccess={handleShowSuccess} 
+              <AddNewAddress
+                onSuccess={() => {}}
+                onShowSuccess={handleShowSuccess}
               />
             </div>
           </DialogContent>
@@ -151,9 +157,7 @@ const Addresses = () => {
               className="w-[213px] h-[213px] mx-auto"
             />
             <DialogTitle className="text-[#0B0B0B] md:text-2xl text-base font-semibold text-center">
-              {isEdit
-                ? t("addressUpdatedSuccess")
-                : t("addressAddedSuccess")}
+              {isEdit ? t("addressUpdatedSuccess") : t("addressAddedSuccess")}
             </DialogTitle>
             <DialogFooter className="sm:justify-start flex flex-row md:mt-0 mt-6 gap-4">
               <DialogClose asChild>
