@@ -20,18 +20,18 @@ const BestSellerCollection = ({
   const { t, i18n } = useTranslation("explore");
   const isRTL = i18n.language === "ar";
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [minPrice, setMinPrice] = useState(100);
+  const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
-  const [tempMinPrice, setTempMinPrice] = useState(100);
+  const [tempMinPrice, setTempMinPrice] = useState(0);
   const [tempMaxPrice, setTempMaxPrice] = useState(10000);
   const [activeTab, setActiveTab] = useState("all");
-  const MIN = 100;
+  const MIN = 0;
   const MAX = 10000;
 
   const { data, isLoading } = useQuery({
     queryKey: ["categoryProducts", parentId],
     queryFn: () =>
-      getProducts({ page: 1, category_id: parentId }).then(res => res.data),
+      getProducts({ page: 1, category_id: parentId }).then((res) => res.data),
     enabled: !!parentId,
   });
 
