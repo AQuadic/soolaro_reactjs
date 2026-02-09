@@ -3,10 +3,10 @@ import Check from "../icons/cart/Check";
 import { useTranslation } from "react-i18next";
 
 interface CartPopUpProps {
-  productName: string;
-  productImage: string;
-  productPrice: number;
-  onClose: () => void;
+  productName?: string;
+  productImage?: string;
+  productPrice?: number;
+  onClose?: () => void;
 }
 
 const CartPopUp = ({ productName, productImage, productPrice, onClose }: CartPopUpProps) => {
