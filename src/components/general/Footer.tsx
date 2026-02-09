@@ -68,7 +68,9 @@ const Footer = () => {
     queryFn: () => getCategories(),
   });
 
-  const lastThreeCategories = categories?.slice(-3);
+  const selectedCategories = categories?.filter(category =>
+    [6, 7, 8].includes(category.id)
+  );
 
   return (
     <footer className="bg-[#018884]">
@@ -169,7 +171,7 @@ const Footer = () => {
                 {t("home")}
               </Link>
               <nav className="flex flex-col items-center md:items-start gap-4">
-                {lastThreeCategories?.map((category) => (
+                {selectedCategories?.map((category) => (
                   <Link
                     key={category.id}
                     to={`/category?parent_id=${category.id}`}

@@ -69,7 +69,9 @@ const Header = ({ className }: HeaderProps) => {
     staleTime: 1000 * 60 * 5, // Cache for 5 minutes
   });
 
-  const lastThreeCategories = categories?.slice(-3);
+  const selectedCategories = categories?.filter(category =>
+    [6, 7, 8].includes(category.id)
+  );
 
   return (
     <>
@@ -97,7 +99,7 @@ const Header = ({ className }: HeaderProps) => {
               {t("home")}
             </Link>
             <nav className="flex items-center gap-4 my-6">
-              {lastThreeCategories?.map((category) => (
+              {selectedCategories?.map((category) => (
                 <Link
                   key={category.id}
                   to={`/category?parent_id=${category.id}`}
@@ -179,7 +181,7 @@ const Header = ({ className }: HeaderProps) => {
                   {t("home")}
                 </Link>
                 <nav className="flex flex-col items-center gap-4 ">
-                  {lastThreeCategories?.map((category) => (
+                  {selectedCategories?.map((category) => (
                     <Link
                       key={category.id}
                       to={`/category?parent_id=${category.id}`}
