@@ -8,8 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
 function HomeSlider() {
-  const {t, i18n } = useTranslation('home');
-  const { data: slides, isLoading, isError } = useQuery<Slider[]>({
+  const { t, i18n } = useTranslation("home");
+  const {
+    data: slides,
+    isLoading,
+    isError,
+  } = useQuery<Slider[]>({
     queryKey: ["sliders", i18n.language],
     queryFn: () => getSliders(),
   });
@@ -56,13 +60,24 @@ function HomeSlider() {
     );
 
   if (isError || !slides || slides.length === 0)
-    return <div className="text-center py-20">
-      {t('no_sliders')}
-    </div>;
+    return <div className="text-center py-20">{t("no_sliders")}</div>;
 
   return (
     <div className="slider-container md:max-w-145 w-full mb-1">
       <style>{`
+        .slider-container .slick-track {
+          display: flex !important;
+          flex-direction: row !important;
+        }
+        .slider-container .slick-slide {
+          float: none !important;
+          display: flex !important;
+          height: auto !important;
+          flex-shrink: 0;
+        }
+        .slider-container .slick-slide > div {
+          width: 100%;
+        }
         .slick-dots li.slick-active .slick-dot-custom {
           width: 20px !important;
           background-color: #018884 !important;
@@ -82,6 +97,7 @@ function HomeSlider() {
         }
         .slick-list {
           height: 240px !important;
+          overflow: hidden !important;
         }
         @media (min-width: 768px) {
           .slick-list {
@@ -97,41 +113,43 @@ function HomeSlider() {
         }
       `}</style>
 
-
       <SliderSlick {...settings}>
         {slides.map((slide) => {
-          const slideImage = i18n.language === "ar" ? slide.ar_image.url : slide.en_image.url;
+          const slideImage =
+            i18n.language === "ar" ? slide.ar_image.url : slide.en_image.url;
           const slideTitle = slide.title ?? slide.name;
           const slideButton = slide.text_button ?? slide.name;
 
           return (
             <div className="slider-card relative mx-2 group">
-            <div className="relative md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl overflow-hidden">
-              <Image
-                src={slideImage}
-                alt={slideTitle}
-                wrapperClassName="md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl"
-                className="w-full h-full object-cover"
-              />
-              <div className="slider-overlay absolute inset-0 bg-black/50 z-10 pointer-events-none" />
-            </div>
+              <div className="relative md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl overflow-hidden">
+                <Image
+                  src={slideImage}
+                  alt={slideTitle}
+                  wrapperClassName="md:w-[275px] w-[206px] md:h-[360px] h-[240px] rounded-4xl"
+                  className="w-full h-full object-cover"
+                />
+                <div className="slider-overlay absolute inset-0 bg-black/50 z-10 pointer-events-none" />
+              </div>
               <a
                 href={slide.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute md:w-68.75 w-[206px] h-10 bg-[#FFFFFF33] bottom-0 backdrop-blur-[20px] rounded-bl-4xl rounded-br-4xl flex items-center justify-between px-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0 z-20"              >
-              <p className="text-[#FFFFFF] md:text-xs text-[10px] font-medium">
-                {slideTitle}
-              </p>
-              <div className="flex items-center gap-2">
-                <p className="text-[#FFFFFF] md:text-sm text-xs font-medium">
-                  {slideButton}
+                className="absolute md:w-68.75 w-[206px] h-10 bg-[#FFFFFF33] bottom-0 backdrop-blur-[20px] rounded-bl-4xl rounded-br-4xl flex items-center justify-between px-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0 z-20"
+              >
+                <p className="text-[#FFFFFF] md:text-xs text-[10px] font-medium">
+                  {slideTitle}
                 </p>
-                <SliderArrow />
-              </div>
-            </a>
-          </div>
-        )})}
+                <div className="flex items-center gap-2">
+                  <p className="text-[#FFFFFF] md:text-sm text-xs font-medium">
+                    {slideButton}
+                  </p>
+                  <SliderArrow />
+                </div>
+              </a>
+            </div>
+          );
+        })}
       </SliderSlick>
     </div>
   );
