@@ -9,6 +9,7 @@ import { Loader, Loader2 } from "lucide-react";
 import { createReview } from "@/lib/api/review/postreview";
 import { getReviewSummary } from "@/lib/api/review";
 import { getReviewableReviews } from "@/lib/api/review/getReviewableReviews";
+import { useAuthStore } from "@/store/useAuthStore";
 
 interface ProductDetialsDataProps {
   reviewable_id: string;
@@ -34,15 +35,14 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
   });
 
   const { data: reviews, isLoading: isReviewsLoading } = useQuery({
-  queryKey: ["reviewable-reviews", reviewable_id],
-  queryFn: () =>
-    getReviewableReviews({
-      reviewable_id,
-      reviewable_type: "product",
-    }),
-  enabled: !!reviewable_id,
-});
-
+    queryKey: ["reviewable-reviews", reviewable_id],
+    queryFn: () =>
+      getReviewableReviews({
+        reviewable_id,
+        reviewable_type: "product",
+      }),
+    enabled: !!reviewable_id,
+  });
 
   const ratingsDistribution = summaryData
     ? Object.entries(summaryData)
@@ -64,6 +64,8 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
       totalReviews
     : 0;
 
+  const { isAuthenticated } = useAuthStore();
+
   const handleSubmitReview = async () => {
     // Prevent duplicate submissions
     if (isSubmitting) return;
@@ -75,12 +77,19 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
 
     setIsSubmitting(true);
     try {
-      await createReview({
+      const reviewData: any = {
         reviewable_type: "product",
         reviewable_id,
         rating: selectedStar,
         comment,
-      });
+      };
+
+      // Add guest_name if user is not authenticated
+      if (!isAuthenticated()) {
+        reviewData.guest_name = name;
+      }
+
+      await createReview(reviewData);
 
       // toast.success(t("review_success"));
       setName("");
@@ -180,7 +189,10 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
               </li>
             </ul>
           </TabsContent> */}
-          <TabsContent value="reviews" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+          <TabsContent
+            value="reviews"
+            dir={i18n.language === "ar" ? "rtl" : "ltr"}
+          >
             <div className="flex lg:flex-row flex-col gap-8">
               <div className="w-full h-full p-6 border border-[#DEDDDD] rounded-4xl">
                 <p className="text-[#0B0B0B] text-xl font-medium">
@@ -312,7 +324,7 @@ const ProductDetialsData: React.FC<ProductDetialsDataProps> = ({
                         <FullStar key={star} />
                       ) : (
                         <EmptyStar key={star} />
-                      )
+                      ),
                     )}
                   </div>
 

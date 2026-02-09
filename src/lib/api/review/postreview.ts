@@ -7,6 +7,7 @@ export interface CreateReviewRequest {
   relatable_type?: string;
   rating: number;
   comment?: string;
+  guest_name?: string;
 }
 
 export interface CreateReviewResponse {
@@ -16,7 +17,7 @@ export interface CreateReviewResponse {
 }
 
 export const createReview = async (
-  reviewData: CreateReviewRequest
+  reviewData: CreateReviewRequest,
 ): Promise<CreateReviewResponse> => {
   try {
     const response = await axios.post<CreateReviewResponse>(
@@ -27,12 +28,10 @@ export const createReview = async (
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-      }
+      },
     );
     return response.data;
   } catch (error: any) {
-    throw new Error(
-      error.response?.data?.message || "Failed to create review"
-    );
+    throw new Error(error.response?.data?.message || "Failed to create review");
   }
 };
