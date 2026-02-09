@@ -15,5 +15,6 @@
     "errorTitle": "-ERROR-",
     "pageNotFound": "Page Not Found",
     "phone_number": "Phone number",
-    "search_country": "Search country..."
+    "search_country": "Search country...",
+    "no_sliders": "No sliders available."
 }
