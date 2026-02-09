@@ -1,0 +1,38 @@
+name: Production Build Safety Check
+
+# الـ Action ده هيشتغل مع كل Pull Request أو Push على الفروع الأساسية
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-verification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24' # تأكد إنها نفس نسخة Node اللي على السيرفر عندك
+          cache: 'npm'
+
+      - name: Install Dependencies
+        # npm ci بتضمن إن الـ packages هي هي اللي في الـ package-lock.json
+        run: npm ci
+
+      - name: Strict Type Checking
+        # السطر ده هو اللي هيمسك المبرمجين.. بيشغل الـ compiler من غير ما يطلع ملفات
+        run: npx tsc -b
+
+      - name: Production Build
+        # ده الاختبار النهائي.. لو السيرفر هيفشل، الـ Action هيفشل هنا
+        run: npm run build
+
+      - name: Quality Success Message
+        if: success()
+        run: echo "Code is clean and ready for production!"
