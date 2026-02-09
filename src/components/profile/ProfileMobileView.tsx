@@ -6,8 +6,10 @@ import MyWishlist from "../icons/profile/MyWishlist";
 import MyAddresses from "../icons/profile/MyAddresses";
 import Logout from "../icons/profile/Logout";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useTranslation } from "react-i18next";
 
 const ProfileMobileView = () => {
+  const { t } = useTranslation("profile");
   const navigate = useNavigate();
   const logout = useAuthStore((state) => state.logout);
 
@@ -20,7 +22,7 @@ const ProfileMobileView = () => {
     <section className="mb-12">
       <Link to="/" className="flex items-center gap-3">
         <MobileBackHeader />
-        <p className="text-[#0B0B0B] text-base font-semibold mb-6">Profile</p>
+        <p className="text-[#0B0B0B] text-base font-semibold mb-6">{t('myProfile')}</p>
       </Link>
       <div className="mt-4">
         <Link
@@ -28,7 +30,7 @@ const ProfileMobileView = () => {
           className="w-full h-12 bg-[#F6F6F6] rounded-4xl flex items-center gap-2 px-3 py-4"
         >
           <User />
-          <p className="text-[#0B0B0B] text-base font-medium">My profile</p>
+          <p className="text-[#0B0B0B] text-base font-medium">{t('myProfile')}</p>
         </Link>
 
         <Link
@@ -36,7 +38,7 @@ const ProfileMobileView = () => {
           className="w-full h-12 bg-[#F6F6F6] rounded-4xl flex items-center gap-2 px-3 py-4 mt-6"
         >
           <MyOrders />
-          <p className="text-[#0B0B0B] text-base font-medium">My Orders</p>
+          <p className="text-[#0B0B0B] text-base font-medium">{t('myOrders')}</p>
         </Link>
 
         <Link
@@ -44,7 +46,7 @@ const ProfileMobileView = () => {
           className="w-full h-12 bg-[#F6F6F6] rounded-4xl flex items-center gap-2 px-3 py-4 mt-6"
         >
           <MyWishlist />
-          <p className="text-[#0B0B0B] text-base font-medium">My Wishlist</p>
+          <p className="text-[#0B0B0B] text-base font-medium">{t('myWishlist')}</p>
         </Link>
 
         <Link
@@ -52,7 +54,7 @@ const ProfileMobileView = () => {
           className="w-full h-12 bg-[#F6F6F6] rounded-4xl flex items-center gap-2 px-3 py-4 mt-6"
         >
           <MyAddresses />
-          <p className="text-[#0B0B0B] text-base font-medium">My Addresses</p>
+          <p className="text-[#0B0B0B] text-base font-medium">{t('myAddresses')}</p>
         </Link>
 
         <button
@@ -60,7 +62,7 @@ const ProfileMobileView = () => {
           className="w-full h-12 bg-[#F6F6F6] rounded-4xl flex items-center gap-2 px-3 py-4 mt-6"
         >
           <Logout />
-          <p className="text-[#CA1010] text-base font-medium">Log Out</p>
+          <p className="text-[#CA1010] text-base font-medium">{t('logOut')}</p>
         </button>
       </div>
     </section>
