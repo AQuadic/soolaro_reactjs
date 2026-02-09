@@ -18,6 +18,7 @@ const BestSellerCollection = ({
   categoryName,
 }: BestSellerCollectionProps) => {
     const { t, i18n } = useTranslation("explore");
+    const isRTL = i18n.language === "ar";
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [minPrice, setMinPrice] = useState(100);
     const [maxPrice, setMaxPrice] = useState(10000);
@@ -176,7 +177,7 @@ const BestSellerCollection = ({
                 <div className="relative h-10">
                 <div className="absolute top-1/2 w-full h-1 bg-gray-300 rounded transform -translate-y-1/2 pointer-events-none"></div>
                 <div
-                    className="absolute top-1/2 h-1 bg-[#018884] rounded transform -translate-y-1/2"
+                    className="absolute top-1/2 h-1 bg-[#018884] rounded -translate-y-1/2"
                     style={{
                     left: `${((tempMinPrice - MIN) / (MAX - MIN)) * 100}%`,
                     width: `${((tempMaxPrice - tempMinPrice) / (MAX - MIN)) * 100}%`,
@@ -190,6 +191,7 @@ const BestSellerCollection = ({
                     onChange={(e) => handleMinChange(Number(e.target.value))}
                     className="absolute w-full h-6 bg-transparent appearance-none price-range-slider"
                     style={{ zIndex: tempMinPrice > (MIN + MAX) / 2 ? 5 : 3 }}
+                    dir={isRTL ? "rtl" : "ltr"}
                 />
                 <input
                     type="range"
@@ -199,8 +201,9 @@ const BestSellerCollection = ({
                     onChange={(e) => handleMaxChange(Number(e.target.value))}
                     className="absolute w-full h-6 bg-transparent appearance-none price-range-slider"
                     style={{ zIndex: tempMaxPrice > (MIN + MAX) / 2 ? 5 : 3 }}
+                    dir={isRTL ? "rtl" : "ltr"}
                 />
-                </div>
+            </div>
 
                 <div className="flex justify-between gap-4 mt-10">
                 <input
