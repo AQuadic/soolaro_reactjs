@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import ProductEmptyState from "../product_details/ProductEmptyState";
 import { useTranslation } from "react-i18next";
 import { Skeleton } from "../ui/skeleton";
+import { DirhamIcon } from "../icons/checkout/DirhamIcon";
 
 interface BestSellerCollectionProps {
   parentId: number;
@@ -211,21 +212,35 @@ const BestSellerCollection = ({
             </div>
 
             <div className="flex justify-between gap-4 mt-10">
-              <input
-                type="number"
-                value={tempMinPrice}
-                onChange={(e) => handleMinChange(Number(e.target.value))}
-                className="rounded-xl w-full py-4 px-3 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
-              />
+              <div className="relative w-full">
+                <input
+                  type="number"
+                  value={tempMinPrice}
+                  onChange={(e) => handleMinChange(Number(e.target.value))}
+                  className="rounded-xl w-full py-4 px-8 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
+                />
+                <div
+                  className={`absolute ${isRTL ? "left-3" : "right-3"} top-1/2 -translate-y-1/2 pointer-events-none`}
+                >
+                  <DirhamIcon className="w-4 h-4 text-[#0B0B0B]" />
+                </div>
+              </div>
               <span className="flex items-center justify-center text-[#0B0B0B] text-2xl font-medium">
                 :
               </span>
-              <input
-                type="number"
-                value={tempMaxPrice}
-                onChange={(e) => handleMaxChange(Number(e.target.value))}
-                className="rounded-xl w-full py-4 px-3 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
-              />
+              <div className="relative w-full">
+                <input
+                  type="number"
+                  value={tempMaxPrice}
+                  onChange={(e) => handleMaxChange(Number(e.target.value))}
+                  className="rounded-xl w-full py-4 px-8 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
+                />
+                <div
+                  className={`absolute ${isRTL ? "left-3" : "right-3"} top-1/2 -translate-y-1/2 pointer-events-none`}
+                >
+                  <DirhamIcon className="w-4 h-4 text-[#0B0B0B]" />
+                </div>
+              </div>
             </div>
           </div>
 
