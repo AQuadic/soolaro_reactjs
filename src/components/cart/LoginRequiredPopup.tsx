@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { Image } from "@/components/ui/image";
+import { useTranslation } from "react-i18next";
 
 interface LoginRequiredPopupProps {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ const LoginRequiredPopup = ({
   isLoggedIn = false,
   onProceed,
 }: LoginRequiredPopupProps) => {
+  const { t } = useTranslation("auth");
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -49,19 +51,19 @@ const LoginRequiredPopup = ({
           <div className="w-[160px] h-[120px] flex items-center justify-center">
             <Image
               src="/images/cart/loginCartImage.png"
-              alt="Login required"
+              alt={t("login_required_alt")}
               className="w-full h-full object-contain"
             />
           </div>
 
           {/* Title */}
           <DialogTitle className="text-[#0B0B0B] text-xl font-semibold text-center">
-            Login Required !
+            {t("login_required_title")}
           </DialogTitle>
 
           {/* Description */}
           <DialogDescription className="text-[#6B6B6B] text-base font-normal text-center -mt-3">
-            You need to log in to complete your checkout.
+            {t("login_required_description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -72,7 +74,7 @@ const LoginRequiredPopup = ({
               type="button"
               className="flex-1 h-[52px] border border-[#DEDDDD] rounded-full text-[#3B3B3B] text-base font-semibold hover:bg-gray-50 transition-colors"
             >
-              Cancel
+              {t("cancel")}
             </button>
           </DialogClose>
           <DialogClose asChild>
@@ -81,7 +83,7 @@ const LoginRequiredPopup = ({
               onClick={handleLogin}
               className="flex-1 h-[52px] bg-[#018884] rounded-full text-white text-base font-semibold hover:bg-[#006F6C] transition-colors"
             >
-              Log In
+              {t("login")}
             </button>
           </DialogClose>
         </DialogFooter>
