@@ -74,5 +74,6 @@
       "completed": "مكتمل",
       "cancelled": "ملغي"
     },
-  "deleting": "جار الحذف ..."
+  "deleting": "جار الحذف ...",
+  "adding": "جار الإضافة"
 }

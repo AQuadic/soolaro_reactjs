@@ -74,5 +74,6 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
-  "deleting": "Deleting"
+  "deleting": "Deleting",
+  "adding": "Adding ..."
 }

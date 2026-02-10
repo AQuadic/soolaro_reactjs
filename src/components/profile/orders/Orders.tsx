@@ -9,12 +9,17 @@ import { useEffect, useState } from "react";
 import { getOrders, type Order } from "@/lib/api/orders/getOrders";
 import { formatDate } from "@/lib/utils/dateUtils";
 import { getResponsiveImageUrl } from "@/lib/utils/imageUtils";
+import { useNavigate } from "react-router-dom";
+import { useCartStore } from "@/store/useCartStore";
 
 const Orders = () => {
   const { t, i18n } = useTranslation("profile");
+  const navigate = useNavigate();
+  const { addToCart } = useCartStore();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [orderingAgain, setOrderingAgain] = useState<number | null>(null);
   const currentLanguage = i18n.language;
 
   useEffect(() => {
@@ -73,6 +78,27 @@ const Orders = () => {
   //     .join(" ");
   // };
 
+  const handleOrderAgain = async (order: Order) => {
+    try {
+      setOrderingAgain(order.id);
+
+      for (const item of order.orderItems) {
+        await addToCart(
+          item.variant.product_id,
+          "Product",
+          item.quantity,
+          item.variant.id,
+        );
+      }
+
+      navigate("/cart");
+    } catch (error) {
+      console.error("Failed to add items to cart:", error);
+    } finally {
+      setOrderingAgain(null);
+    }
+  };
+
   const renderOrderItem = (order: Order, showOrderAgain: boolean = false) => {
     // Get the first order item for display
     const firstItem = order.orderItems[0];
@@ -83,6 +109,8 @@ const Orders = () => {
     const itemImage =
       getResponsiveImageUrl(firstItem.variant.images[0], "thumbnail") ||
       getResponsiveImageUrl(firstItem.productable.image, "thumbnail");
+    
+    const isProcessing = orderingAgain === order.id;
 
     return (
       <div
@@ -129,10 +157,18 @@ const Orders = () => {
             {t(`order_status.${order.status.toLowerCase()}`)}
           </div>
           {showOrderAgain && (
-            <button className="flex items-center gap-2 mt-2">
-              <OrderAgain />
+            <button 
+              className="flex items-center gap-2 mt-2 disabled:opacity-50"
+              onClick={() => handleOrderAgain(order)}
+              disabled={isProcessing}
+            >
+              {isProcessing ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#018884]"></div>
+              ) : (
+                <OrderAgain />
+              )}
               <p className="text-[#018884] md:text-base text-xs font-semibold">
-                {t("orderAgain")}
+                {isProcessing ? t("adding") || "Adding..." : t("orderAgain")}
               </p>
             </button>
           )}
