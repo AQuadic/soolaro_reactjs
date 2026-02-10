@@ -38,7 +38,7 @@ const ComplateSelection = ({ categoryId }: ComplateSelectionProps) => {
   return (
     <ProductSlider
       title={t("complete_selection")}
-      seeAllLink={`/products?category=${categoryId}`}
+      seeAllLink={`/category?parent_id=${categoryId}`}
       products={products}
       containerClassName="container md:py-17 py-10"
     />
