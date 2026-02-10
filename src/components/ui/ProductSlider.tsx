@@ -27,7 +27,7 @@ const ProductSlider = ({
   products,
   containerClassName = "container pb-17",
 }: ProductSliderProps) => {
-  const { t } = useTranslation("home");
+  const { t, i18n } = useTranslation("home");
 
   return (
     <section className={containerClassName}>
@@ -62,6 +62,7 @@ const ProductSlider = ({
           modules={[Pagination]}
           spaceBetween={16}
           slidesPerView={1.25}
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
           breakpoints={{
             768: {
               slidesPerView: 1.5,
