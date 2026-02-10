@@ -273,7 +273,7 @@ const Header = ({ className }: HeaderProps) => {
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder={'search'}
+                      placeholder={t('search')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full px-12 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:border-[#A8D4D3]"
