@@ -184,8 +184,12 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
               <h2 className="text-[#000000] md:text-2xl text-base font-semibold">
                 {product.name[lang] || product.name.en}
               </h2>
-              <p className="text-[#025D5B] md:text-[32px] text-xl font-medium leading-[100%] md:mt-6">
+              <p className="flex items-center gap-1 text-[#025D5B] md:text-[32px] text-xl font-medium leading-[100%] md:mt-6">
                 {selectedVariant?.final_price?.toFixed(2)}
+                <img
+                  src="/images/c_currency.png"
+                  alt="currency"
+                />
               </p>
             </div>
             {isLoggedIn && (
