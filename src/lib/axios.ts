@@ -154,7 +154,9 @@ axios.interceptors.response.use(
           // Check for specific backend translation keys
           if (
             message === "passwords.sent" ||
-            message === "pasword.sent_target"
+            message === "pasword.sent_target" ||
+            message === "passwords.sent_target" ||
+            message === "password.sent_target"
           ) {
             message = i18n.t("auth:passwords.sent");
           } else if (message.includes("passwords.")) {
