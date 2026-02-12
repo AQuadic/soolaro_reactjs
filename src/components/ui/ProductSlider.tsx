@@ -59,6 +59,7 @@ const ProductSlider = ({
         className="md:mt-12 mt-4"
       >
         <Swiper
+          key={i18n.language}
           modules={[Pagination]}
           spaceBetween={16}
           slidesPerView={1.25}
