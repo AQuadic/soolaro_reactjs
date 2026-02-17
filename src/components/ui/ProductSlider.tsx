@@ -83,6 +83,7 @@ const ProductSlider = ({
                 priceColor={product.priceColor}
                 height={product.height}
                 product={product.product}
+                showHeart={true}
               />
             </SwiperSlide>
           ))}

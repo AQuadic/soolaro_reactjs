@@ -32,7 +32,6 @@ const Card = ({
   const { t, i18n } = useTranslation("product");
   const [selectedColor, setSelectedColor] = useState(0);
   const [isFavorite, setIsFavorite] = useState(product?.is_favorite || false);
-  const [loadingFavorite, setLoadingFavorite] = useState(false);
   const isLoggedIn = useAuthStore((state) => state.isAuthenticated());
   const queryClient = useQueryClient();
 
@@ -117,31 +116,52 @@ const Card = ({
     e.preventDefault();
     if (!productId) return;
 
-    setLoadingFavorite(true);
+    // Store previous state for rollback on error
+    const previousIsFavorite = isFavorite;
+
+    // Optimistic update: Update UI immediately
+    setIsFavorite(!isFavorite);
+
+    // Show success toast immediately
+    toast.success(
+      isFavorite ? t("removed_from_favorites") : t("added_to_favorites"),
+    );
+
+    // Update query cache optimistically
+    queryClient.setQueryData<FavoriteItem[]>(["favorites"], (oldFavorites) => {
+      if (!oldFavorites) return [];
+      // Remove from favorites list if unfavoriting
+      if (previousIsFavorite) {
+        return oldFavorites.filter((fav) => fav.favorable.id !== productId);
+      }
+      return oldFavorites;
+    });
+
+    // API call happens in the background
     try {
       await toggleFavorite({
         favorable_id: productId,
         favorable_type: "product",
       });
+    } catch (error: any) {
+      // Rollback on error
+      console.error(error);
+      setIsFavorite(previousIsFavorite);
+      toast.error("Failed to update favorite");
 
-      toast.success(
-        isFavorite ? t("removed_from_favorites") : t("added_to_favorites"),
-      );
-
-      setIsFavorite(!isFavorite);
-
+      // Revert query cache
       queryClient.setQueryData<FavoriteItem[]>(
         ["favorites"],
         (oldFavorites) => {
           if (!oldFavorites) return [];
-          return oldFavorites.filter((fav) => fav.favorable.id !== productId);
+          // If we were trying to remove but failed, we need to add it back
+          // For now, just invalidate to refetch
+          return oldFavorites;
         },
       );
-    } catch (error: any) {
-      console.error(error);
-      toast.error("Failed to update favorite");
-    } finally {
-      setLoadingFavorite(false);
+
+      // Refetch to get the correct state
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
     }
   };
 
@@ -170,7 +190,6 @@ const Card = ({
           {showHeart && isLoggedIn && (
             <button
               onClick={handleToggleFavorite}
-              disabled={loadingFavorite}
               className="absolute md:top-4 top-2 md:right-4 right-2 z-20"
             >
               {isFavorite ? <FavHeart /> : <Heart />}
@@ -188,7 +207,7 @@ const Card = ({
           {product?.variants?.[0]?.is_out_of_stock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-15">
               <span className="text-white font-bold md:text-xl text-base bg-red-600 px-4 py-2 rounded-lg">
-                {t('out_of_stock')}
+                {t("out_of_stock")}
               </span>
             </div>
           )}
