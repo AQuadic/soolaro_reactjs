@@ -10,7 +10,6 @@ import MobileLogo from "../icons/header/MobileLogo";
 import SearchEmptyState from "./SearchEmptyState";
 import SearchResults from "./SearchResults";
 import SidebarUser from "../icons/header/SidebarUser";
-import CategoryLogo from "../icons/category/Logo";
 import ChangeLanguage from "./ChangeLanguage";
 import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../../store/useAuthStore";
@@ -69,8 +68,8 @@ const Header = ({ className }: HeaderProps) => {
     staleTime: 1000 * 60 * 5, // Cache for 5 minutes
   });
 
-  const selectedCategories = categories?.filter(category =>
-    [6, 7, 8].includes(category.id)
+  const selectedCategories = categories?.filter((category) =>
+    [6, 7, 8].includes(category.id),
   );
 
   return (
@@ -108,7 +107,8 @@ const Header = ({ className }: HeaderProps) => {
                     closeSidebar();
                   }}
                 >
-                  {category.name[i18n.language as keyof typeof category.name] || category.name.en}
+                  {category.name[i18n.language as keyof typeof category.name] ||
+                    category.name.en}
                 </Link>
               ))}
             </nav>
@@ -190,7 +190,9 @@ const Header = ({ className }: HeaderProps) => {
                         closeSidebar();
                       }}
                     >
-                      {category.name[i18n.language as keyof typeof category.name] || category.name.en}
+                      {category.name[
+                        i18n.language as keyof typeof category.name
+                      ] || category.name.en}
                     </Link>
                   ))}
                 </nav>
@@ -273,7 +275,7 @@ const Header = ({ className }: HeaderProps) => {
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder={t('search')}
+                      placeholder={t("search")}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full px-12 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:border-[#A8D4D3]"
