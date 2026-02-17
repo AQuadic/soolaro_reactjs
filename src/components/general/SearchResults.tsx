@@ -75,7 +75,7 @@ const SearchResults = ({
               </h3>
               <div className="flex items-center gap-2 mt-2">
                 {variant?.has_discount && (
-                  <p className="text-[#3B3B3B] text-sm line-through flex items-center gap-1">
+                  <p className="text-[#3B3B3B] text-sm line-through flex items-center gap-0.5">
                     {variant.price}
                     <img
                       src="/images/currency.png"
@@ -84,7 +84,7 @@ const SearchResults = ({
                     />
                   </p>
                 )}
-                <p className="text-[#018884] text-base font-semibold flex items-center gap-1">
+                <p className="text-[#018884] text-base font-semibold flex items-center gap-0.5">
                   {variant?.final_price || variant?.price}
                   <img
                     src="/images/currency.png"

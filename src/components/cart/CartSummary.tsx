@@ -138,7 +138,7 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
       <div className="space-y-4 mb-8">
         <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
           <span>{t("subTotal")}:</span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-0.5">
             {subtotal.toFixed(2)}
             <img
               src="/images/currency.png"
@@ -150,7 +150,7 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
         {shipping > 0 && (
           <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
             <span>{t("shippingCost")}:</span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-0.5">
               {shipping.toFixed(2)}
               <img
                 src="/images/currency.png"
@@ -163,7 +163,7 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
         {tax > 0 && (
           <div className="flex justify-between items-center text-[#0B0B0B] text-lg font-medium">
             <span>{t("tax")}:</span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-0.5">
               {tax.toFixed(2)}
               <img
                 src="/images/currency.png"
@@ -176,7 +176,7 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
         {totalDiscount > 0 && (
           <div className="flex justify-between items-center text-[#2A6F02] text-lg font-medium">
             <span>{t("discount")}:</span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-0.5">
               -{totalDiscount.toFixed(2)}
               <img
                 src="/images/currency.png"
@@ -194,7 +194,7 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
         <span className="text-[#0B0B0B] text-xl font-medium">
           {t("total")}:
         </span>
-        <span className="text-[#005B58] text-2xl font-bold flex items-center gap-1">
+        <span className="text-[#005B58] text-2xl font-bold flex items-center gap-0.5">
           {total.toFixed(2)}
           <img
             src="/images/currency.png"

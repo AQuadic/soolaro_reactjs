@@ -35,15 +35,15 @@ export const CheckoutProductItem = ({ product }: CheckoutProductItemProps) => {
         <h3 className="text-[#0B0B0B] text-xs md:text-lg font-medium">
           {product.name}
         </h3>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           <span className="text-[#025D5B] text-sm md:text-xl font-semibold">
             {product.price.toFixed(2)}
           </span>
           <img
-                src="/images/currency.png"
-                alt="c_currency"
-                className="w-4.5 h-4.5"
-              />
+            src="/images/currency.png"
+            alt="c_currency"
+            className="w-4.5 h-4.5"
+          />
         </div>
       </div>
     </div>

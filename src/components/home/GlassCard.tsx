@@ -219,7 +219,7 @@ const Card = ({
 
         <div className="flex items-center justify-center gap-2 md:mt-4 mt-2">
           <h2
-            className="md:text-2xl text-base font-medium leading-[100%] flex items-center gap-1"
+            className="md:text-2xl text-base font-medium leading-[100%] flex items-center gap-0.5"
             style={{ color: hasDiscount ? "#025D5B" : "#0B0B0B" }}
           >
             {productPrice.toFixed(2)}
@@ -231,7 +231,7 @@ const Card = ({
           </h2>
 
           {hasDiscount && originalPrice && (
-            <h2 className="md:text-lg text-sm font-medium leading-[100%] flex items-center gap-1 text-gray-400 line-through">
+            <h2 className="md:text-lg text-sm font-medium leading-[100%] flex items-center gap-0.5 text-gray-400 line-through">
               {originalPrice.toFixed(2)}
               <img
                 src="/images/currency.png"

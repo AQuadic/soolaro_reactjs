@@ -169,7 +169,7 @@ export const CheckoutOrderSummary = () => {
                 <span className="text-[#3B3B3B] text-xs md:text-base font-medium">
                   {t("subTotal")}:
                 </span>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5">
                   <span className="text-[#0B0B0B] text-sm md:text-base font-medium">
                     {subtotal.toFixed(2)}
                   </span>
@@ -185,7 +185,7 @@ export const CheckoutOrderSummary = () => {
                   <span className="text-[#3B3B3B] text-xs md:text-base font-medium">
                     {t("shippingCost")}:
                   </span>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5">
                     <span className="text-[#0B0B0B] text-sm md:text-base font-medium">
                       {shipping.toFixed(2)}
                     </span>
@@ -202,7 +202,7 @@ export const CheckoutOrderSummary = () => {
                   <span className="text-[#3B3B3B] text-xs md:text-base font-medium">
                     {t("cart:tax")}:
                   </span>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5">
                     <span className="text-[#0B0B0B] text-sm md:text-base font-medium">
                       {tax.toFixed(2)}
                     </span>
@@ -219,7 +219,7 @@ export const CheckoutOrderSummary = () => {
                   <span className="text-[#2A6F02] text-xs md:text-base font-medium">
                     {t("cart:discount")}:
                   </span>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5">
                     <span className="text-[#2A6F02] text-sm md:text-base font-medium">
                       -{totalDiscount.toFixed(2)}
                     </span>
@@ -241,7 +241,7 @@ export const CheckoutOrderSummary = () => {
               <span className="text-[#0B0B0B] text-sm md:text-base font-medium">
                 {t("total")}:
               </span>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5">
                 <span className="text-[#025D5B] text-base md:text-xl font-semibold">
                   {total.toFixed(2)}
                 </span>

@@ -134,7 +134,7 @@ const Orders = () => {
                 </span>
               )}
             </h2>
-            <h2 className="text-[#0B0B0B] md:text-xl text-sm font-semibold md:mt-1.5 mt-1 flex items-center">
+            <h2 className="text-[#0B0B0B] md:text-xl text-sm font-semibold md:mt-1.5 mt-1 flex items-center gap-0.5">
               {order.total.toFixed(2)}
               <img
                 src="/images/currency.png"

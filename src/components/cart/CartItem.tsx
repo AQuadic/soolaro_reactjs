@@ -173,7 +173,7 @@ const CartItem = ({ item }: CartItemProps) => {
               >
                 {name}
               </Link>
-              <p className="text-[#018884] font-medium text-base flex items-center gap-1">
+              <p className="text-[#018884] font-medium text-base flex items-center gap-0.5">
                 {price.toFixed(2)}
                 <img
                   src="/images/currency.png"
@@ -241,7 +241,7 @@ const CartItem = ({ item }: CartItemProps) => {
             >
               {name}
             </Link>
-            <p className="text-[#018884] font-medium text-lg underline underline-offset-4 decoration-1 flex items-center gap-1">
+            <p className="text-[#018884] font-medium text-lg underline underline-offset-4 decoration-1 flex items-center gap-0.5">
               {price.toFixed(2)}
               <img
                 src="/images/currency.png"
