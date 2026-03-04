@@ -30,18 +30,24 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
   const totalDiscount = calculations?.total_discount || 0;
   const total = calculations?.total || 0;
 
+  const [apiErrorMessage, setApiErrorMessage] = useState<string | null>(null);
+
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) return;
 
     try {
       await applyCoupon(couponCode.trim());
       setCouponStatus("success");
+      setApiErrorMessage(null);
       toast.dismiss();
       toast.success(t("couponSuccess"));
-    } catch {
+    } catch (error: any) {
       setCouponStatus("error");
+      const message =
+        error?.response?.data?.message
+      setApiErrorMessage(message);
       toast.dismiss();
-      toast.error(t("couponError"));
+      toast.error(message);
     }
   };
 
@@ -71,24 +77,23 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
 
         <div className="relative flex items-stretch h-[56px] w-full">
           <div
-            className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${
-              couponStatus === "error"
-                ? "border-[#C30000]"
-                : couponStatus === "success"
-                  ? "border-[#2A6F02]"
-                  : "border-[#EAEAEA]"
-            }`}
+            className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${couponStatus === "error"
+              ? "border-[#C30000]"
+              : couponStatus === "success"
+                ? "border-[#2A6F02]"
+                : "border-[#EAEAEA]"
+              }`}
           >
             <input
               type="text"
               placeholder={t("enterCoupon")}
               value={couponCode}
+              disabled={couponStatus === "success"}
               onChange={(e) => {
                 setCouponCode(e.target.value);
                 if (couponStatus !== "idle") setCouponStatus("idle");
               }}
-              className={`w-full h-full px-4 text-base focus:outline-none placeholder:text-[#8E8E8E] ${
-                couponStatus === "success"
+              className={`w-full h-full px-4 text-base focus:outline-none placeholder:text-[#8E8E8E] disabled:bg-[#F9F9F9] disabled:cursor-not-allowed ${couponStatus === "success"
                   ? "text-[#2A6F02]"
                   : couponStatus === "error"
                     ? "text-[#C30000]"
@@ -130,7 +135,9 @@ const CartSummary = ({ disablePopup = false }: CartSummaryProps) => {
         {couponStatus === "error" && (
           <div className="flex items-center gap-2 mt-2 text-[#C30000]">
             <XCircle className="w-5 h-5" strokeWidth={1.5} />
-            <span className="text-sm font-medium">{t("couponError")}</span>
+            <span className="text-sm font-medium">
+              {apiErrorMessage || t("couponError")}
+            </span>
           </div>
         )}
       </div>

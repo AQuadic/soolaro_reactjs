@@ -23,6 +23,7 @@ export const CheckoutOrderSummary = () => {
   const totalDiscount = calculations?.total_discount || 0;
   const total = calculations?.total || 0;
   const items = cart?.items || [];
+  const [apiErrorMessage, setApiErrorMessage] = useState<string | null>(null);
 
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) return;
@@ -30,12 +31,20 @@ export const CheckoutOrderSummary = () => {
     try {
       await applyCoupon(couponCode.trim());
       setCouponStatus("success");
+      setApiErrorMessage(null);
+
       toast.dismiss();
       toast.success(t("cart:couponSuccess"));
-    } catch {
+    } catch (error: any) {
       setCouponStatus("error");
+
+      const message =
+        error?.response?.data?.message || t("cart:couponError");
+
+      setApiErrorMessage(message);
+
       toast.dismiss();
-      toast.error(t("cart:couponError"));
+      toast.error(message);
     }
   };
 
@@ -92,29 +101,28 @@ export const CheckoutOrderSummary = () => {
             </p>
             <div className="relative flex items-stretch h-12 md:h-14 w-full">
               <div
-                className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${
-                  couponStatus === "error"
-                    ? "border-[#C30000]"
-                    : couponStatus === "success"
-                      ? "border-[#2A6F02]"
-                      : "border-[#ECECEC]"
-                }`}
+                className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${couponStatus === "error"
+                  ? "border-[#C30000]"
+                  : couponStatus === "success"
+                    ? "border-[#2A6F02]"
+                    : "border-[#ECECEC]"
+                  }`}
               >
                 <input
                   type="text"
                   placeholder={t("couponPlaceholder")}
                   value={couponCode}
+                  disabled={couponStatus === "success"}
                   onChange={(e) => {
                     setCouponCode(e.target.value);
                     if (couponStatus !== "idle") setCouponStatus("idle");
                   }}
-                  className={`w-full h-full px-4 text-sm md:text-base focus:outline-none placeholder:text-[#8E8E8E] ${
-                    couponStatus === "success"
-                      ? "text-[#2A6F02]"
-                      : couponStatus === "error"
-                        ? "text-[#C30000]"
-                        : "text-[#0B0B0B]"
-                  }`}
+                  className={`w-full h-full px-4 text-sm md:text-base focus:outline-none placeholder:text-[#8E8E8E] disabled:bg-[#F9F9F9] disabled:cursor-not-allowed  ${couponStatus === "success"
+                    ? "text-[#2A6F02]"
+                    : couponStatus === "error"
+                      ? "text-[#C30000]"
+                      : "text-[#0B0B0B]"
+                    }`}
                 />
               </div>
 
@@ -126,13 +134,12 @@ export const CheckoutOrderSummary = () => {
                     : handleApplyCoupon
                 }
                 disabled={isCouponLoading}
-                className={`px-6 font-semibold text-sm md:text-lg transition-colors ltr:rounded-r-lg rtl:rounded-l-lg h-full border-t border-r border-b disabled:opacity-50 ${
-                  couponStatus === "success"
-                    ? "bg-[#2A6F02] text-white border-[#2A6F02]"
-                    : couponStatus === "error"
-                      ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
-                      : "bg-[#ECECEC] text-[#3B3B3B] border-[#ECECEC]"
-                }`}
+                className={`px-6 font-semibold text-sm md:text-lg transition-colors ltr:rounded-r-lg rtl:rounded-l-lg h-full border-t border-r border-b disabled:opacity-50 ${couponStatus === "success"
+                  ? "bg-[#2A6F02] text-white border-[#2A6F02]"
+                  : couponStatus === "error"
+                    ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
+                    : "bg-[#ECECEC] text-[#3B3B3B] border-[#ECECEC]"
+                  }`}
               >
                 {isCouponLoading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
@@ -157,7 +164,7 @@ export const CheckoutOrderSummary = () => {
               <div className="flex items-center gap-2 text-[#C30000]">
                 <XCircle className="w-5 h-5" strokeWidth={1.5} />
                 <span className="text-sm font-medium">
-                  {t("cart:couponError")}
+                  {apiErrorMessage || t("cart:couponError")}
                 </span>
               </div>
             )}
