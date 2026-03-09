@@ -93,5 +93,10 @@
     "total": "الإجمالي",
     "delivery_information": "معلومات التسليم",
     "phone_number": "رقم الهاتف"
-  }
+  },
+  "track_order_with_id": "تتبع طلبك باستخدام رقم الطلب",
+  "tracking_order": "جاري تتبع طلبك",
+  "order_id": "رقم الطلب",
+  "enter_order_id": "أدخل رقم الطلب",
+  "track": "تتبع"
 }

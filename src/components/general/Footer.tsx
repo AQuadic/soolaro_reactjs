@@ -193,12 +193,21 @@ const Footer = () => {
               >
                 {isAuthenticated ? tProfile("myProfile") : t("create_account")}
               </Link>
-              <Link
-                to="/"
-                className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
-              >
-                {t("my_orders")}
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  to="/profile/orders"
+                  className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
+                >
+                  {t("my_orders")}
+                </Link>
+              ) : (
+                <Link
+                  to="/track_order"
+                  className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
+                >
+                  {t("track_order")}
+                </Link>
+              )}
               <Link
                 to="/faq"
                 className="text-[#FEFEFE] md:text-sm text-xs font-semibold"
@@ -240,19 +249,19 @@ const Footer = () => {
                   </p>
                 </a>
               )}
-                {social?.location && (
-                  <a
-                    href={`https://www.google.com/maps?q=${social.location.lat},${social.location.lng}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2"
-                  >
-                    <Clover />
-                    <p className="text-[#F6F6F6] text-sm font-medium">
-                      {social?.details}
-                    </p>
-                  </a>
-                )}
+              {social?.location && (
+                <a
+                  href={`https://www.google.com/maps?q=${social.location.lat},${social.location.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <Clover />
+                  <p className="text-[#F6F6F6] text-sm font-medium">
+                    {social?.details}
+                  </p>
+                </a>
+              )}
             </div>
 
             <div className="flex flex-col items-center md:items-start gap-3">

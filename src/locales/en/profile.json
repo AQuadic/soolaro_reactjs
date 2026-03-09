@@ -93,5 +93,10 @@
     "total": "Total",
     "delivery_information": "Delivery Information",
     "phone_number": "Phone Number"
-  }
+  },
+  "track_order_with_id": "Track Your Order With ID",
+  "tracking_order": "Tracking your order",
+  "order_id": "Order ID",
+  "enter_order_id": "Enter your order ID",
+  "track": "Track"
 }

@@ -27,6 +27,7 @@
     "search": "Search...",
     "type_keyword": "Type a keyword above to find what you’re looking for.",
     "no_products_found": "No products found for",
+    "track_order": "Track Order",
     "checkout": {
     "success": {
         "alt": "Order success",
