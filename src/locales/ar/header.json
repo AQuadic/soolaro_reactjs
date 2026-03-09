@@ -33,7 +33,8 @@
         "title": "تم الطلب بنجاح!",
         "description": "شكرًا لطلبك. تم الدفع بنجاح.",
         "viewOrder": "عرض الطلب",
-        "continueShopping": "متابعة التسوق"
+        "continueShopping": "متابعة التسوق",
+        "order_id": "رقم طلبك هو"
         }
     }
 }

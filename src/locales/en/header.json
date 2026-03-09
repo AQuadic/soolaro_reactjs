@@ -33,7 +33,8 @@
         "title": "Order Successful!",
         "description": "Thank you for your order. Your payment was successful.",
         "viewOrder": "View Order",
-        "continueShopping": "Continue Shopping"
+        "continueShopping": "Continue Shopping",
+        "order_id": "Your order id is"
         }
     }
 }

@@ -1,9 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const SuccessPage = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation('header');
+  const location = useLocation();
+  const { t } = useTranslation("header");
+
+  const orderCode = location.state?.orderCode;
 
   return (
     <div className="min-h-screen bg-[#FEFEFE] flex items-center justify-center p-4">
@@ -28,6 +31,13 @@ const SuccessPage = () => {
               <p className="text-base font-medium text-[#0B0B0B] text-center font-quicksand">
                 {t("checkout.success.description")}
               </p>
+
+              {orderCode && (
+                <p className="text-base font-medium text-[#0B0B0B] text-center font-quicksand">
+                  {t('checkout.success.order_id')}{" "}
+                  <span className="font-bold">#{orderCode}</span>
+                </p>
+              )}
             </div>
 
             {/* Buttons */}
