@@ -108,3 +108,19 @@ export const getOrderById = async (id: string | number): Promise<Order> => {
   const response = await axios.get<OrderResponse>(`/orders/id/${id}`);
   return response.data.order;
 };
+
+
+export const trackOrderById = async (
+    id: string | number,
+    email?: string,
+    phone?: string
+): Promise<Order> => {
+    const params = new URLSearchParams();
+    if (email) params.append("email", email);
+    if (phone) params.append("phone", phone);
+
+    const response = await axios.get<OrderResponse>(
+        `/orders/id/${id}?${params.toString()}`
+    );
+    return response.data.order;
+};

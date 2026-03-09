@@ -98,5 +98,10 @@
   "tracking_order": "Tracking your order",
   "order_id": "Order ID",
   "enter_order_id": "Enter your order ID",
-  "track": "Track"
+  "track": "Track",
+  "please_enter_order_id": "Please enter your order ID",
+  "please_enter_email_or_phone": "Please enter your email or phone",
+  "enter_email": "Enter your email",
+  "enter_phone": "Enter your phone number",
+  "phone": "Phone Number"
 }

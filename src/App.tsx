@@ -50,7 +50,7 @@ function App() {
             <Route path="/success" element={<SuccessPage />} />
             <Route path="/fail" element={<FailPage />} />
             <Route path="/track_order" element={<TrackOrder />} />
-            <Route path="/track_order/track_order_details" element={<TrackOrderDetailsPage />} />
+            <Route path="/track_order/track_order_details/:id" element={<TrackOrderDetailsPage />} />
             <Route
               path="/product_details/:id"
               element={<ProductDetailsPage />}

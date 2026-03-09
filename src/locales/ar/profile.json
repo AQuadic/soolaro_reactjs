@@ -98,5 +98,10 @@
   "tracking_order": "جاري تتبع طلبك",
   "order_id": "رقم الطلب",
   "enter_order_id": "أدخل رقم الطلب",
-  "track": "تتبع"
+  "track": "تتبع",
+  "please_enter_order_id": "يرجى إدخال رقم الطلب",
+  "please_enter_email_or_phone": "يرجى إدخال البريد الإلكتروني أو رقم الهاتف",
+  "enter_email": "أدخل بريدك الإلكتروني",
+  "enter_phone": "أدخل رقم هاتفك",
+  "phone": "رقم الهاتف"
 }
