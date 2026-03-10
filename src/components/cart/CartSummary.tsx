@@ -11,10 +11,18 @@ const CartSummary = () => {
   const { cart, appliedCoupon, isCouponLoading, applyCoupon, clearCoupon } =
     useCartStore();
 
-  const [couponCode, setCouponCode] = useState("");
-  const [couponStatus, setCouponStatus] = useState<
-    "idle" | "success" | "error"
-  >(appliedCoupon ? "success" : "idle");
+  // Only tracks what the user is typing before hitting Apply.
+  // The "applied" state is derived from the store's `appliedCoupon`.
+  const [couponInput, setCouponInput] = useState("");
+  const [couponError, setCouponError] = useState<string | null>(null);
+
+  // Derive display values from store truth — no useEffect sync required.
+  // When appliedCoupon is cleared externally (e.g. after order completion),
+  // the UI automatically reflects this.
+  const isCouponApplied = Boolean(appliedCoupon);
+  const inputDisplayValue = isCouponApplied
+    ? (appliedCoupon ?? "")
+    : couponInput;
 
   const calculations = cart?.calculations;
   const subtotal = calculations?.subtotal || 0;
@@ -23,22 +31,20 @@ const CartSummary = () => {
   const totalDiscount = calculations?.total_discount || 0;
   const total = calculations?.total || 0;
 
-  const [apiErrorMessage, setApiErrorMessage] = useState<string | null>(null);
-
   const handleApplyCoupon = async () => {
-    if (!couponCode.trim()) return;
+    if (!couponInput.trim()) return;
+    setCouponError(null);
 
     try {
-      await applyCoupon(couponCode.trim());
-      setCouponStatus("success");
-      setApiErrorMessage(null);
+      await applyCoupon(couponInput.trim());
+      // On success, clear the local input — the display now uses the store value
+      setCouponInput("");
       toast.dismiss();
       toast.success(t("couponSuccess"));
     } catch (error: unknown) {
-      setCouponStatus("error");
       const message = (error as { response?: { data?: { message?: string } } })
         ?.response?.data?.message;
-      setApiErrorMessage(message ?? null);
+      setCouponError(message ?? t("couponError"));
       toast.dismiss();
       toast.error(message ?? "");
     }
@@ -47,8 +53,8 @@ const CartSummary = () => {
   const handleClearCoupon = async () => {
     try {
       await clearCoupon();
-      setCouponCode("");
-      setCouponStatus("idle");
+      setCouponInput("");
+      setCouponError(null);
       toast.dismiss();
       toast.success(t("couponCleared"));
     } catch {
@@ -56,6 +62,24 @@ const CartSummary = () => {
       toast.error(t("couponClearError"));
     }
   };
+
+  const borderColor = couponError
+    ? "border-[#C30000]"
+    : isCouponApplied
+      ? "border-[#2A6F02]"
+      : "border-[#EAEAEA]";
+
+  const textColor = isCouponApplied
+    ? "text-[#2A6F02]"
+    : couponError
+      ? "text-[#C30000]"
+      : "text-[#0B0B0B]";
+
+  const buttonStyle = isCouponApplied
+    ? "bg-[#2A6F02] text-white border-[#2A6F02]"
+    : couponError
+      ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
+      : "bg-[#EDEDED] text-[#3B3B3B] border-[#EAEAEA]";
 
   return (
     <div className="w-full lg:w-90.75 p-6 rounded-[24px] border border-[#DEDDDD]">
@@ -70,49 +94,30 @@ const CartSummary = () => {
 
         <div className="relative flex items-stretch h-14 w-full">
           <div
-            className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${
-              couponStatus === "error"
-                ? "border-[#C30000]"
-                : couponStatus === "success"
-                  ? "border-[#2A6F02]"
-                  : "border-[#EAEAEA]"
-            }`}
+            className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${borderColor}`}
           >
             <input
               type="text"
               placeholder={t("enterCoupon")}
-              value={couponCode}
-              disabled={couponStatus === "success"}
+              value={inputDisplayValue}
+              disabled={isCouponApplied}
               onChange={(e) => {
-                setCouponCode(e.target.value);
-                if (couponStatus !== "idle") setCouponStatus("idle");
+                setCouponInput(e.target.value);
+                // Clear any error as user types
+                if (couponError) setCouponError(null);
               }}
-              className={`w-full h-full px-4 text-base focus:outline-none placeholder:text-[#8E8E8E] disabled:bg-[#F9F9F9] disabled:cursor-not-allowed ${
-                couponStatus === "success"
-                  ? "text-[#2A6F02]"
-                  : couponStatus === "error"
-                    ? "text-[#C30000]"
-                    : "text-[#0B0B0B]"
-              }`}
+              className={`w-full h-full px-4 text-base focus:outline-none placeholder:text-[#8E8E8E] disabled:bg-[#F9F9F9] disabled:cursor-not-allowed ${textColor}`}
             />
           </div>
 
           <button
-            onClick={
-              couponStatus === "success" ? handleClearCoupon : handleApplyCoupon
-            }
+            onClick={isCouponApplied ? handleClearCoupon : handleApplyCoupon}
             disabled={isCouponLoading}
-            className={`px-8 font-semibold text-lg transition-colors ltr:rounded-r-lg rtl:rounded-l-lg h-full border-t border-r border-b disabled:opacity-50 ${
-              couponStatus === "success"
-                ? "bg-[#2A6F02] text-white border-[#2A6F02]"
-                : couponStatus === "error"
-                  ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
-                  : "bg-[#EDEDED] text-[#3B3B3B] border-[#EAEAEA]"
-            }`}
+            className={`px-8 font-semibold text-lg transition-colors ltr:rounded-r-lg rtl:rounded-l-lg h-full border-t border-r border-b disabled:opacity-50 ${buttonStyle}`}
           >
             {isCouponLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
-            ) : couponStatus === "success" ? (
+            ) : isCouponApplied ? (
               t("clear")
             ) : (
               t("apply")
@@ -120,19 +125,17 @@ const CartSummary = () => {
           </button>
         </div>
 
-        {couponStatus === "success" && (
+        {isCouponApplied && (
           <div className="flex items-center gap-2 mt-2 text-[#2A6F02]">
             <CheckCircle2 className="w-5 h-5" strokeWidth={1.5} />
             <span className="text-sm font-medium">{t("couponSuccess")}</span>
           </div>
         )}
 
-        {couponStatus === "error" && (
+        {couponError && !isCouponApplied && (
           <div className="flex items-center gap-2 mt-2 text-[#C30000]">
             <XCircle className="w-5 h-5" strokeWidth={1.5} />
-            <span className="text-sm font-medium">
-              {apiErrorMessage || t("couponError")}
-            </span>
+            <span className="text-sm font-medium">{couponError}</span>
           </div>
         )}
       </div>

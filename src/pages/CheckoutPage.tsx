@@ -9,12 +9,13 @@ import { useTranslation } from "react-i18next";
 import { createCheckout } from "@/lib/api/checkout";
 import { useCartStore } from "@/store/useCartStore";
 import { useAuthStore } from "@/store/useAuthStore";
+import { clearCouponFromSession } from "@/lib/api/cart";
 import toast from "react-hot-toast";
 
 const CheckoutPage = () => {
   const { t } = useTranslation("checkout");
   const navigate = useNavigate();
-  const { appliedCoupon } = useCartStore();
+  const { appliedCoupon, clearCart } = useCartStore();
   const { user } = useAuthStore();
   const [savedFirstName, ...lastParts] = (user?.name ?? "").split(" ");
   const savedLastName = lastParts.join(" ");
@@ -94,7 +95,7 @@ const CheckoutPage = () => {
         shippingAddress.street,
         shippingAddress.floorNo && `Floor: ${shippingAddress.floorNo}`,
         shippingAddress.apartmentNo &&
-        `Apartment: ${shippingAddress.apartmentNo}`,
+          `Apartment: ${shippingAddress.apartmentNo}`,
       ]
         .filter(Boolean)
         .join(", ");
@@ -120,19 +121,26 @@ const CheckoutPage = () => {
       toast.dismiss();
       toast.success(response.message || t("orderPlacedSuccess"));
 
+      // Clear coupon after successful order so it doesn't carry over to new orders
+      clearCouponFromSession();
+      clearCart();
+
       // If there's a payment URL, redirect to it
-      const paymentUrl =
-        response.data?.payment_url || (response as any).payment_url;
+      const paymentUrl = response.data?.payment_url;
       if (paymentUrl) {
         window.location.href = paymentUrl;
       } else {
         navigate("/");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Checkout error:", error);
-      toast.dismiss()
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
+      toast.dismiss();
       toast.error(
-        error.response?.data?.message || error.message || t("orderPlacedError"),
+        err.response?.data?.message || err.message || t("orderPlacedError"),
       );
     } finally {
       setIsProcessing(false);
