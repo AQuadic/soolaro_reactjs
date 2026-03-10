@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "@/lib/api/home/category";
 import { getProducts } from "@/lib/api/products/products";
 import { useDebounce } from "@/lib/hooks/useDebounce";
+import TrackOrderIcon from "../icons/header/TrackOrderIcon";
 
 interface HeaderProps {
   className?: string;
@@ -221,6 +222,11 @@ const Header = ({ className }: HeaderProps) => {
                     </span>
                   )}
                 </Link>
+                {!user && (
+                  <Link to="/track_order" onClick={closeSidebar}>
+                    <TrackOrderIcon />
+                  </Link>
+                )}
                 <div className="w-12 h-12 bg-[#F6F6F6] rounded-full">
                   <ChangeLanguage />
                 </div>
