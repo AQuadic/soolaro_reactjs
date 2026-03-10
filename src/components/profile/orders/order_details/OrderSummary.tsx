@@ -33,7 +33,7 @@ const OrderSummary = ({ order }: Props) => {
 
                     <div>
                         <p className="text-[#0B0B0B] md:text-sm text-[8px] font-normal">
-                            {t("order_details.order_number")} <span>#{order.code}</span>
+                            {t("order_details.order_number")} <span>#{order.id}</span>
                         </p>
 
                         <h3 className="text-[#0B0B0B] md:text-lg text-sm font-medium md:mt-2">
