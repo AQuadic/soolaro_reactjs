@@ -50,7 +50,7 @@ const SuccessPage = () => {
 
   const orderCode = location.state?.orderCode;
   // Read order-id from URL query params (e.g. ?order-id=11)
-  const orderId = searchParams.get("order-id");
+  const orderId = searchParams.get("order_id");
 
   const handleCopy = (id: string) => {
     navigator.clipboard.writeText(id).then(() => {
