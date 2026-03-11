@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Loader } from "lucide-react";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "@/lib/hooks/use-outside-click";
 import { useTranslation } from "react-i18next";
@@ -42,20 +42,20 @@ export const CheckoutShippingAddress = ({
   useOnClickOutside(areaRef, () => setShowAreaDropdown(false));
 
   // Fetch countries
-  const { data: countries = [] } = useQuery({
+  const { data: countries = [], isLoading: isCountriesLoading } = useQuery({
     queryKey: ["countries"],
     queryFn: getCountries,
   });
 
   // Fetch cities based on selected country
-  const { data: cities = [] } = useQuery({
+  const { data: cities = [], isLoading: isCitiesLoading } = useQuery({
     queryKey: ["cities", formData.countryId],
     queryFn: () => getCitiesByCountry(Number(formData.countryId)),
     enabled: !!formData.countryId,
   });
 
   // Fetch areas based on selected city
-  const { data: areas = [] } = useQuery({
+  const { data: areas = [], isLoading: isAreasLoading } = useQuery({
     queryKey: ["areas", formData.cityId],
     queryFn: () => getAreasByCity(Number(formData.cityId)),
     enabled: !!formData.cityId,
@@ -95,21 +95,31 @@ export const CheckoutShippingAddress = ({
             </button>
             {showCountryDropdown && (
               <div className="absolute z-10 w-full mt-2 bg-white border rounded-[20px] shadow-lg max-h-60 overflow-y-auto">
-                {countries.map((country) => (
-                  <button
-                    key={country.id}
-                    type="button"
-                    className="w-full px-4 py-3 text-left hover:bg-[#F5FAFA] text-sm md:text-base"
-                    onClick={() => {
-                      onChange("countryId", country.id.toString());
-                      onChange("cityId", "");
-                      onChange("areaId", "");
-                      setShowCountryDropdown(false);
-                    }}
-                  >
-                    {country.name[lang]}
-                  </button>
-                ))}
+                {isCountriesLoading ? (
+                  <div className="flex items-center justify-center py-5">
+                    <Loader className="w-6 h-6 animate-spin text-[#018884]" />
+                  </div>
+                ) : countries.length > 0 ? (
+                  countries.map((country) => (
+                    <button
+                      key={country.id}
+                      type="button"
+                      className="w-full px-4 py-3 text-left hover:bg-[#F5FAFA] text-sm md:text-base"
+                      onClick={() => {
+                        onChange("countryId", country.id.toString());
+                        onChange("cityId", "");
+                        onChange("areaId", "");
+                        setShowCountryDropdown(false);
+                      }}
+                    >
+                      {country.name[lang]}
+                    </button>
+                  ))
+                ) : (
+                  <div className="px-4 py-3 text-sm text-[#8E8E8E]">
+                    {t("noCountriesAvailable")}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -139,23 +149,32 @@ export const CheckoutShippingAddress = ({
             </button>
             {showCityDropdown && formData.countryId && (
               <div className="absolute z-10 w-full mt-2 bg-white border rounded-[20px] shadow-lg max-h-60 overflow-y-auto">
-                {cities.map((city) => (
-                  <button
-                    key={city.id}
-                    type="button"
-                    className="w-full px-4 py-3 text-left hover:bg-[#F5FAFA]"
-                    onClick={() => {
-                      const cityIdStr = city.id.toString();
-                      onChange("cityId", cityIdStr);
-                      onChange("areaId", "");
-                      setShowCityDropdown(false);
-                      // Refresh shipping fee when city changes (fallback for no-area case)
-                      fetchCartWithAddress(cityIdStr);
-                    }}
-                  >
-                    {city.name[lang]}
-                  </button>
-                ))}
+                {isCitiesLoading ? (
+                  <div className="flex items-center justify-center py-5">
+                    <Loader className="w-6 h-6 animate-spin text-[#018884]" />
+                  </div>
+                ) : cities.length > 0 ? (
+                  cities.map((city) => (
+                    <button
+                      key={city.id}
+                      type="button"
+                      className="w-full px-4 py-3 ltr:text-left rtl:text-right hover:bg-[#F5FAFA]"
+                      onClick={() => {
+                        const cityIdStr = city.id.toString();
+                        onChange("cityId", cityIdStr);
+                        onChange("areaId", "");
+                        setShowCityDropdown(false);
+                        fetchCartWithAddress(cityIdStr);
+                      }}
+                    >
+                      {city.name[lang]}
+                    </button>
+                  ))
+                ) : (
+                  <div className="px-4 py-3 text-sm text-[#8E8E8E]">
+                    {t("noCitiesAvailable")}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -189,17 +208,20 @@ export const CheckoutShippingAddress = ({
             </button>
             {showAreaDropdown && formData.cityId && (
               <div className="absolute z-10 w-full mt-2 bg-white border rounded-[20px] shadow-lg max-h-60 overflow-y-auto">
-                {areas.length > 0 ? (
+                {isAreasLoading ? (
+                  <div className="flex items-center justify-center py-5">
+                    <Loader className="w-6 h-6 animate-spin text-[#018884]" />
+                  </div>
+                ) : areas.length > 0 ? (
                   areas.map((area) => (
                     <button
                       key={area.id}
                       type="button"
-                      className="w-full px-4 py-3 text-left hover:bg-[#F5FAFA]"
+                      className="w-full px-4 py-3 ltr:text-left rtl:text-right hover:bg-[#F5FAFA]"
                       onClick={() => {
                         const areaIdStr = area.id.toString();
                         onChange("areaId", areaIdStr);
                         setShowAreaDropdown(false);
-                        // Refresh cart with city + area to get updated shipping fee
                         fetchCartWithAddress(formData.cityId, areaIdStr);
                       }}
                     >
