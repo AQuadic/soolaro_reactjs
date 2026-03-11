@@ -173,7 +173,7 @@ const BestSellerCollection = ({
         </h2>
 
         <div
-          className="md:w-34 w-27.5 md:h-14 h-12 md:bg-[#F6F6F6] bg-[#018884] rotate-90 flex items-center justify-center gap-2 cursor-pointer absolute -right-7 md:top-137.5 top-61.5"
+          className="md:w-34 w-27.5 md:h-14 h-12 md:bg-[#F6F6F6] bg-[#018884] rotate-90 flex items-center justify-center gap-2 cursor-pointer absolute ltr:-right-7 rtl:-left-7.75 md:rtl:-left-10 md:top-137.5 top-61.5"
           onClick={() => setIsSidebarOpen(true)}
         >
           <Filter />
@@ -243,9 +243,8 @@ const BestSellerCollection = ({
       </div>
 
       <div
-        className={`fixed top-0 right-0 h-full w-85.75 bg-white shadow-lg transform transition-transform duration-300 ${
-          isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        } z-50 flex flex-col`}
+        className={`fixed top-0 right-0 h-full w-85.75 bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
+          } z-50 flex flex-col`}
       >
         <div className="p-8 flex flex-col gap-4">
           <h3 className="text-2xl font-medium">{t("filter_by_price")}</h3>
