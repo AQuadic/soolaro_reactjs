@@ -30,6 +30,7 @@ export interface CheckoutRequest {
 }
 
 export interface CheckoutResponse {
+  payment_url: any;
   success: boolean;
   message: string;
   data?: {

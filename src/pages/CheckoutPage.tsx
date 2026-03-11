@@ -95,7 +95,7 @@ const CheckoutPage = () => {
         shippingAddress.street,
         shippingAddress.floorNo && `Floor: ${shippingAddress.floorNo}`,
         shippingAddress.apartmentNo &&
-          `Apartment: ${shippingAddress.apartmentNo}`,
+        `Apartment: ${shippingAddress.apartmentNo}`,
       ]
         .filter(Boolean)
         .join(", ");
@@ -126,7 +126,7 @@ const CheckoutPage = () => {
       clearCart();
 
       // If there's a payment URL, redirect to it
-      const paymentUrl = response.data?.payment_url;
+      const paymentUrl = response.payment_url;
       if (paymentUrl) {
         window.location.href = paymentUrl;
       } else {
