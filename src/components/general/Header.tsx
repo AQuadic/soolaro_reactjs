@@ -84,10 +84,10 @@ const Header = ({ className }: HeaderProps) => {
               <Menu />
             </button>
           </div>
-          <Link to="/" className="lg:block hidden">
+          <Link to="/" className="lg:block hidden" aria-label="Home">
             {isCategory ? <Logo /> : <Logo />}
           </Link>
-          <Link to="/" className="lg:hidden block">
+          <Link to="/" className="lg:hidden block" aria-label="Home">
             <MobileLogo />
           </Link>
 
@@ -119,7 +119,7 @@ const Header = ({ className }: HeaderProps) => {
             <button onClick={toggleSearch} aria-label="Search">
               <Search />
             </button>
-            <Link to="/cart" className="relative">
+            <Link to="/cart" className="relative" aria-label="Cart">
               <Cart />
               {cartItemsCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[#018884] text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
@@ -131,6 +131,7 @@ const Header = ({ className }: HeaderProps) => {
             <Link
               to={user ? "/profile" : "/signin"}
               className="px-8 h-14 bg-[#FFFFFF33] rounded-4xl flex items-center justify-center gap-2"
+              aria-label={user ? "Profile" : "Login"}
             >
               <User />
               <p className="text-[#0B0B0B] text-lg font-semibold">
@@ -170,7 +171,7 @@ const Header = ({ className }: HeaderProps) => {
             className="fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 lg:hidden"
           >
             <div className="p-8">
-              <Link to="/" className="mx-auto flex items-center justify-center">
+              <Link to="/" className="mx-auto flex items-center justify-center" aria-label="Home">
                 <MobileLogo />
               </Link>
               <nav className="flex flex-col items-center gap-2 my-6">

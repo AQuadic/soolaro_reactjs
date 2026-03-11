@@ -253,6 +253,7 @@ const Card = ({
                 transition-all duration-200 hover:scale-110
               `}
               style={isHexColor ? { backgroundColor: bg } : {}}
+              aria-label={`Select color ${bg}`}
             />
           );
         })}
