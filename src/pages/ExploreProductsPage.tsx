@@ -356,8 +356,8 @@ const ExploreProductsPage = () => {
               <div className="relative w-full">
                 <input
                   type="number"
-                  value={tempMinPrice}
-                  onChange={(e) => handleMinChange(Number(e.target.value))}
+                  value={tempMaxPrice}
+                  onChange={(e) => handleMaxChange(Number(e.target.value))}
                   className="rounded-xl w-full py-4 px-8 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
                 />
                 <div
@@ -372,8 +372,8 @@ const ExploreProductsPage = () => {
               <div className="relative w-full">
                 <input
                   type="number"
-                  value={tempMaxPrice}
-                  onChange={(e) => handleMaxChange(Number(e.target.value))}
+                  value={tempMinPrice}
+                  onChange={(e) => handleMinChange(Number(e.target.value))}
                   className="rounded-xl w-full py-4 px-8 text-center bg-[#EDECEC] text-[#0B0B0B] text-base font-medium appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
                 />
                 <div
