@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://beta.soolaro.ae/sitemap.xml
