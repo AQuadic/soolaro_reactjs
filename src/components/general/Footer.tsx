@@ -113,6 +113,7 @@ const Footer = () => {
                   href={social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Visit our Facebook page"
                   className="text-[#F6F6F6] md:text-xl text-xs font-medium"
                 >
                   Facebook
@@ -124,6 +125,7 @@ const Footer = () => {
                   href={social.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Visit our Twitter page"
                   className="text-[#F6F6F6] md:text-xl text-xs font-medium"
                 >
                   X
@@ -135,6 +137,7 @@ const Footer = () => {
                   href={social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Visit our Instagram page"
                   className="text-[#F6F6F6] md:text-xl text-xs font-medium"
                 >
                   Instagram
@@ -146,6 +149,7 @@ const Footer = () => {
                   href={social.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Visit our YouTube channel"
                   className="text-[#F6F6F6] md:text-xl text-xs font-medium"
                 >
                   YouTube

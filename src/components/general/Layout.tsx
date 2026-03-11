@@ -18,7 +18,7 @@ const Layout = ({ hideHeader }: LayoutProps) => {
   return (
     <div>
       {!hideHeader && <Header />}
-      <div className="min-h-[80vh] ">{outlet}</div>
+      <main className="min-h-[80vh] ">{outlet}</main>
       <Footer />
     </div>
   );
