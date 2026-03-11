@@ -153,9 +153,8 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
               <button
                 onClick={handleToggleFavorite}
                 disabled={loadingFavorite}
-                className={`transition-opacity ${
-                  loadingFavorite ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                className={`transition-opacity ${loadingFavorite ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
               >
                 {loadingFavorite ? (
                   <FavoriteSpinner />
@@ -203,9 +202,8 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
                 <button
                   onClick={handleToggleFavorite}
                   disabled={loadingFavorite}
-                  className={`transition-opacity ${
-                    loadingFavorite ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                  className={`transition-opacity ${loadingFavorite ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                 >
                   {loadingFavorite ? (
                     <FavoriteSpinner />
@@ -234,7 +232,7 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
                     setSelectedImageIndex(0);
                   }}
                   className={`md:w-[133px] w-[73px] md:h-[133px] h-[73px] rounded-xl flex flex-col items-center justify-center p-2 cursor-pointer transition-colors relative
-                    ${selectedVariantIndex === index ? "bg-[#F1F8F8] border-2 border-black" : "bg-[#F6F6F6] border border-transparent"}
+                    ${selectedVariantIndex === index ? "bg-[#F1F8F8]" : "bg-[#F6F6F6] border border-transparent"}
                   `}
                 >
                   <Image
@@ -242,6 +240,10 @@ const ProductDetailsHeader = ({ product }: ProductDetailsHeaderProps) => {
                     alt={product.name.en}
                     className="w-[109px] h-[54px] object-cover rounded"
                   />
+
+                  {selectedVariantIndex === index && (
+                    <div className="absolute top-35 left-0 w-full h-1 bg-[#018884] rounded-b-xl"></div>
+                  )}
                 </div>
               );
             })}
