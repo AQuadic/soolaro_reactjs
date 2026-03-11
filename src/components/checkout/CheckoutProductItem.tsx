@@ -42,7 +42,7 @@ export const CheckoutProductItem = ({ product }: CheckoutProductItemProps) => {
           <img
             src="/images/currency.png"
             alt="c_currency"
-            className="w-4.5 h-4.5"
+            className="w-[18px] h-[18px]"
           />
         </div>
       </div>

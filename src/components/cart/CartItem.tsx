@@ -180,7 +180,7 @@ const CartItem = ({ item }: CartItemProps) => {
                 <img
                   src="/images/currency.png"
                   alt="currency"
-                  className="w-4.5 h-4.5"
+                  className="w-[18px] h-[18px]"
                 />
               </p>
             </div>
@@ -248,7 +248,7 @@ const CartItem = ({ item }: CartItemProps) => {
               <img
                 src="/images/currency.png"
                 alt="currency"
-                className="w-4.5 h-4.5"
+                className="w-[18px] h-[18px]"
               />
             </p>
           </div>
