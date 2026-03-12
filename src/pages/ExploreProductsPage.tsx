@@ -209,8 +209,8 @@ const ExploreProductsPage = () => {
   }
 
   return (
-    <section className="container md:py-8 pb-8 relative">
-      <div className="flex md:flex-row flex-col justify-between gap-4">
+    <section className="container md:py-14 pb-8 relative">
+      <div className="flex md:flex-row flex-col items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link
             to="/"
@@ -237,7 +237,7 @@ const ExploreProductsPage = () => {
             </div>
           </div>
           <div
-            className="group md:w-34 w-27.5 md:h-14 h-12 md:bg-[#F6F6F6] bg-[#018884] hover:bg-[#018884] md:rotate-90 flex items-center justify-center gap-2 cursor-pointer md:rounded-none rounded-4xl transition-colors duration-300"
+            className="group md:w-34 w-27.5 md:h-14 h-12 md:bg-[#F6F6F6] bg-[#018884] hover:bg-[#018884] md:rotate-90 flex items-center justify-center gap-2 cursor-pointer md:rounded-none rounded-4xl transition-colors duration-300 md:mt-10"
             onClick={() => setIsSidebarOpen(true)}
           >
             <div className="group-hover:hidden transition-all duration-300">
