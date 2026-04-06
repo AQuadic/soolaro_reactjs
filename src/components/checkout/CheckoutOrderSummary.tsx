@@ -20,10 +20,12 @@ export const CheckoutOrderSummary = () => {
   const subtotal = calculations?.subtotal || 0;
   const shipping = calculations?.delivery_fees || 0;
   const tax = calculations?.tax || 0;
-  const totalDiscount = calculations?.total_discount || 0;
   const total = calculations?.total || 0;
   const items = cart?.items || [];
   const [apiErrorMessage, setApiErrorMessage] = useState<string | null>(null);
+  const isCouponApplied = Boolean(appliedCoupon);
+  const couponDiscount = calculations?.discount || 0;
+  const showDiscount = isCouponApplied && couponDiscount > 0;
 
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) return;
@@ -101,28 +103,30 @@ export const CheckoutOrderSummary = () => {
             </p>
             <div className="relative flex items-stretch h-12 md:h-14 w-full">
               <div
-                className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${couponStatus === "error"
-                  ? "border-[#C30000]"
-                  : couponStatus === "success"
-                    ? "border-[#2A6F02]"
-                    : "border-[#ECECEC]"
-                  }`}
+                className={`relative flex-1 bg-white border ltr:border-r-0 rtl:border-l-0 ltr:rounded-l-lg rtl:rounded-r-lg transition-colors overflow-hidden ${
+                  couponStatus === "error"
+                    ? "border-[#C30000]"
+                    : couponStatus === "success"
+                      ? "border-[#2A6F02]"
+                      : "border-[#ECECEC]"
+                }`}
               >
                 <input
                   type="text"
                   placeholder={t("couponPlaceholder")}
-                  value={couponCode}
+                  value={couponStatus === "success" ? (appliedCoupon ?? "") : couponCode}
                   disabled={couponStatus === "success"}
                   onChange={(e) => {
                     setCouponCode(e.target.value);
                     if (couponStatus !== "idle") setCouponStatus("idle");
                   }}
-                  className={`w-full h-full px-4 text-sm md:text-base focus:outline-none placeholder:text-[#8E8E8E] disabled:bg-[#F9F9F9] disabled:cursor-not-allowed  ${couponStatus === "success"
-                    ? "text-[#2A6F02]"
-                    : couponStatus === "error"
-                      ? "text-[#C30000]"
-                      : "text-[#0B0B0B]"
-                    }`}
+                  className={`w-full h-full px-4 text-sm md:text-base focus:outline-none placeholder:text-[#8E8E8E] disabled:bg-[#F9F9F9] disabled:cursor-not-allowed ${
+                    couponStatus === "success"
+                      ? "text-[#2A6F02]"
+                      : couponStatus === "error"
+                        ? "text-[#C30000]"
+                        : "text-[#0B0B0B]"
+                  }`}
                 />
               </div>
 
@@ -134,12 +138,13 @@ export const CheckoutOrderSummary = () => {
                     : handleApplyCoupon
                 }
                 disabled={isCouponLoading}
-                className={`px-6 font-semibold text-sm md:text-lg transition-colors ltr:rounded-r-lg rtl:rounded-l-lg h-full border-t border-r border-b disabled:opacity-50 ${couponStatus === "success"
-                  ? "bg-[#2A6F02] text-white border-[#2A6F02]"
-                  : couponStatus === "error"
-                    ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
-                    : "bg-[#ECECEC] text-[#3B3B3B] border-[#ECECEC]"
-                  }`}
+                className={`px-6 font-semibold text-sm md:text-lg transition-colors ltr:rounded-r-lg rtl:rounded-l-lg h-full border-t border-r border-b disabled:opacity-50 ${
+                  couponStatus === "success"
+                    ? "bg-[#2A6F02] text-white border-[#2A6F02]"
+                    : couponStatus === "error"
+                      ? "bg-[#F4E6E6] text-[#C30000] border-[#C30000]"
+                      : "bg-[#ECECEC] text-[#3B3B3B] border-[#ECECEC]"
+                }`}
               >
                 {isCouponLoading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
@@ -222,14 +227,14 @@ export const CheckoutOrderSummary = () => {
                   </div>
                 </div>
               )}
-              {totalDiscount > 0 && (
+              {showDiscount && (
                 <div className="flex justify-between items-center">
                   <span className="text-[#2A6F02] text-xs md:text-base font-medium">
                     {t("cart:discount")}:
                   </span>
                   <div className="flex items-center gap-0.5">
                     <span className="text-[#2A6F02] text-sm md:text-base font-medium">
-                      -{totalDiscount.toFixed(2)}
+                      -{couponDiscount.toFixed(2)}
                     </span>
                     <img
                       src="/images/currency.png"
