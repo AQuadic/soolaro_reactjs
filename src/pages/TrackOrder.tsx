@@ -12,7 +12,7 @@ const TrackOrder = () => {
     const [orderId, setOrderId] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
-    const [phoneCountry, setPhoneCountry] = useState("EG");
+    const [phoneCountry,] = useState("EG");
 
     const handleTrack = async () => {
         if (!orderId) {
