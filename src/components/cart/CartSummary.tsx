@@ -28,8 +28,9 @@ const CartSummary = () => {
   const subtotal = calculations?.subtotal || 0;
   const shipping = calculations?.delivery_fees || 0;
   const tax = calculations?.tax || 0;
-  const totalDiscount = calculations?.total_discount || 0;
   const total = calculations?.total || 0;
+  const couponDiscount = calculations?.discount || 0;
+  const showDiscount = isCouponApplied && couponDiscount > 0;
 
   const handleApplyCoupon = async () => {
     if (!couponInput.trim()) return;
@@ -178,11 +179,11 @@ const CartSummary = () => {
             </span>
           </div>
         )}
-        {totalDiscount > 0 && (
+        {showDiscount && (
           <div className="flex justify-between items-center text-[#2A6F02] text-lg font-medium">
             <span>{t("discount")}:</span>
             <span className="flex items-center gap-0.5">
-              -{totalDiscount.toFixed(2)}
+              -{couponDiscount.toFixed(2)}
               <img
                 src="/images/currency.png"
                 alt="c_currency"
