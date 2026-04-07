@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { cartApi, getCouponFromSession, type Cart } from "@/lib/api/cart";
+import { cartApi, clearCouponFromSession, getCouponFromSession, type Cart } from "@/lib/api/cart";
 
 interface CartActions {
   setCart: (cart: Cart) => void;
@@ -213,7 +213,9 @@ export const useCartStore = create<CartStore>()(
           const cart = await cartApi.getCart();
           const storedCoupon = getCouponFromSession();
           const shouldClearCoupon = !storedCoupon || cart.items.length === 0;
-
+            if (shouldClearCoupon) {
+                  clearCouponFromSession();
+                }
           set({
             cart,
             error: null,
