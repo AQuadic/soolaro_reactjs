@@ -80,7 +80,6 @@ export interface Product {
   description: LocalizedText;
   short_description: LocalizedText;
   brand_id: number | null;
-  category_id: number;
   order_column: number;
   is_active: number;
   is_top_rated: number;
@@ -90,7 +89,7 @@ export interface Product {
   created_at: string;
   updated_at: string;
   variants: ProductVariant[];
-  category: Category;
+  categories: Category[];
 }
 
 export interface PaginationLinks {

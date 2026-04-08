@@ -22,18 +22,19 @@ const ProductDetailsPage = () => {
   if (isLoading) return <ProductDetailsSkeleton />;
   if (error || !product) return <div>Product not found</div>;
 
+  const firstCategoryId = product.categories?.[0]?.id;
     return (
-        <div>
-            <ProductDetailsHeader product={product} />
-            <ProductDetialsData
-              reviewable_id={product.id.toString()}
-              description={product.description}
-            />
-            <ComplateSelection categoryId={product.category.id} />
-            <SeeStyle images={product.additional_images.map((img: { url: any; file_name: any; }) => ({ url: img.url, file_name: img.file_name }))} />
-            <ProductExploreShop />
-            <YouMayLike categoryId={product.category.id}/>
-        </div>
+      <div>
+        <ProductDetailsHeader product={product} />
+        <ProductDetialsData
+          reviewable_id={product.id.toString()}
+          description={product.description}
+        />
+        <ComplateSelection categoryId={firstCategoryId} />
+        <SeeStyle images={product.additional_images.map((img: { url: any; file_name: any; }) => ({ url: img.url, file_name: img.file_name }))} />
+        <ProductExploreShop />
+        <YouMayLike categoryId={firstCategoryId} />
+      </div>
     )
 }
 
